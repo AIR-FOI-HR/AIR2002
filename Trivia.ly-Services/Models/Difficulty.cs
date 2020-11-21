@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Trivia.ly_Services.Models
 {
-    public class Category
+    public class Difficulty
     {
         [Key]
-        public int CategoryId { get; set; }
+        public int DifficultyId { get; set; }
         public string Name { get; set; }
     }
 }

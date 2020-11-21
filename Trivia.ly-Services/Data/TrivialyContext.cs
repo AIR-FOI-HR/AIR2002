@@ -16,6 +16,8 @@ namespace Trivia.ly_Services.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Difficulty> Difficulty { get; set; }
+        public DbSet<Question> Question { get; set; }
     }
 }

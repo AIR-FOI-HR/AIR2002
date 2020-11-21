@@ -25,14 +25,14 @@ namespace Trivia.ly_Services.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Category.ToListAsync();
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(string id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Category.FindAsync(id);
 
             if (category == null)
             {
@@ -80,7 +80,7 @@ namespace Trivia.ly_Services.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-            _context.Categories.Add(category);
+            _context.Category.Add(category);
             try
             {
                 await _context.SaveChangesAsync();
@@ -104,13 +104,13 @@ namespace Trivia.ly_Services.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Category>> DeleteCategory(string id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Category.FindAsync(id);
             if (category == null)
             {
                 return NotFound();
             }
 
-            _context.Categories.Remove(category);
+            _context.Category.Remove(category);
             await _context.SaveChangesAsync();
 
             return category;
@@ -118,7 +118,7 @@ namespace Trivia.ly_Services.Controllers
 
         private bool CategoryExists(string id)
         {
-            return _context.Categories.Any(e => e.Name == id);
+            return _context.Category.Any(e => e.Name == id);
         }
     }
 }

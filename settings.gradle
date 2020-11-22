@@ -1,2 +1,3 @@
+include ':webService'
 include ':app'
 rootProject.name = "Trivia.ly"

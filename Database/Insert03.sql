@@ -1,0 +1,1 @@
+insert into [User] values ('testFirstName','testLastname','username','test@mail.com','x','x','test123',1,5);

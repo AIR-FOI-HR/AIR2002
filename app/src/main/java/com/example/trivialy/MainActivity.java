@@ -88,7 +88,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
                         t.show();
                     }
-                    else{
+                    else if(response.body().getStatus() == Integer.toString(1)){
+                        Toast t = Toast.makeText(getApplicationContext() , "Successful login!", Toast.LENGTH_SHORT);
+                        t.show();
                         Intent intent = new Intent(getApplicationContext(), CategoryView.class);
                         //intent.putExtra("Login", (Serializable) response.body());
                         startActivity(intent);

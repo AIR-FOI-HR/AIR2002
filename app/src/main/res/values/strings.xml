@@ -14,4 +14,9 @@
     <string name="your_name">Full Name</string>
     <string name="trivia_ly">Trivia.ly</string>
     <string name="tag_">Join us and play Trivia.ly!</string>
+    <string name="username">username</string>
+    <string name="first_name">firstName</string>
+    <string name="first_nam">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="regUsername">Username</string>
 </resources>

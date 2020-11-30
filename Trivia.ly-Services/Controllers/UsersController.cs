@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -110,7 +111,7 @@ namespace Trivia.ly_Services.Controllers
 
         // /api/Users/Login
         [HttpPost("Login")]
-        public JsonResult Login([FromBody] LoginRequest body)
+        public string Login([FromBody] LoginRequest body)
         {
 
             //TODO : Password hashing
@@ -126,48 +127,54 @@ namespace Trivia.ly_Services.Controllers
                 {
                     if (user.PasswordTmp == password)
                     {
-                        return new JsonResult(new
+                        var response = new LoginResponse()
                         {
-                            status = 1,
-                            username = user.Username,
-                            email = user.Email,
-                            firstname = user.FirstName,
-                            lastname = user.LastName,
-                            score = user.Score,
-                            life = user.Life
-                        });
+                            Status = 1,
+                            Text = "",
+                            Username = user.Username,
+                            Email = user.Email,
+                            Firstname = user.FirstName,
+                            Lastname = user.LastName,
+                            Score = user.Score,
+                            Life = user.Life
+                        };
+
+                        return JsonConvert.SerializeObject(response);
                     }
                     else
                     {
-                        return new JsonResult(new
+                        var response = new LoginResponse()
                         {
-                            status = -1,
-                            text = "Incorrect password."
-                        });
+                            Status = -1,
+                            Text = "Incorrect password."
+                        };
+                        return JsonConvert.SerializeObject(response);
                     }
                 }
                 else
                 {
-                    return new JsonResult(new
+                    var response = new LoginResponse()
                     {
-                        status = -2,
-                        text = "User not found."
-                    });
+                        Status = -2,
+                        Text = "User not found."
+                    };
+                    return JsonConvert.SerializeObject(response); ;
                 }
             }
             catch (Exception e)
             {
-                return new JsonResult(new
+                var response = new LoginResponse()
                 {
-                    status = -9,
-                    text = e.InnerException.Message
-                });
+                    Status = -9,
+                    Text = e.InnerException.Message
+                };
+                return JsonConvert.SerializeObject(response);
             }
 
         }
 
         [HttpPost("Register")]
-        public JsonResult RegisterUser([FromBody] RegisterRequest body)
+        public string RegisterUser([FromBody] RegisterRequest body)
         {
 
             //TODO : password hashing
@@ -200,36 +207,41 @@ namespace Trivia.ly_Services.Controllers
 
                         _context.User.Add(newUser);
                         _context.SaveChanges();
-                        return new JsonResult(new
+
+                        var response = new RegisterResponse()
                         {
-                            result = 1
-                        });
+                            Status = 1
+                        };
+                        return JsonConvert.SerializeObject(response);
                     }
                     else
                     {
-                        return new JsonResult(new
+                        var response = new RegisterResponse()
                         {
-                            status = -1,
-                            text = "Username is taken."
-                        });
+                            Status = -1,
+                            Text = "Username is taken."
+                        };
+                        return JsonConvert.SerializeObject(response);
                     }
                 }
                 else
                 {
-                    return new JsonResult(new
+                    var response = new RegisterResponse()
                     {
-                        status = -2,
-                        text = "E-mail is taken."
-                    });
+                        Status = -2,
+                        Text = "E-mail is taken."
+                    };
+                    return JsonConvert.SerializeObject(response);
                 }
             }
             catch (Exception e)
             {
-                return new JsonResult(new
+                var response = new RegisterResponse()
                 {
-                    status = -9,
-                    text = e.InnerException.Message
-                });
+                    Status = -3,
+                    Text = e.InnerException.Message
+                };
+                return JsonConvert.SerializeObject(response);
             }
 
         }

@@ -27,6 +27,18 @@ namespace Trivia.ly_Services.Models
         public string Password { get; set; }
     }
 
+    public class LoginResponse
+    {
+        public int Status { get; set; }
+        public string Text { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public int Score { get; set; }
+        public int Life { get; set; }
+    }
+
     public class RegisterRequest
     {
         public string Username { get; set; }
@@ -35,5 +47,11 @@ namespace Trivia.ly_Services.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+    }
+
+    public class RegisterResponse
+    {
+        public int Status { get; set; }
+        public string Text { get; set; }
     }
 }

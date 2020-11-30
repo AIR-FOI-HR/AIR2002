@@ -10,9 +10,33 @@ namespace Trivia.ly_Services.Models
     {
         [Key]
         public int QuestionId { get; set; }
+        public int Id_Category { get; set; }
+        public int Id_Difficulty { get; set; }
         public string Question_text { get; set; }
         public string Correct_answer { get; set; }
         public string Incorrect_answer { get; set; }
-
     }
+
+    public class QuestionsRequest
+    {
+        public int NumberOfQuestions { get; set; }
+        public string DifficultyName { get; set; }
+        public string CategoryName { get; set; }
+    }
+
+    public class QuestionsResponse
+    {
+        public int Status { get; set; }
+        public string Text { get; set; }
+        public List<QuestionsListResponse> Questions { get; set; }
+    }
+    public class QuestionsListResponse
+    {
+        public string QuestionDifficulty { get; set; }
+        public string QuestionCategory { get; set; }
+        public string QuestionText { get; set; }
+        public string CorrectAnswer { get; set; }
+        public string IncorrectAnswers { get; set; }
+    }
+
 }

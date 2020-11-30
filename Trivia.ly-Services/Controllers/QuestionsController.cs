@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace Trivia.ly_Services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsController : ControllerBase
+    public class QuestionsController : Controller
     {
         private readonly TrivialyContext _context;
 
@@ -105,6 +106,71 @@ namespace Trivia.ly_Services.Controllers
         private bool QuestionExists(int id)
         {
             return _context.Question.Any(e => e.QuestionId == id);
+        }
+
+        [HttpPost("GetQuestions")]
+        public string GetQuestionsByCategoryAndDifficulty([FromBody] QuestionsRequest body)
+        {
+            /*
+            Ako je Category any dohvati random kategorije pitanaj
+            Ako je Difficulty 0/Any dohvati random difficulty pitanja
+            Broj pitanja po defaultu će biti 10
+
+            TODO implementirati
+                Random rand = new Random();
+                int toSkip = rand.Next(0, context.Quotes.Count);
+
+                context.Quotes.Skip(toSkip).Take(1).First();
+             */
+
+            try
+            {
+                Difficulty difficulty = _context.Difficulty
+                    .Where(d => d.Name == body.DifficultyName).FirstOrDefault();
+
+                Category category = _context.Category
+                    .Where(c => c.Name == body.CategoryName).FirstOrDefault();
+
+                int numberOfQuestions = body.NumberOfQuestions;
+
+                List<Question> questions = _context.Question
+                    .Take(numberOfQuestions)
+                    .Where(q => q.Id_Category == category.CategoryId && q.Id_Difficulty == difficulty.DifficultyId).ToList();
+
+                List<QuestionsListResponse> questionList = new List<QuestionsListResponse>();
+
+                foreach (var question in questions)
+                {
+                    questionList.Add(new QuestionsListResponse()
+                    {
+                        QuestionCategory = category.Name,
+                        QuestionDifficulty = difficulty.Name,
+                        QuestionText = question.Question_text,
+                        CorrectAnswer = question.Correct_answer,
+                        IncorrectAnswers = question.Incorrect_answer
+                    });
+                }
+
+                var response = new QuestionsResponse()
+                {
+                    Status = 1,
+                    Text = "",
+                    Questions = questionList
+                };
+
+                return JsonConvert.SerializeObject(response);
+
+            }
+            catch (Exception e)
+            {
+                var response = new QuestionsResponse()
+                {
+                    Status = -9,
+                    Text = e.InnerException.Message
+                };
+                return JsonConvert.SerializeObject(response);
+            }
+
         }
     }
 }

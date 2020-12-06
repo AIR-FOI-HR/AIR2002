@@ -123,6 +123,8 @@ namespace Trivia.ly_Services.Controllers
                 context.Quotes.Skip(toSkip).Take(1).First();
              */
 
+            
+
             try
             {
                 Difficulty difficulty = _context.Difficulty
@@ -130,6 +132,11 @@ namespace Trivia.ly_Services.Controllers
 
                 Category category = _context.Category
                     .Where(c => c.Name == body.CategoryName).FirstOrDefault();
+
+                //if (category.Name == "Any category")
+                //{
+
+                //}
 
                 int numberOfQuestions = body.NumberOfQuestions;
 

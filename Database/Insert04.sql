@@ -1,3 +1,5 @@
+sp_rename 'question.question', 'Question_text', 'COLUMN';
+
 insert into Question (Id_Category, Id_Difficulty, Question_text, Correct_answer, Incorrect_answer) values(2,1,'In the video-game franchise Kingdom Hearts, the main protagonist, carries a weapon with what shape?','Key','Sword;Pen;Cellphone;')
 insert into Question (Id_Category, Id_Difficulty, Question_text, Correct_answer, Incorrect_answer) values(2,1,'Which sign of the zodiac is represented by the Crab?','Cancer','Libra;Virgo;Sagittarius;')
 insert into Question (Id_Category, Id_Difficulty, Question_text, Correct_answer, Incorrect_answer) values(2,1,'What word represents the letter &#039;T&#039; in the NATO phonetic alphabet?','Tango','Target;Taxi;Turkey;')

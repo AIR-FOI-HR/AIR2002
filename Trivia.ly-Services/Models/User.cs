@@ -54,4 +54,20 @@ namespace Trivia.ly_Services.Models
         public int Status { get; set; }
         public string Text { get; set; }
     }
+
+    public class UpdateUserRequest
+    {
+        public string Username { get; set; }
+        public int? Life { get; set; }
+        public int? Score { get; set; }
+    }
+
+    public class UpdateUserResponse
+    {
+        public int Status { get; set; }
+        public string Text { get; set; }
+        public string Username { get; set; }
+        public int Life { get; set; }
+        public int Score { get; set; }
+    }
 }

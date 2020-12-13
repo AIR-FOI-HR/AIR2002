@@ -120,7 +120,7 @@ namespace Trivia.ly_Services.Controllers
             var password = body.Password;
             var user = _context.User
                 .Where(u => u.Username == username)
-                .FirstOrDefault<User>();
+                .FirstOrDefault();
             try
             {
                 if (user != null)
@@ -239,6 +239,63 @@ namespace Trivia.ly_Services.Controllers
                 var response = new RegisterResponse()
                 {
                     Status = -3,
+                    Text = e.InnerException.Message
+                };
+                return JsonConvert.SerializeObject(response);
+            }
+
+        }
+
+        [HttpPost("UpdateUserStatus")]
+        public string UpdateUserStatus([FromBody] UpdateUserRequest body)
+        {
+            int? life = body.Life;
+            int? score = body.Score;
+
+            string username = body.Username;
+
+            try
+            {
+                var user = _context.User
+                    .Where(u => u.Username == username).FirstOrDefault();
+
+                if(user == null)
+                {
+
+                    var response = new UpdateUserResponse()
+                    {
+                        Status = -1,
+                        Text = "Username not found!"
+                    };
+                    return JsonConvert.SerializeObject(response);
+
+                }
+                else
+                {
+
+                    user.Score = score == null ? user.Score : score.Value;
+                    user.Life = life == null ? user.Life : life.Value;
+                    _context.User.Update(user);
+                    _context.SaveChanges();
+
+                    var response = new UpdateUserResponse()
+                    {
+                        Status = 1,
+                        Text = "",
+                        Username = user.Username,
+                        Life = user.Life,
+                        Score = user.Score
+                    };
+
+                    return JsonConvert.SerializeObject(response);
+
+                }
+
+            }catch(Exception e)
+            {
+                var response = new UpdateUserResponse()
+                {
+                    Status = -9,
                     Text = e.InnerException.Message
                 };
                 return JsonConvert.SerializeObject(response);

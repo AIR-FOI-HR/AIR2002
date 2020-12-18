@@ -19,4 +19,10 @@
     <string name="first_nam">First name</string>
     <string name="last_name">Last name</string>
     <string name="regUsername">Username</string>
+    <string name="singleplayer">Singleplayer</string>
+    <string name="livesDesc">Lives description</string>
+    <string name="home">Home</string>
+    <string name="placeholderanswer">PlaceholderAnswer</string>
+    <string name="PlaceholderScore">0</string>
+    <string name="this_is_a_placeholder_question">This is a placeholder question!</string>
 </resources>

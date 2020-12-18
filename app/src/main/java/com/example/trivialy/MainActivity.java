@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onResponse(Response<LoginResponse> response, Retrofit retrofit) {
                 if (!response.isSuccess()){
-                   Toast t = Toast.makeText(getApplicationContext() , response.code(), Toast.LENGTH_SHORT);
+                   Toast t = Toast.makeText(getApplicationContext() , String.valueOf(response.code()), Toast.LENGTH_SHORT);
                     t.show();
                     return;
                 }else{

@@ -123,7 +123,7 @@ namespace Trivia.ly_Services.Controllers
                 context.Quotes.Skip(toSkip).Take(1).First();
              */
 
-            
+
 
             try
             {
@@ -133,40 +133,80 @@ namespace Trivia.ly_Services.Controllers
                 Category category = _context.Category
                     .Where(c => c.Name == body.CategoryName).FirstOrDefault();
 
-                //if (category.Name == "Any category")
-                //{
-
-                //}
-
-                int numberOfQuestions = body.NumberOfQuestions;
-
-                List<Question> questions = _context.Question
-                    .Take(numberOfQuestions)
-                    .Where(q => q.Id_Category == category.CategoryId && q.Id_Difficulty == difficulty.DifficultyId).ToList();
-
+                int numberOfQuestions = body.NumberOfQuestions == 0 ? 10 : body.NumberOfQuestions;
+                
                 List<QuestionsListResponse> questionList = new List<QuestionsListResponse>();
 
-                foreach (var question in questions)
+                if (category != null)
                 {
-                    questionList.Add(new QuestionsListResponse()
+                    if (category.Name != "Any Category")
                     {
-                        QuestionCategory = category.Name,
-                        QuestionDifficulty = difficulty.Name,
-                        QuestionText = question.Question_text,
-                        CorrectAnswer = question.Correct_answer,
-                        IncorrectAnswers = question.Incorrect_answer
-                    });
+
+                        List<Question> questions = _context.Question
+                            .Take(numberOfQuestions)
+                            .Where(q => q.Id_Category == category.CategoryId && q.Id_Difficulty == difficulty.DifficultyId).ToList();
+
+
+                        foreach (var question in questions)
+                        {
+                            questionList.Add(new QuestionsListResponse()
+                            {
+                                QuestionCategory = category.Name,
+                                QuestionDifficulty = difficulty.Name,
+                                QuestionText = question.Question_text,
+                                CorrectAnswer = question.Correct_answer,
+                                IncorrectAnswers = question.Incorrect_answer
+                            });
+                        }
+
+                        var response = new QuestionsResponse()
+                        {
+                            Status = 1,
+                            Text = "",
+                            Questions = questionList
+                        };
+
+                        return JsonConvert.SerializeObject(response);
+                    }
+                    else
+                    {
+                        for (int i = 0; i < numberOfQuestions; i++)
+                        {
+                            Random rand = new Random();
+                            int toSkip = rand.Next(0, _context.Question.Count());
+
+                            var question = _context.Question.Skip(toSkip).Take(1).First();
+                            var categoryName = _context.Category.Where(q => q.CategoryId == question.Id_Category).FirstOrDefault().Name;
+                            questionList.Add(new QuestionsListResponse()
+                            {
+                                QuestionCategory = categoryName,
+                                QuestionDifficulty = difficulty.Name,
+                                QuestionText = question.Question_text,
+                                CorrectAnswer = question.Correct_answer,
+                                IncorrectAnswers = question.Incorrect_answer
+                            });
+                        }
+
+                        var response = new QuestionsResponse()
+                        {
+                            Status = 1,
+                            Text = "",
+                            Questions = questionList
+                        };
+
+                        return JsonConvert.SerializeObject(response);
+
+                    }
                 }
-
-                var response = new QuestionsResponse()
+                else
                 {
-                    Status = 1,
-                    Text = "",
-                    Questions = questionList
-                };
-
-                return JsonConvert.SerializeObject(response);
-
+                    var response = new QuestionsResponse()
+                    {
+                        Status = -1,
+                        Text = "Category name invalid"
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
             }
             catch (Exception e)
             {

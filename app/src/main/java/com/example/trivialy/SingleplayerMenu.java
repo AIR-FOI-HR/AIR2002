@@ -74,6 +74,15 @@ public class SingleplayerMenu extends AppCompatActivity {
                 }
             }
         });
+
+        Button ExpertModeButton = findViewById(R.id.expertModeButton);
+        ExpertModeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
+                view.getContext().startActivity(newIntent);
+            }
+        });
     }
 
     private void updateLivesCount() {

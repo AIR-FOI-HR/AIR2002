@@ -20,8 +20,6 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Intent newIntent = new Intent(view.getContext(), SingleplayerMenu.class);
-                //startActivityForResult(newIntent, 0);
-                //MainActivity.this.startActivity(newIntent);
                 view.getContext().startActivity(newIntent);
             }
         });

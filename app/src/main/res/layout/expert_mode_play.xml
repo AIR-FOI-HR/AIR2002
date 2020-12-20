@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/answerTwo" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/quesrionTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/this_is_a_placeholder_question"

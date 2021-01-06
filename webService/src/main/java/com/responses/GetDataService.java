@@ -47,7 +47,7 @@ public interface GetDataService {
     //@DELETE("Questions/{id}")
     //Call<> DeleteCategory(@Path("id") int id);
 
-    @POST("Questions/GetQuestion")
-    Call<QuestionsResponse> getQuestionsByCategoryAndDifficulty(@Body QuestionRequest questionRequest);
+    @POST("Questions/GetQuestions")
+    Call<QuestionsResponse> GetQuestionsByCategoryAndDifficulty(@Body QuestionRequest questionRequest);
 
 }

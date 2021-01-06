@@ -81,6 +81,13 @@ public class SingleplayerMenu extends AppCompatActivity {
             public void onClick(View view){
                 Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
                 view.getContext().startActivity(newIntent);
+
+                Integer LivesInteger = Integer.valueOf((String) Lives2.getText());
+                LivesInteger -= 1;
+                Lives2.setText(LivesInteger.toString());
+                if(LivesInteger < 5){
+                    saveRunoutData(LivesInteger);
+                }
             }
         });
     }

@@ -4,7 +4,7 @@ import android.renderscript.ScriptIntrinsicYuvToRGB;
 
 import com.google.gson.annotations.SerializedName;
 
-public class QuestionRequest {
+public class QuestionsRequest {
 
     @SerializedName("NumberOfQuestions")
     private Integer NumberOfQuestions;
@@ -13,14 +13,14 @@ public class QuestionRequest {
     @SerializedName("CategoryName")
     private String CategoryName;
 
-    public QuestionRequest(Integer numberOfQuestions, String difficultyName, String categoryName){
-        NumberOfQuestions = numberOfQuestions;
-        DifficultyName = difficultyName;
-        CategoryName = categoryName;
+    public QuestionsRequest(Integer numberOfQuestions, String difficultyName, String categoryName){
+        this.NumberOfQuestions = numberOfQuestions;
+        this.DifficultyName = difficultyName;
+        this.CategoryName = categoryName;
     }
 
     public void setNumberOfQuestions(Integer numberOfQuestions) {
-        NumberOfQuestions = numberOfQuestions;
+        this.NumberOfQuestions = numberOfQuestions;
     }
 
     public void setDifficultyName(String difficultyName) {

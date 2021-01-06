@@ -11,7 +11,7 @@ public class QuestionsResponse {
     @SerializedName("Text")
     private String Text;
     @SerializedName("Questions")
-    private List<QuestionListResponse> Questions;
+    private List<QuestionsListResponse> Questions;
 
 
     public String getStatus() {
@@ -22,7 +22,7 @@ public class QuestionsResponse {
         return Text;
     }
 
-    public List<QuestionListResponse> getQuestions() {
+    public List<QuestionsListResponse> getQuestions() {
         return Questions;
     }
 }

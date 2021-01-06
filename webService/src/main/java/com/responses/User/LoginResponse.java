@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
-    @SerializedName("status")
+    @SerializedName("Status")
     private String status;
-    @SerializedName("text")
+    @SerializedName("Text")
     private String text;
-    @SerializedName("username")
+    @SerializedName("Username")
     private String username;
-    @SerializedName("email")
+    @SerializedName("Email")
     private String email;
-    @SerializedName("firstname")
+    @SerializedName("Firstname")
     private String firstname;
-    @SerializedName("lastname")
+    @SerializedName("Lastname")
     private String lastname;
-    @SerializedName("score")
+    @SerializedName("Score")
     private String score;
-    @SerializedName("life")
+    @SerializedName("Life")
     private String  life;
 
     public String getUsername() {

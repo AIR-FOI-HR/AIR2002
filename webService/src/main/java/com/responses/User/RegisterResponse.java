@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegisterResponse {
 
-    @SerializedName("status")
+    @SerializedName("Status")
     private String status;
-    @SerializedName("text")
+    @SerializedName("Text")
     private String text;
 
     public String getStatus() {

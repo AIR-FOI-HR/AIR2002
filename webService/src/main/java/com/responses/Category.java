@@ -3,9 +3,9 @@ package com.responses;
 import com.google.gson.annotations.SerializedName;
 
 public class Category {
-    @SerializedName("categoryId")
+    @SerializedName("CategoryId")
     private String categoryId;
-    @SerializedName("name")
+    @SerializedName("Name")
     private String name;
 
     public Category(String categoryId, String name) {

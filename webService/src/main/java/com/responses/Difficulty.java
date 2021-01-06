@@ -3,9 +3,9 @@ package com.responses;
 import com.google.gson.annotations.SerializedName;
 
 public class Difficulty {
-    @SerializedName("difficultyId")
+    @SerializedName("DifficultyId")
     private String difficultyId;
-    @SerializedName("name")
+    @SerializedName("Name")
     private String name;
 
     public Difficulty(String difficultyId, String name) {

@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
 
-    @SerializedName("username")
+    @SerializedName("Username")
     private String username;
-    @SerializedName("password")
+    @SerializedName("Password")
     private String password;
 
     public LoginRequest(String username, String password) {

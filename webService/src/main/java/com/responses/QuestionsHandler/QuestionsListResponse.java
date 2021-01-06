@@ -2,7 +2,7 @@ package com.responses.QuestionsHandler;
 
 import com.google.gson.annotations.SerializedName;
 
-public class QuestionListResponse {
+public class QuestionsListResponse {
 
     @SerializedName("QuestionDifficulty")
     private String QuestionDifficulty;

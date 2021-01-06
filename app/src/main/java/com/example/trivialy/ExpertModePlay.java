@@ -1,23 +1,17 @@
 package com.example.trivialy;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.responses.GetDataService;
-import com.responses.QuestionsHandler.QuestionListResponse;
+import com.responses.QuestionsHandler.QuestionsListResponse;
 import com.responses.QuestionsHandler.QuestionRequest;
 import com.responses.QuestionsHandler.QuestionsResponse;
 import com.responses.RetrofitInstance;
-
-import java.io.Serializable;
-import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -66,7 +60,7 @@ public class ExpertModePlay extends AppCompatActivity{
                         t.show();
                     }
                     else if(response.body().getStatus() == Integer.toString(1)){
-                        QuestionListResponse question = response.body().getQuestions().get(0);
+                        QuestionsListResponse question = response.body().getQuestions().get(0);
                         questionTextField.setText(question.getQuestionText());
                     }
                 }

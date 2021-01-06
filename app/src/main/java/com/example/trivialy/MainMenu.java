@@ -23,8 +23,5 @@ public class MainMenu extends AppCompatActivity {
                 view.getContext().startActivity(newIntent);
             }
         });
-        Toolbar topToolbar = findViewById(R.id.topToolbar);
-        topToolbar.setTitle("");
-        setSupportActionBar(topToolbar);
     }
 }

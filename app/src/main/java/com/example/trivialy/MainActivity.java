@@ -75,25 +75,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     t.show();
                     return;
                 }else{
-                    if (response.body().getStatus() == Integer.toString(-1)){
+                    if (response.body().getStatus().equals(Integer.toString(-1))){
                         Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
                         t.show();
 
-                    }else if(response.body().getStatus() == Integer.toString(-2)){
+                    }else if(response.body().getStatus().equals(Integer.toString(-2))){
                         Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
                         t.show();
 
-                    }else if(response.body().getStatus() == Integer.toString(-9))
+                    }else if(response.body().getStatus().equals(Integer.toString(-9)))
                     {
                         Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
                         t.show();
                     }
-                    else if(response.body().getStatus() == Integer.toString(1)){
+                    else if(response.body().getStatus().equals(Integer.toString(1))){
                         Toast t = Toast.makeText(getApplicationContext() , "Successful login!", Toast.LENGTH_SHORT);
                         t.show();
-                        Intent intent = new Intent(getApplicationContext(), CategoryView.class);
+                        Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                         //intent.putExtra("Login", (Serializable) response.body());
-                        startActivity(intent);
+                        MainActivity.this.startActivity(intent);
                     }
                 }
             }

@@ -22,7 +22,7 @@ public class RetrofitInstance {
         if (retrofit == null) {
             retrofit = new retrofit.Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .client(okHttpClient)     //uncomment to handle http to https redirection!
+                    .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

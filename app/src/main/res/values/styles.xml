@@ -35,4 +35,12 @@
     <style name="LoginIRegistracijaTheme.button">
         <item name="android:textColor">@color/buttonTextColor</item>
     </style>
+
+    <!--MAIN MENU TEMA -->
+    <style name="MainMenuTheme">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+    <style name="MainMenuTheme.Button">
+        <item name="android:textSize">@dimen/mainMenuButton_fontSize</item>
+    </style>
 </resources>

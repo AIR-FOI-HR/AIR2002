@@ -3,4 +3,5 @@
     <dimen name="heading_fontSize">50sp</dimen>
     <dimen name="subtitle_fontSize">17sp</dimen>
     <dimen name="editText_fontSize">15sp</dimen>
+    <dimen name="mainMenuButton_fontSize">35sp</dimen>
 </resources>

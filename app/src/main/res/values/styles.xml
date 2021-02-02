@@ -10,5 +10,29 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <!-- Tema za Login i Registraciju -->
+    <style name="LoginIRegistracijaTheme">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/textBlack</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <style name="LoginIRegistracijaTheme.Heading">
+        <item name="android:fontFamily">@font/indigo_daisy</item>
+        <item name="android:textSize">@dimens/heading_fontSize</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+    <style name="LoginIRegistracijaTheme.Subtitle">
+        <item name="android:textSize">@dimens/subtitle_fontSize</item>
+        <item name="android:layout_marginStart">50dp</item>
+    </style>
+    <style name="LoginIRegistracijaTheme.InputField">
+        <item name="android:textSize">@dimens/editText_fontSize</item>
+        <item name="android:padding">@dimens/padding_EditText</item>
+    </style>
+    <style name="LoginIRegistracijaTheme.button">
+        <item name="android:textColor">@color/buttonTextColor</item>
+    </style>
 </resources>

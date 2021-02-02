@@ -21,16 +21,16 @@
     </style>
     <style name="LoginIRegistracijaTheme.Heading">
         <item name="android:fontFamily">@font/indigo_daisy</item>
-        <item name="android:textSize">@dimens/heading_fontSize</item>
+        <item name="android:textSize">@dimen/heading_fontSize</item>
         <item name="android:layout_marginBottom">10dp</item>
     </style>
     <style name="LoginIRegistracijaTheme.Subtitle">
-        <item name="android:textSize">@dimens/subtitle_fontSize</item>
+        <item name="android:textSize">@dimen/subtitle_fontSize</item>
         <item name="android:layout_marginStart">50dp</item>
     </style>
     <style name="LoginIRegistracijaTheme.InputField">
-        <item name="android:textSize">@dimens/editText_fontSize</item>
-        <item name="android:padding">@dimens/padding_EditText</item>
+        <item name="android:textSize">@dimen/editText_fontSize</item>
+        <item name="android:padding">@dimen/padding_EditText</item>
     </style>
     <style name="LoginIRegistracijaTheme.button">
         <item name="android:textColor">@color/buttonTextColor</item>

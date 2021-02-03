@@ -64,4 +64,17 @@
         <item name="android:textSize">20sp</item>
         <item name="android:layout_margin">5dp</item>
     </style>
+
+    <!--INFO -->
+    <style name="InfoTheme">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+    <style name="InfoTheme.Headings">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/textBlack</item>
+        <item name="android:background">@color/lightColorPrimary</item>
+    </style>
+    <style name="InfoTheme.Text">
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>

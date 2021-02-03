@@ -34,6 +34,17 @@
     </androidx.appcompat.widget.Toolbar>
 
 
+    <ImageButton
+        android:id="@+id/aboutUs_btn"
+        android:layout_width="60dp"
+        android:layout_height="53dp"
+        android:background="@color/colorPrimaryDark"
+        android:contentDescription="@string/about_us"
+        android:tint="@color/buttonTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="411dp"

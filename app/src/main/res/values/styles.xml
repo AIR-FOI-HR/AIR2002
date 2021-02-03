@@ -30,7 +30,6 @@
     </style>
     <style name="LoginIRegistracijaTheme.InputField">
         <item name="android:textSize">@dimen/editText_fontSize</item>
-        <item name="android:padding">@dimen/padding_EditText</item>
     </style>
     <style name="LoginIRegistracijaTheme.button">
         <item name="android:textColor">@color/buttonTextColor</item>
@@ -39,8 +38,20 @@
     <!--MAIN MENU TEMA -->
     <style name="MainMenuTheme">
         <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
     </style>
     <style name="MainMenuTheme.Button">
         <item name="android:textSize">@dimen/mainMenuButton_fontSize</item>
+    </style>
+
+    <!-- SINGLEPLAYER -->
+    <style name="SingleplayerTheme">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+    </style>
+    <style name="SingleplayerTheme.Button">
+        <item name="android:textSize">25sp</item>
+        <item name="android:background">@color/foreground</item>
+        <item name="android:layout_margin">5dp</item>
     </style>
 </resources>

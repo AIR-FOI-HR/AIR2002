@@ -5,7 +5,8 @@
     xmlns:tools2="http://schemas.android.com/apk/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkRedColor">
+    android:background="@color/darkRedColor"
+    android:theme="@style/SingleplayerTheme">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topToolbar"
@@ -64,17 +65,11 @@
     </androidx.appcompat.widget.Toolbar>
 
     <Button
+        style="@style/SingleplayerTheme.Button"
         android:id="@+id/freePlayButton"
         android:layout_width="400dp"
         android:layout_height="70dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@color/foreground"
         android:text="@string/free_play_btn"
-        android:textColor="@color/buttonTextColor"
-        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,39 +78,28 @@
 
     <Button
         android:id="@+id/timeTrialButton"
+        style="@style/SingleplayerTheme.Button"
         android:layout_width="400dp"
         android:layout_height="70dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         android:text="@string/time_trial_bnt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/freePlayButton"
-        app:layout_constraintVertical_bias="0.123"
-        android:background="@color/foreground"
-        android:textColor="@color/buttonTextColor"
-        android:textSize="25sp"/>
+        app:layout_constraintVertical_bias="0.102" />
 
     <Button
+        style="@style/SingleplayerTheme.Button"
         android:id="@+id/expertModeButton"
         android:layout_width="400dp"
         android:layout_height="70dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         android:text="@string/expert_mode_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topToolbar"
-        app:layout_constraintVertical_bias="0.719"
-        android:background="@color/foreground"
-        android:textColor="@color/buttonTextColor"
-        android:textSize="25sp"/>
+        app:layout_constraintVertical_bias="0.719"/>
 
     <ImageView
         android:id="@+id/imageView5"

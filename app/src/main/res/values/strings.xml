@@ -28,4 +28,7 @@
     <string name="this_is_a_placeholder_question">This is a placeholder question!</string>
     <string name="singleplayer_text">Choose from multiple </string>
     <string name="about_us">Info</string>
+    <string name="expert_mode_btn">Expert mode</string>
+    <string name="free_play_btn">Free play</string>
+    <string name="time_trial_bnt">Time trial</string>
 </resources>

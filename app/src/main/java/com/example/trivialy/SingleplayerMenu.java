@@ -3,20 +3,14 @@ package com.example.trivialy;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.webkit.ConsoleMessage;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,7 +46,7 @@ public class SingleplayerMenu extends AppCompatActivity {
 
 
         //za testiranje
-        Button testButton = findViewById(R.id.testButton);
+        Button testButton = findViewById(R.id.freePlayButton);
         testButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Integer LivesInteger = Integer.valueOf((String) Lives2.getText());
@@ -63,7 +57,7 @@ public class SingleplayerMenu extends AppCompatActivity {
                 }
             }
         });
-        Button testButton2 = findViewById(R.id.testButton2);
+        Button testButton2 = findViewById(R.id.timeTrialButton);
         testButton2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Integer LivesInteger2 = Integer.valueOf((String) Lives2.getText());

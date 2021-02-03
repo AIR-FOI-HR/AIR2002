@@ -109,6 +109,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
+                android:contentDescription="@string/multiplayer"
                 app:srcCompat="@drawable/multiplayer_icon" />
         </RelativeLayout>
 

@@ -27,4 +27,5 @@
     <string name="PlaceholderScore">0</string>
     <string name="this_is_a_placeholder_question">This is a placeholder question!</string>
     <string name="singleplayer_text">Choose from multiple </string>
+    <string name="about_us">Info</string>
 </resources>

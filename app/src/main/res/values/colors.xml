@@ -7,4 +7,5 @@
     <color name="foregroundText">#ffffff</color>
     <color name="textBlack">#000000</color>
     <color name="buttonTextColor">#FFFFFF</color>
+    <color name="darkRedColor">#190005</color>
 </resources>

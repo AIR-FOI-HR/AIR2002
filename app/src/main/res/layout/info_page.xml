@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/InfoTheme">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/abc_vector_test"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="118dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/about_us"
+        android:textColor="@color/foregroundText"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="410dp"
+        android:layout_height="678dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topToolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/InfoTheme.Headings"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="About Us" />
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine"
+                style="@style/InfoTheme.Text"
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:text="@string/about_us_text" />
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/InfoTheme.Headings"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Singleplayer games" />
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine2"
+                style="@style/InfoTheme.Text"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:text="@string/singleplayer_description" />
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/InfoTheme.Headings"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Multiplayer games" />
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine3"
+                style="@style/InfoTheme.Text"
+                android:layout_width="match_parent"
+                android:layout_height="203dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:text="@string/multiplayer_description" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

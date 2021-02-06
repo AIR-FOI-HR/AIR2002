@@ -23,6 +23,7 @@ namespace Trivia.ly_Services.Controllers
             _context = context;
         }
 
+        #region Default methods
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
@@ -109,7 +110,10 @@ namespace Trivia.ly_Services.Controllers
             return _context.User.Any(e => e.UserId == id);
         }
 
-        // /api/Users/Login
+        #endregion
+
+        #region Trivialy methods
+
         [HttpPost("Login")]
         public string Login([FromBody] LoginRequest body)
         {
@@ -259,7 +263,7 @@ namespace Trivia.ly_Services.Controllers
                 var user = _context.User
                     .Where(u => u.Username == username).FirstOrDefault();
 
-                if(user == null)
+                if (user == null)
                 {
 
                     var response = new UpdateUserResponse()
@@ -291,7 +295,8 @@ namespace Trivia.ly_Services.Controllers
 
                 }
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 var response = new UpdateUserResponse()
                 {
@@ -303,5 +308,6 @@ namespace Trivia.ly_Services.Controllers
 
         }
 
+        #endregion
     }
 }

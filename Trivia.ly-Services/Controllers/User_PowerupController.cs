@@ -12,48 +12,51 @@ namespace Trivia.ly_Services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : Controller
+    public class User_PowerupController : Controller
     {
         private readonly TrivialyContext _context;
 
-        public CategoriesController(TrivialyContext context)
+        public User_PowerupController(TrivialyContext context)
         {
             _context = context;
         }
 
-        // GET: api/Categories
+        #region Default methods
+
+
+        // GET: api/User_Powerup
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<User_Powerup>>> GetUser_Powerup()
         {
-            return await _context.Category.ToListAsync();
+            return await _context.User_Powerup.ToListAsync();
         }
 
-        // GET: api/Categories/5
+        // GET: api/User_Powerup/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(string id)
+        public async Task<ActionResult<User_Powerup>> GetUser_Powerup(int id)
         {
-            var category = await _context.Category.FindAsync(id);
+            var user_Powerup = await _context.User_Powerup.FindAsync(id);
 
-            if (category == null)
+            if (user_Powerup == null)
             {
                 return NotFound();
             }
 
-            return category;
+            return user_Powerup;
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/User_Powerup/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(string id, Category category)
+        public async Task<IActionResult> PutUser_Powerup(int id, User_Powerup user_Powerup)
         {
-            if (id != category.Name)
+            if (id != user_Powerup.Id_User)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(user_Powerup).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +64,7 @@ namespace Trivia.ly_Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                if (!User_PowerupExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +77,20 @@ namespace Trivia.ly_Services.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
+        // POST: api/User_Powerup
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<User_Powerup>> PostUser_Powerup(User_Powerup user_Powerup)
         {
-            _context.Category.Add(category);
+            _context.User_Powerup.Add(user_Powerup);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (CategoryExists(category.Name))
+                if (User_PowerupExists(user_Powerup.Id_User))
                 {
                     return Conflict();
                 }
@@ -97,28 +100,30 @@ namespace Trivia.ly_Services.Controllers
                 }
             }
 
-            return CreatedAtAction("GetCategory", new { id = category.Name }, category);
+            return CreatedAtAction("GetUser_Powerup", new { id = user_Powerup.Id_User }, user_Powerup);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/User_Powerup/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Category>> DeleteCategory(string id)
+        public async Task<ActionResult<User_Powerup>> DeleteUser_Powerup(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var user_Powerup = await _context.User_Powerup.FindAsync(id);
+            if (user_Powerup == null)
             {
                 return NotFound();
             }
 
-            _context.Category.Remove(category);
+            _context.User_Powerup.Remove(user_Powerup);
             await _context.SaveChangesAsync();
 
-            return category;
+            return user_Powerup;
         }
 
-        private bool CategoryExists(string id)
+        private bool User_PowerupExists(int id)
         {
-            return _context.Category.Any(e => e.Name == id);
+            return _context.User_Powerup.Any(e => e.Id_User == id);
         }
+
+        #endregion
     }
 }

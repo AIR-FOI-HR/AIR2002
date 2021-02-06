@@ -14,11 +14,17 @@ namespace Trivia.ly_Services.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Quiz_User>().HasKey(c => new { c.Id_Quiz, c.Id_User });
+            builder.Entity<User_Powerup>().HasKey(c => new { c.Id_User, c.Id_Powerup });
         }
 
         public DbSet<Category> Category { get; set; }
         public DbSet<Difficulty> Difficulty { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Powerup> Powerup { get; set; }
+        public DbSet<Quiz_User> Quiz_User { get; set; }
+        public DbSet<User_Powerup> User_Powerup { get; set; }
+        public DbSet<Quiz> Quiz { get; set; }
     }
 }

@@ -12,48 +12,50 @@ namespace Trivia.ly_Services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : Controller
+    public class Quiz_UserController : Controller
     {
         private readonly TrivialyContext _context;
 
-        public CategoriesController(TrivialyContext context)
+        public Quiz_UserController(TrivialyContext context)
         {
             _context = context;
         }
 
-        // GET: api/Categories
+        #region Default methods
+
+        // GET: api/Quiz_User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Quiz_User>>> GetQuiz_User()
         {
-            return await _context.Category.ToListAsync();
+            return await _context.Quiz_User.ToListAsync();
         }
 
-        // GET: api/Categories/5
+        // GET: api/Quiz_User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(string id)
+        public async Task<ActionResult<Quiz_User>> GetQuiz_User(int id)
         {
-            var category = await _context.Category.FindAsync(id);
+            var quiz_User = await _context.Quiz_User.FindAsync(id);
 
-            if (category == null)
+            if (quiz_User == null)
             {
                 return NotFound();
             }
 
-            return category;
+            return quiz_User;
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Quiz_User/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(string id, Category category)
+        public async Task<IActionResult> PutQuiz_User(int id, Quiz_User quiz_User)
         {
-            if (id != category.Name)
+            if (id != quiz_User.Id_Quiz)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(quiz_User).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +63,7 @@ namespace Trivia.ly_Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                if (!Quiz_UserExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +76,20 @@ namespace Trivia.ly_Services.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
+        // POST: api/Quiz_User
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<Quiz_User>> PostQuiz_User(Quiz_User quiz_User)
         {
-            _context.Category.Add(category);
+            _context.Quiz_User.Add(quiz_User);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (CategoryExists(category.Name))
+                if (Quiz_UserExists(quiz_User.Id_Quiz))
                 {
                     return Conflict();
                 }
@@ -97,28 +99,29 @@ namespace Trivia.ly_Services.Controllers
                 }
             }
 
-            return CreatedAtAction("GetCategory", new { id = category.Name }, category);
+            return CreatedAtAction("GetQuiz_User", new { id = quiz_User.Id_Quiz }, quiz_User);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/Quiz_User/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Category>> DeleteCategory(string id)
+        public async Task<ActionResult<Quiz_User>> DeleteQuiz_User(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var quiz_User = await _context.Quiz_User.FindAsync(id);
+            if (quiz_User == null)
             {
                 return NotFound();
             }
 
-            _context.Category.Remove(category);
+            _context.Quiz_User.Remove(quiz_User);
             await _context.SaveChangesAsync();
 
-            return category;
+            return quiz_User;
         }
 
-        private bool CategoryExists(string id)
+        private bool Quiz_UserExists(int id)
         {
-            return _context.Category.Any(e => e.Name == id);
+            return _context.Quiz_User.Any(e => e.Id_Quiz == id);
         }
+        #endregion
     }
 }

@@ -12,48 +12,50 @@ namespace Trivia.ly_Services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DifficultiesController : Controller
+    public class PowerupsController : Controller
     {
         private readonly TrivialyContext _context;
 
-        public DifficultiesController(TrivialyContext context)
+        public PowerupsController(TrivialyContext context)
         {
             _context = context;
         }
 
-        // GET: api/Difficulties
+        #region Default methods
+
+        // GET: api/Powerups
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Difficulty>>> GetDifficulty()
+        public async Task<ActionResult<IEnumerable<Powerup>>> GetPowerup()
         {
-            return await _context.Difficulty.ToListAsync();
+            return await _context.Powerup.ToListAsync();
         }
 
-        // GET: api/Difficulties/5
+        // GET: api/Powerups/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Difficulty>> GetDifficulty(int id)
+        public async Task<ActionResult<Powerup>> GetPowerup(int id)
         {
-            var difficulty = await _context.Difficulty.FindAsync(id);
+            var powerup = await _context.Powerup.FindAsync(id);
 
-            if (difficulty == null)
+            if (powerup == null)
             {
                 return NotFound();
             }
 
-            return difficulty;
+            return powerup;
         }
 
-        // PUT: api/Difficulties/5
+        // PUT: api/Powerups/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDifficulty(int id, Difficulty difficulty)
+        public async Task<IActionResult> PutPowerup(int id, Powerup powerup)
         {
-            if (id != difficulty.DifficultyId)
+            if (id != powerup.PowerupId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(difficulty).State = EntityState.Modified;
+            _context.Entry(powerup).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +63,7 @@ namespace Trivia.ly_Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DifficultyExists(id))
+                if (!PowerupExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +76,39 @@ namespace Trivia.ly_Services.Controllers
             return NoContent();
         }
 
-        // POST: api/Difficulties
+        // POST: api/Powerups
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Difficulty>> PostDifficulty(Difficulty difficulty)
+        public async Task<ActionResult<Powerup>> PostPowerup(Powerup powerup)
         {
-            _context.Difficulty.Add(difficulty);
+            _context.Powerup.Add(powerup);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDifficulty", new { id = difficulty.DifficultyId }, difficulty);
+            return CreatedAtAction("GetPowerup", new { id = powerup.PowerupId }, powerup);
         }
 
-        // DELETE: api/Difficulties/5
+        // DELETE: api/Powerups/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Difficulty>> DeleteDifficulty(int id)
+        public async Task<ActionResult<Powerup>> DeletePowerup(int id)
         {
-            var difficulty = await _context.Difficulty.FindAsync(id);
-            if (difficulty == null)
+            var powerup = await _context.Powerup.FindAsync(id);
+            if (powerup == null)
             {
                 return NotFound();
             }
 
-            _context.Difficulty.Remove(difficulty);
+            _context.Powerup.Remove(powerup);
             await _context.SaveChangesAsync();
 
-            return difficulty;
+            return powerup;
         }
 
-        private bool DifficultyExists(int id)
+        private bool PowerupExists(int id)
         {
-            return _context.Difficulty.Any(e => e.DifficultyId == id);
+            return _context.Powerup.Any(e => e.PowerupId == id);
         }
+
+        #endregion
     }
 }

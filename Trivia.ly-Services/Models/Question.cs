@@ -39,4 +39,15 @@ namespace Trivia.ly_Services.Models
         public string IncorrectAnswers { get; set; }
     }
 
+    public class GetQuestionByIdRequest
+    {
+        public int QuestionId { get; set; }
+    }
+
+    public class GetQuestionByIdResponse
+    {
+        public int Status { get; set; }
+        public string Text { get; set; }
+        public Question Question { get; set; }
+    }
 }

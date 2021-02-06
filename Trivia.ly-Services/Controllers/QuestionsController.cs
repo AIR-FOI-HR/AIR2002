@@ -22,6 +22,8 @@ namespace Trivia.ly_Services.Controllers
             _context = context;
         }
 
+        #region Default methods
+
         // GET: api/Questions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Question>>> GetQuestion()
@@ -107,6 +109,10 @@ namespace Trivia.ly_Services.Controllers
         {
             return _context.Question.Any(e => e.QuestionId == id);
         }
+
+        #endregion
+
+        #region Trivialy methods
 
         [HttpPost("GetQuestions")]
         public string GetQuestionsByCategoryAndDifficulty([FromBody] QuestionsRequest body)
@@ -219,5 +225,43 @@ namespace Trivia.ly_Services.Controllers
             }
 
         }
+    
+        [HttpPost("GetQuestionById")]
+        public string GetQuestionById([FromBody]GetQuestionByIdRequest body)
+        {
+            try
+            {
+                var question = _context.Question.Where(q => q.QuestionId == body.QuestionId).FirstOrDefault();
+                if(question != null)
+                {
+                    var response = new GetQuestionByIdResponse()
+                    {
+                        Status = 1,
+                        Question = question
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
+                else
+                {
+                    var response = new GetQuestionByIdResponse()
+                    {
+                        Status = -1,
+                        Text = "Question not found!"
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
+            }
+            catch(Exception e)
+            {
+                var response = new GetQuestionByIdResponse()
+                {
+                    Status = -9,
+                    Text = e.InnerException.Message
+                };
+                return JsonConvert.SerializeObject(response);
+            }
+        }
+
+        #endregion
     }
 }

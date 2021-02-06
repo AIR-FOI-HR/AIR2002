@@ -5,13 +5,14 @@
     xmlns:tools2="http://schemas.android.com/apk/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/MainMenuTheme"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/foreground"
+        android:background="@color/colorPrimaryDark"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,18 +34,99 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <Button
-        android:id="@+id/goToSingleplayerButton"
-        android:layout_width="161dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:text="@string/singleplayer"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="411dp"
+        android:layout_height="330dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.349" />
+        app:layout_constraintTop_toBottomOf="@+id/topToolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/foregroundText">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="361dp"
+                android:layout_height="179dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="27dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginTop="-2dp"
+                android:layout_marginEnd="23dp"
+                android:layout_marginRight="23dp"
+                android:contentDescription="@string/singleplayer"
+                app:srcCompat="@drawable/singleplayer_icon_yellow" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/goToSingleplayerButton"
+            style="@style/MainMenuTheme.Button"
+            android:layout_width="match_parent"
+            android:layout_height="122dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_main_menu_1"
+            android:text="@string/singleplayer"
+            android:textColor="@color/buttonTextColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="411dp"
+        android:layout_height="330dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="346dp"
+            android:background="@color/foregroundText">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="341dp"
+                android:layout_height="201dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                app:srcCompat="@drawable/multiplayer_icon" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/goToMultiplayerButton"
+            style="@style/MainMenuTheme.Button"
+            android:layout_width="match_parent"
+            android:layout_height="122dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="210dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/bg_main_menu_1"
+            android:text="@string/multiplayer"
+            android:textColor="@color/buttonTextColor"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="10dp" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

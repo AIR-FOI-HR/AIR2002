@@ -1,77 +1,70 @@
 package com.example.trivialy;
 
+import android.app.ActivityManager;
+import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.webkit.ConsoleMessage;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import com.responses.GetDataService;
+import com.responses.RetrofitInstance;
+import com.responses.User.UpdateUserRequest;
+import com.responses.User.UpdateUserResponse;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 
 public class SingleplayerMenu extends AppCompatActivity {
-    private long savedDate;
+    private String savedUsername;
     private Integer savedLives;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singleplayer_menu);
-        final TextView Lives2 = (TextView) findViewById(R.id.numberOfLives);
+        final TextView Lives = (TextView) findViewById(R.id.numberOfLives);
+        Lives.setText("0");
+        GetUserData();
+        Lives.setText(savedLives.toString());
 
 
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        final TextView Lives = (TextView) findViewById(R.id.numberOfLives);
-                        loadRunoutData();
-                        updateLivesCount();
-
-                    }
-                });
-            }
-        }, 0, 5000);
+//        new Timer().scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//
+//                        final TextView Lives = (TextView) findViewById(R.id.numberOfLives);
+//
+//                    }
+//                });
+//            }
+//        }, 0, 5000);
 
 
         //za testiranje
         Button testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Integer LivesInteger = Integer.valueOf((String) Lives2.getText());
-                LivesInteger -= 1;
-                Lives2.setText(LivesInteger.toString());
-                if(LivesInteger < 5){
-                    saveRunoutData(LivesInteger);
-                }
+                UpdateLifeCount(Lives, -1);
             }
         });
         Button testButton2 = findViewById(R.id.testButton2);
         testButton2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Integer LivesInteger2 = Integer.valueOf((String) Lives2.getText());
-                LivesInteger2 += 1;
-                Lives2.setText(LivesInteger2.toString());
-                if(LivesInteger2 < 5){
-                    saveRunoutData(LivesInteger2);
-                }
+                UpdateLifeCount(Lives, 1);
             }
         });
 
@@ -81,99 +74,80 @@ public class SingleplayerMenu extends AppCompatActivity {
             public void onClick(View view){
                 Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
                 view.getContext().startActivity(newIntent);
+
+                UpdateLifeCount(Lives, -1);
+                HealthRegen regen = new HealthRegen();
+
+                Intent intent = new Intent(SingleplayerMenu.this, HealthRegen.class);
+                if(!isMyServiceRunning(HealthRegen.class)){
+                    startService(intent);
+                }
             }
         });
     }
 
-    private void updateLivesCount() {
-        final TextView Lives = (TextView) findViewById(R.id.numberOfLives);
-        if (savedDate != 0){
-            Date date = new Date(System.currentTimeMillis());
-            long currentDate = date.getTime();
-
-            long diff = getDifference(currentDate, savedDate);
-            double minutes = (double) ((double)diff/1000)/60;
-            double add;
-            int addition;
-            if(savedLives < 0) {
-                savedLives = 0;
-            }
-            minutes += savedLives*5;
-
-            if(minutes < 5){
-                Lives.setText("0");
-            }
-            if(minutes >= 5){
-                Lives.setText("1");
-                add = (minutes-5)*60000;
-                addition = (int)add;
-                saveRunoutData(1,addition);
-            }
-            if(minutes >= 10){
-                Lives.setText("2");
-                add = (minutes-10)*60000;
-                addition = (int)add;
-                saveRunoutData(2,addition);
-            }
-            if(minutes >= 15){
-                Lives.setText("3");
-                add = (minutes-15)*60000;
-                addition = (int)add;
-                saveRunoutData(3,addition);
-            }
-            if(minutes >= 20){
-                Lives.setText("4");
-                add = (minutes-20)*60000;
-                addition = (int)add;
-                saveRunoutData(4,addition);
-            }
-            if(minutes >= 25){
-                Lives.setText("5");
-                add = (minutes-25)*60000;
-                addition = (int)add;
-                saveRunoutData(5,addition);
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(getApplicationContext().ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
             }
         }
-        else{
-            Lives.setText("5");
-        }
+        return false;
     }
 
-    public static long getDifference(long currentDateInMilliseconds, long savedDateInMilliseconds)
-    {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-        Date dateEnd = new java.util.Date(currentDateInMilliseconds);
-        Date dateStart = new java.util.Date(savedDateInMilliseconds);
-
-        return  dateEnd.getTime()-dateStart.getTime();
+    private void GetUserData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        savedUsername = sharedPreferences.getString("Username", null);
+        savedLives = sharedPreferences.getInt("Lives", 0);
     }
 
-    private void saveRunoutData(Integer lives) {
-        SharedPreferences sharedPreferences = getSharedPreferences("TimeOfRunout", MODE_PRIVATE);
+    private void UpdateLifeCount(TextView lives, int value){
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        savedUsername = sharedPreferences.getString("Username", null);
+        savedLives = sharedPreferences.getInt("Lives", 0);
+
+        savedLives += value;
+        lives.setText(savedLives.toString());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Date date = new Date(System.currentTimeMillis());
-        long datetime = date.getTime();
-        editor.putLong("RunoutTime", datetime);
-        editor.putInt("LivesCount", lives);
+        editor.putInt("Lives", savedLives);
         editor.commit();
+
+        UpdateDBData(savedUsername, savedLives, null);
     }
 
-    private void saveRunoutData(Integer lives, long addition) {
-        SharedPreferences sharedPreferences = getSharedPreferences("TimeOfRunout", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    private void UpdateDBData(final String savedUsername, Integer savedLives, Integer savedScore) {
+        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
+        UpdateUserRequest request = new UpdateUserRequest(savedUsername, savedLives, savedScore);
+        Call<UpdateUserResponse> call = getDataService.updateUserStatus(request);
+        call.enqueue(new Callback<UpdateUserResponse>() {
+            @Override
+            public void onResponse(Response<UpdateUserResponse> response, Retrofit retrofit) {
+                if (!response.isSuccess()){
+                    Toast t = Toast.makeText(getApplicationContext() , String.valueOf(response.code()), Toast.LENGTH_SHORT);
+                    t.show();
+                    return;
+                }else{
+                    if (response.body().getStatus().equals(Integer.toString(1))){
+                        //Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
+                        //t.show();
+                    }else if(response.body().getStatus().equals(Integer.toString(-1))){
+                        Toast t = Toast.makeText(getApplicationContext() , response.body().getText() + savedUsername, Toast.LENGTH_SHORT);
+                        t.show();
+                    }else if(response.body().getStatus().equals(Integer.toString(-9)))
+                    {
+                        Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
+                        t.show();
+                    }
+                }
+            }
 
-        Date date = new Date(System.currentTimeMillis());
-        long datetime = date.getTime();
-        editor.putLong("RunoutTime", datetime - addition);
-        editor.putInt("LivesCount", lives);
-        editor.commit();
-    }
-
-    private void loadRunoutData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("TimeOfRunout", MODE_PRIVATE);
-        savedDate = sharedPreferences.getLong("RunoutTime", 0);
-        savedLives = sharedPreferences.getInt("LivesCount", 0);
+            @Override
+            public void onFailure(Throwable t) {
+                Toast t1 = Toast.makeText(getApplicationContext() , t.getMessage(), Toast.LENGTH_SHORT);
+                t1.show();
+            }
+        });
     }
 
 }

@@ -7,6 +7,8 @@ import com.responses.User.LoginRequest;
 import com.responses.User.LoginResponse;
 import com.responses.User.RegisterRequest;
 import com.responses.User.RegisterResponse;
+import com.responses.User.UpdateUserRequest;
+import com.responses.User.UpdateUserResponse;
 
 import java.util.List;
 
@@ -34,6 +36,9 @@ public interface GetDataService {
     @POST("users/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
+    @POST("users/UpdateUserStatus")
+    Call<UpdateUserResponse> updateUserStatus(@Body UpdateUserRequest updateUserRequest);
+
     //Pitanja
     @GET("Questions")
     Call<List<Question>> getQuestions();
@@ -47,7 +52,7 @@ public interface GetDataService {
     //@DELETE("Questions/{id}")
     //Call<> DeleteCategory(@Path("id") int id);
 
-    @POST("Questions/GetQuestion")
-    Call<QuestionsResponse> getQuestionsByCategoryAndDifficulty(@Body QuestionRequest questionRequest);
+    @POST("Questions/GetQuestions")
+    Call<QuestionsResponse> GetQuestionsByCategoryAndDifficulty(@Body QuestionRequest questionRequest);
 
 }

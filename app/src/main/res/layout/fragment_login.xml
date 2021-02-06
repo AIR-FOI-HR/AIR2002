@@ -3,70 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/LoginIRegistracijaTheme"
     tools:context=".Fragments.LoginFragment">
 
     <TextView
+        style="@style/LoginIRegistracijaTheme.Heading"
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/trivia_ly"
-        android:textSize="50sp"
-        android:fontFamily="@font/indigo_daisy"
-        android:layout_marginStart="25dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
         android:layout_above="@id/tv_subtitle"/>
 
     <TextView
+        style="@style/LoginIRegistracijaTheme.Subtitle"
         android:id="@+id/tv_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Join us and play"
-        android:textSize="17sp"
-        android:fontFamily="@font/roboto_regular"
-        android:layout_marginLeft="25dp"
-        android:layout_marginBottom="50dp"
+        android:text="@string/tag_"
+        android:layout_marginBottom="30dp"
         android:layout_above="@id/et_username"/>
 
     <EditText
+        style="@style/LoginIRegistracijaTheme.InputField"
         android:id="@+id/et_username"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="@string/username"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:padding="15dp"
+        android:layout_marginTop="30dp"
         android:inputType="text"
-        android:fontFamily="@font/roboto_regular"
         android:layout_above="@id/et_passwordd"
-        android:background="@drawable/et_custom"
-        android:textSize="15sp" />
+        android:background="@drawable/et_custom"/>
 
     <EditText
+        style="@style/LoginIRegistracijaTheme.InputField"
         android:id="@+id/et_passwordd"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="@string/password"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
         android:padding="15dp"
-        android:fontFamily="@font/roboto_regular"
         android:inputType="textPassword"
         android:layout_centerInParent="true"
-        android:background="@drawable/et_custom"
-        android:textSize="15sp" />
+        android:background="@drawable/et_custom"/>
 
     <Button
+        style="@style/LoginIRegistracijaTheme.button"
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_passwordd"
         android:background="@drawable/btn_costum"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/roboto_regular"
-        android:textColor="@android:color/white"
         android:text="@string/login"
         android:onClick="userLogin"/>
 

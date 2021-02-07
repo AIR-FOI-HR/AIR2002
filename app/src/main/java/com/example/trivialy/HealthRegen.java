@@ -27,6 +27,8 @@ public class HealthRegen extends IntentService {
     String savedUsername;
     Integer savedLives;
 
+    UserDataController userDataController;
+    UserDataController.UserLives userLives;
 
     public HealthRegen() {
         super("HealthRegenTimer");
@@ -34,72 +36,26 @@ public class HealthRegen extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        GetUserData();
-        try {
-            sleep(10 * 1000);
-            UpdateLifeCount(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        userDataController = new UserDataController(getApplicationContext());
+
+        userLives = userDataController.GetUserData();
+        savedUsername = userLives.Username;
+        savedLives = userLives.Lives;
+
+        if(savedLives < 5) {
+            try {
+                sleep(10 * 1000);
+                userDataController.UpdateLifeCount(null, 1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        
         if(savedLives < 5){
             context = getApplicationContext();
             Intent newIntent = new Intent(context, com.example.trivialy.HealthRegen.class);
             startService(newIntent);
         }
         return;
-    }
-
-    private void UpdateLifeCount(int value){
-        context = getApplicationContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences("UserData", context.MODE_PRIVATE);
-        savedUsername = sharedPreferences.getString("Username", null);
-        savedLives = sharedPreferences.getInt("Lives", 0);
-
-        savedLives += value;
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("Lives", savedLives);
-        editor.commit();
-
-        UpdateDBData(savedUsername, savedLives, null);
-    }
-
-    private void UpdateDBData(final String savedUsername, Integer savedLives, Integer savedScore) {
-        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        UpdateUserRequest request = new UpdateUserRequest(savedUsername, savedLives, savedScore);
-        Call<UpdateUserResponse> call = getDataService.updateUserStatus(request);
-        call.enqueue(new Callback<UpdateUserResponse>() {
-            @Override
-            public void onResponse(Response<UpdateUserResponse> response, Retrofit retrofit) {
-                if (!response.isSuccess()){
-                    Toast t = Toast.makeText(context , String.valueOf(response.code()), Toast.LENGTH_SHORT);
-                    t.show();
-                    return;
-                }else{
-                    if (response.body().getStatus().equals(Integer.toString(1))){
-                        //Toast t = Toast.makeText(context , response.body().getText(), Toast.LENGTH_SHORT);
-                        //t.show();
-                    }else if(response.body().getStatus().equals(Integer.toString(-1))){
-                        Toast t = Toast.makeText(context , response.body().getText(), Toast.LENGTH_SHORT);
-                        t.show();
-                    }else if(response.body().getStatus().equals(Integer.toString(-9)))
-                    {
-                        Toast t = Toast.makeText(context , response.body().getText(), Toast.LENGTH_SHORT);
-                        t.show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast t1 = Toast.makeText(context , t.getMessage(), Toast.LENGTH_SHORT);
-                t1.show();
-            }
-        });
-    }
-
-    private void GetUserData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        savedUsername = sharedPreferences.getString("Username", null);
-        savedLives = sharedPreferences.getInt("Lives", 0);
     }
 }

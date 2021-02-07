@@ -33,21 +33,28 @@ public class SingleplayerMenu extends AppCompatActivity {
     private String savedUsername;
     private Integer savedLives;
     private TextView Lives = null;
+    UserDataController userDataController;
+    UserDataController.UserLives userLives;
     Handler handler = new Handler();
     Runnable runnable;
     int delay = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        userDataController = new UserDataController(getApplicationContext());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singleplayer_menu);
         Lives = (TextView) findViewById(R.id.numberOfLives);
         Lives.setText("0");
-        GetUserData();
+        userLives = userDataController.GetUserData();
+        savedUsername = userLives.Username;
+        savedLives = userLives.Lives;
+
         Lives.setText(savedLives.toString());
 
         Intent intent = new Intent(SingleplayerMenu.this, com.example.trivialy.HealthRegen.class);
-        boolean check = isMyServiceRunning(com.example.trivialy.HealthRegen.class);
+        boolean check = userDataController.isMyServiceRunning(com.example.trivialy.HealthRegen.class);
         if(!check && Integer.valueOf((String) Lives.getText())<5){
             startService(intent);
         }
@@ -62,10 +69,17 @@ public class SingleplayerMenu extends AppCompatActivity {
                     return;
                 }
                 else {
+                    userDataController.UpdateLifeCount(Lives, -1);
+
+                    Intent intent = new Intent(SingleplayerMenu.this, com.example.trivialy.HealthRegen.class);
+                    boolean check = userDataController.isMyServiceRunning(com.example.trivialy.HealthRegen.class);
+                    if(!check && Integer.valueOf((String) Lives.getText())<5){
+                        startService(intent);
+                    }
+
                     Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
                     view.getContext().startActivity(newIntent);
-
-                    UpdateLifeCount(Lives, -1);
+                    finish();
                 }
             }
         });
@@ -75,13 +89,17 @@ public class SingleplayerMenu extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), MainMenu.class);
         SingleplayerMenu.this.startActivity(intent);
+        finish();
     }
 
     @Override
     protected void onResume() {
         handler.postDelayed( runnable = new Runnable() {
             public void run() {
-                GetUserData();
+                userLives = userDataController.GetUserData();
+                savedUsername = userLives.Username;
+                savedLives = userLives.Lives;
+
                 Lives.setText(savedLives.toString());
                 handler.postDelayed(runnable, delay);
             }
@@ -95,70 +113,6 @@ public class SingleplayerMenu extends AppCompatActivity {
     protected void onPause() {
         handler.removeCallbacks(runnable);
         super.onPause();
-    }
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(getApplicationContext().ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void GetUserData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        savedUsername = sharedPreferences.getString("Username", null);
-        savedLives = sharedPreferences.getInt("Lives", 0);
-    }
-
-    private void UpdateLifeCount(TextView lives, int value){
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        savedUsername = sharedPreferences.getString("Username", null);
-        savedLives = sharedPreferences.getInt("Lives", 0);
-
-        savedLives += value;
-        lives.setText(savedLives.toString());
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("Lives", savedLives);
-        editor.commit();
-
-        UpdateDBData(savedUsername, savedLives, null);
-    }
-
-    private void UpdateDBData(final String savedUsername, Integer savedLives, Integer savedScore) {
-        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        UpdateUserRequest request = new UpdateUserRequest(savedUsername, savedLives, savedScore);
-        Call<UpdateUserResponse> call = getDataService.updateUserStatus(request);
-        call.enqueue(new Callback<UpdateUserResponse>() {
-            @Override
-            public void onResponse(Response<UpdateUserResponse> response, Retrofit retrofit) {
-                if (!response.isSuccess()){
-                    Toast t = Toast.makeText(getApplicationContext() , String.valueOf(response.code()), Toast.LENGTH_SHORT);
-                    t.show();
-                    return;
-                }else{
-                    if (response.body().getStatus().equals(Integer.toString(1))){
-                        //Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
-                        //t.show();
-                    }else if(response.body().getStatus().equals(Integer.toString(-1))){
-                        Toast t = Toast.makeText(getApplicationContext() , response.body().getText() + savedUsername, Toast.LENGTH_SHORT);
-                        t.show();
-                    }else if(response.body().getStatus().equals(Integer.toString(-9)))
-                    {
-                        Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
-                        t.show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast t1 = Toast.makeText(getApplicationContext() , t.getMessage(), Toast.LENGTH_SHORT);
-                t1.show();
-            }
-        });
     }
 
 }

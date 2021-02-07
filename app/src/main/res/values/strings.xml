@@ -35,4 +35,6 @@
     <string name="singleplayer_description">Ovdje ide tekst o singleplayer modovima i slično. Svaki opisan kak spada...</string>
     <string name="multiplayer_description">Ovdje je tekst o multiplayer načinu igre, opisano to bit će super!</string>
     <string name="insufficientLives">Insufficient lives</string>
+    <string name="final_score">Final score</string>
+    <string name="play_again">Play again</string>
 </resources>

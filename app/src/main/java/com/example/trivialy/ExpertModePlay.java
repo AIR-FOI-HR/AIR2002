@@ -24,6 +24,7 @@ import retrofit.Retrofit;
 
 public class ExpertModePlay extends AppCompatActivity{
 
+    Integer Points = 0;
     TextView pointsField;
     TextView questionTextField;
     Button AnswerOne;
@@ -34,9 +35,8 @@ public class ExpertModePlay extends AppCompatActivity{
     private View.OnClickListener correctListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Integer pointsInteger = Integer.valueOf((String) pointsField.getText());
-            pointsInteger += 1;
-            pointsField.setText(pointsInteger.toString());
+            Points += 1;
+            pointsField.setText(Points.toString());
 
             GetExpertQuestions();
         }
@@ -45,8 +45,12 @@ public class ExpertModePlay extends AppCompatActivity{
     private View.OnClickListener incorrectListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), SingleplayerMenu.class);
+            Intent intent = new Intent(getApplicationContext(), SingleplayerScore.class);
+            Bundle b = new Bundle();
+            b.putString("Score", Points.toString());
+            intent.putExtras(b);
             ExpertModePlay.this.startActivity(intent);
+            finish();
         }
     };
 
@@ -61,6 +65,7 @@ public class ExpertModePlay extends AppCompatActivity{
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), SingleplayerMenu.class);
         ExpertModePlay.this.startActivity(intent);
+        finish();
     }
 
     public void GetExpertQuestions(){
@@ -104,12 +109,14 @@ public class ExpertModePlay extends AppCompatActivity{
 
                             AnswerTwo.setText(wrongAnswers[0]);
                             AnswerTwo.setOnClickListener(incorrectListener);
-                            if(wrongAnswers.length != 1){
-                                AnswerOne.setVisibility(View.VISIBLE);
-                                AnswerTwo.setVisibility(View.VISIBLE);
-                                AnswerThree.setVisibility(View.VISIBLE);
-                                AnswerFour.setVisibility(View.VISIBLE);
 
+                            AnswerOne.setVisibility(View.VISIBLE);
+                            AnswerTwo.setVisibility(View.VISIBLE);
+                            AnswerThree.setVisibility(View.VISIBLE);
+                            AnswerFour.setVisibility(View.VISIBLE);
+
+
+                            if(wrongAnswers.length != 1){
                                 AnswerThree.setText(wrongAnswers[1]);
                                 AnswerFour.setText(wrongAnswers[2]);
 
@@ -128,12 +135,13 @@ public class ExpertModePlay extends AppCompatActivity{
 
                             AnswerOne.setText(wrongAnswers[0]);
                             AnswerOne.setOnClickListener(incorrectListener);
-                            if(wrongAnswers.length != 1){
-                                AnswerOne.setVisibility(View.VISIBLE);
-                                AnswerTwo.setVisibility(View.VISIBLE);
-                                AnswerThree.setVisibility(View.VISIBLE);
-                                AnswerFour.setVisibility(View.VISIBLE);
 
+                            AnswerOne.setVisibility(View.VISIBLE);
+                            AnswerTwo.setVisibility(View.VISIBLE);
+                            AnswerThree.setVisibility(View.VISIBLE);
+                            AnswerFour.setVisibility(View.VISIBLE);
+
+                            if(wrongAnswers.length != 1){
                                 AnswerThree.setText(wrongAnswers[1]);
                                 AnswerFour.setText(wrongAnswers[2]);
 
@@ -152,12 +160,13 @@ public class ExpertModePlay extends AppCompatActivity{
 
                             AnswerTwo.setText(wrongAnswers[0]);
                             AnswerTwo.setOnClickListener(incorrectListener);
-                            if(wrongAnswers.length != 1){
-                                AnswerOne.setVisibility(View.VISIBLE);
-                                AnswerTwo.setVisibility(View.VISIBLE);
-                                AnswerThree.setVisibility(View.VISIBLE);
-                                AnswerFour.setVisibility(View.VISIBLE);
 
+                            AnswerOne.setVisibility(View.VISIBLE);
+                            AnswerTwo.setVisibility(View.VISIBLE);
+                            AnswerThree.setVisibility(View.VISIBLE);
+                            AnswerFour.setVisibility(View.VISIBLE);
+
+                            if(wrongAnswers.length != 1){
                                 AnswerOne.setText(wrongAnswers[1]);
                                 AnswerFour.setText(wrongAnswers[2]);
 
@@ -176,12 +185,13 @@ public class ExpertModePlay extends AppCompatActivity{
 
                             AnswerTwo.setText(wrongAnswers[0]);
                             AnswerTwo.setOnClickListener(incorrectListener);
-                            if(wrongAnswers.length != 1){
-                                AnswerOne.setVisibility(View.VISIBLE);
-                                AnswerTwo.setVisibility(View.VISIBLE);
-                                AnswerThree.setVisibility(View.VISIBLE);
-                                AnswerFour.setVisibility(View.VISIBLE);
 
+                            AnswerOne.setVisibility(View.VISIBLE);
+                            AnswerTwo.setVisibility(View.VISIBLE);
+                            AnswerThree.setVisibility(View.VISIBLE);
+                            AnswerFour.setVisibility(View.VISIBLE);
+
+                            if(wrongAnswers.length != 1){
                                 AnswerThree.setText(wrongAnswers[1]);
                                 AnswerOne.setText(wrongAnswers[2]);
 

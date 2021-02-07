@@ -196,6 +196,7 @@ namespace Trivia.ly_Services.Controllers
                 {
                     if (!_context.User.Any(u => u.Username == body.Username))
                     {
+                        //dodavanje usera
                         var newUser = new User()
                         {
                             Username = username,
@@ -211,6 +212,23 @@ namespace Trivia.ly_Services.Controllers
 
                         _context.User.Add(newUser);
                         _context.SaveChanges();
+
+                        var userId = _context.User.Where(u => u.Username == newUser.Username).Select(u => u.UserId).FirstOrDefault();
+
+                        var pupIds = _context.Powerup.Select(p => p.PowerupId).ToList();
+                        foreach (var pupId in pupIds)
+                        {
+                            _context.User_Powerup.Add(new User_Powerup()
+                            {
+                                Id_User = userId,
+                                Id_Powerup = pupId,
+                                Amount = 2
+                            });
+                        }
+
+                        _context.SaveChanges();
+
+
 
                         var response = new RegisterResponse()
                         {
@@ -242,7 +260,7 @@ namespace Trivia.ly_Services.Controllers
             {
                 var response = new RegisterResponse()
                 {
-                    Status = -3,
+                    Status = -9,
                     Text = e.InnerException.Message
                 };
                 return JsonConvert.SerializeObject(response);

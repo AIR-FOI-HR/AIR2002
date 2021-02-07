@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Trivia.ly_Services.Data;
 using Trivia.ly_Services.Models;
 
@@ -107,6 +108,157 @@ namespace Trivia.ly_Services.Controllers
         private bool PowerupExists(int id)
         {
             return _context.Powerup.Any(e => e.PowerupId == id);
+        }
+
+        #endregion
+
+        #region Trivialy methods
+
+        [HttpPost ("GetUserPowerups")]
+        public string GetUserPowerups([FromBody] GetUserPowerupsRequest body)
+        {
+            try
+            {
+                var user = _context.User.Where(u => u.UserId == body.UserId).FirstOrDefault();
+                if(user != null)
+                {
+                    var pupsId = _context.User_Powerup.Where(up => up.Id_User == user.UserId).ToList();
+                    var powerupsList = new List<UserPowerups>();
+
+                    foreach (var pup in pupsId)
+                    {
+                        var powerup = _context.Powerup.Where(p => p.PowerupId == pup.Id_Powerup).FirstOrDefault();
+                        powerupsList.Add(new UserPowerups()
+                        {
+                            PowerupId = powerup.PowerupId,
+                            Name = powerup.Name,
+                            Amount = pup.Amount
+                        });
+                    }
+
+                    var response = new GetUserPowerupsResponse()
+                    {
+                        Status = 1,
+                        UserPowerups = powerupsList
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
+                else
+                {
+                    var response = new GetUserPowerupsResponse()
+                    {
+                        Status = -1,
+                        Text = "User not found!"
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
+            }
+            catch (Exception e)
+            {
+                var response = new GetUserPowerupsResponse()
+                {
+                    Status = -9,
+                    Text = e.InnerException.ToString()
+                };
+                return JsonConvert.SerializeObject(response);
+            }
+        }
+
+        [HttpPost ("SetUserPowerupStatus")]
+        public string SetUserPowerupStatus([FromBody] SetUserPowerupStatusRequest body)
+        {
+            try
+            {
+                var user = _context.User.Where(u => u.UserId == body.UserId).FirstOrDefault();
+                var powerup = _context.Powerup.Where(p => p.PowerupId == body.PowerupId).FirstOrDefault();
+                if(user != null)
+                {
+                    if(powerup != null)
+                    {
+                        var usrpup = _context.User_Powerup.Where(up => up.Id_Powerup == powerup.PowerupId && up.Id_User == user.UserId).FirstOrDefault();
+                        if(usrpup != null)
+                        {
+                            usrpup.Amount = body.Amount;
+                            _context.User_Powerup.Update(usrpup);
+                            _context.SaveChanges();
+
+                            var response = new SetUserPowerupStatusResponse()
+                            {
+                                Status = 1
+                            };
+                            return JsonConvert.SerializeObject(response);
+                        }
+                        else
+                        {
+                            _context.User_Powerup.Add(new User_Powerup()
+                            {
+                                Id_Powerup = powerup.PowerupId,
+                                Id_User = user.UserId,
+                                Amount = body.Amount
+                            });
+                            _context.SaveChanges();
+
+                            var response = new SetUserPowerupStatusResponse()
+                            {
+                                Status = 1
+                            };
+                            return JsonConvert.SerializeObject(response);
+                        }
+                    }
+                    else
+                    {
+                        var response = new SetUserPowerupStatusResponse()
+                        {
+                            Status = -2,
+                            Text = "Powerup not found"
+                        };
+                        return JsonConvert.SerializeObject(response);
+                    }
+                }
+                else
+                {
+                    var response = new SetUserPowerupStatusResponse()
+                    {
+                        Status = -1,
+                        Text = "User not found"
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
+            }
+            catch(Exception e)
+            {
+                var response = new SetUserPowerupStatusResponse()
+                {
+                    Status = -9,
+                    Text = e.InnerException.ToString()
+                };
+                return JsonConvert.SerializeObject(response);
+            }
+        }
+
+        [HttpPost ("GetPowerupInfo")]
+        public string GetPowerupInfo()
+        {
+            try
+            {
+                var powerups = _context.Powerup.Select(x => x).ToList();
+                var response = new GetPowerupInfoResponse()
+                {
+                    Status = 1,
+                    Powerups = powerups
+                };
+
+                return JsonConvert.SerializeObject(response);
+            }
+            catch(Exception e)
+            {
+                var response = new GetPowerupInfoResponse()
+                {
+                    Status = -9,
+                    Text = e.InnerException.ToString()
+                };
+                return JsonConvert.SerializeObject(response);
+            }
         }
 
         #endregion

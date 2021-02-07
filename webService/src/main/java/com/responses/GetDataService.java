@@ -7,6 +7,8 @@ import com.responses.User.LoginRequest;
 import com.responses.User.LoginResponse;
 import com.responses.User.RegisterRequest;
 import com.responses.User.RegisterResponse;
+import com.responses.User.UpdateUserRequest;
+import com.responses.User.UpdateUserResponse;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 
 public interface GetDataService {
-    @GET("categories")
+    @GET("Categories")
     Call<List<Category>> getCategories();
 
     @GET("difficulties")
@@ -33,6 +35,9 @@ public interface GetDataService {
 
     @POST("users/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
+
+    @POST("users/UpdateUserStatus")
+    Call<UpdateUserResponse> updateUserStatus(@Body UpdateUserRequest updateUserRequest);
 
     //Pitanja
     @GET("Questions")

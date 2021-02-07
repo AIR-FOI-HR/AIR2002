@@ -3,21 +3,21 @@ package com.responses;
 import com.google.gson.annotations.SerializedName;
 
 public class Difficulty {
-    @SerializedName("difficultyId")
-    private String DifficultyId;
-    @SerializedName("name")
-    private String Name;
+    @SerializedName("DifficultyId")
+    private String difficultyId;
+    @SerializedName("Name")
+    private String name;
 
     public Difficulty(String difficultyId, String name) {
-        this.DifficultyId = difficultyId;
-        this.Name = name;
+        this.difficultyId = difficultyId;
+        this.name = name;
     }
 
     public String getDifficultyId() {
-        return DifficultyId;
+        return difficultyId;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 }

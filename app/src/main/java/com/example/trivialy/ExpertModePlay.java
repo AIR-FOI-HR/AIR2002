@@ -57,6 +57,12 @@ public class ExpertModePlay extends AppCompatActivity{
         GetExpertQuestions();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), SingleplayerMenu.class);
+        ExpertModePlay.this.startActivity(intent);
+    }
+
     public void GetExpertQuestions(){
         pointsField = findViewById(R.id.pointsField);
         questionTextField = findViewById(R.id.quesrionTextField);

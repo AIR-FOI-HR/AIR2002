@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trivia.ly-Services", "Trivia.ly-Services\Trivia.ly-Services.csproj", "{AC0850AC-BED9-419A-A332-9EAC98D4E152}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trivia.ly-Services", "Trivia.ly-Services\Trivia.ly-Services.csproj", "{AC0850AC-BED9-419A-A332-9EAC98D4E152}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -119,7 +119,7 @@ namespace Trivia.ly_Services.Controllers
         {
             try
             {
-                var quizes = _context.Quiz.Where(c => c.Id_Category == body.CategoryId && c.Start_Date < DateTime.Now).OrderByDescending(c => c.QuestionIds).ToList();
+                var quizes = _context.Quiz.Where(c => c.Id_Category == body.CategoryId && c.Start_Date > DateTime.Now).OrderByDescending(c => c.QuestionIds).ToList();
                 if (quizes.Count > 0)
                 {
                     var response = new GetAvaliableQuizesResponse()
@@ -166,19 +166,35 @@ namespace Trivia.ly_Services.Controllers
                 {
                     if (quiz != null)
                     {
-                        _context.Quiz_User.Add(new Quiz_User()
+                        var quiz_user = _context.Quiz_User.Where(qu => qu.Id_User == user.UserId && qu.Id_Quiz == quiz.QuizId).FirstOrDefault();
+                        if (quiz_user == null)
                         {
-                            Id_Quiz = quiz.QuizId,
-                            Id_User = user.UserId,
-                            Score = score
-                        });
-                        _context.SaveChanges();
+                            _context.Quiz_User.Add(new Quiz_User()
+                            {
+                                Id_Quiz = quiz.QuizId,
+                                Id_User = user.UserId,
+                                Score = score
+                            });
+                            _context.SaveChanges();
 
-                        var response = new SetUserToQuizResponse()
+                            var response = new SetUserToQuizResponse()
+                            {
+                                Status = 1
+                            };
+                            return JsonConvert.SerializeObject(response);
+                        }
+                        else
                         {
-                            Status = 1
-                        };
-                        return JsonConvert.SerializeObject(response);
+                            quiz_user.Score = score;
+                            _context.Quiz_User.Update(quiz_user);
+                            _context.SaveChanges();
+
+                            var response = new SetUserToQuizResponse()
+                            {
+                                Status = 1
+                            };
+                            return JsonConvert.SerializeObject(response);
+                        }
                     }
                     else
                     {
@@ -221,17 +237,17 @@ namespace Trivia.ly_Services.Controllers
                 if (quiz != null)
                 {
                     var userIds = _context.Quiz_User.Where(qu => qu.Id_Quiz == quiz.QuizId).Select(qu => qu.Id_User).ToList();
-                    var userList = new List<User>();
+                    var userList = new List<string>();
 
                     foreach (var userId in userIds)
                     {
-                        userList.Add(_context.User.Where(u => u.UserId == userId).FirstOrDefault());
+                        userList.Add(_context.User.Where(u => u.UserId == userId).FirstOrDefault().Username);
                     }
 
                     var response = new GetUsersOnQuizResponse()
                     {
                         Status = 1,
-                        Users = userList
+                        Usersnames = userList
                     };
                     return JsonConvert.SerializeObject(response);
                 }
@@ -310,7 +326,7 @@ namespace Trivia.ly_Services.Controllers
         {
             try
             {
-                var user = _context.User.Where(u => u.UserId == body.UserId).FirstOrDefault();
+                var user = _context.User.Where(u => u.Username == body.Username).FirstOrDefault();
                 if (user != null)
                 {
                     var quizIds = _context.Quiz_User.Where(qu => qu.Id_User == user.UserId).Select(qu => qu.Id_Quiz).ToList();
@@ -344,6 +360,70 @@ namespace Trivia.ly_Services.Controllers
                 {
                     Status = -9,
                     Text = e.InnerException.Message
+                };
+                return JsonConvert.SerializeObject(response);
+            }
+        }
+
+        [HttpPost("CreateQuiz")]
+        public string CreateQuiz([FromBody]CreateQuizRequest body)
+        {
+            try
+            {
+                var category = _context.Category.Where(c => c.CategoryId == body.CategoryId).FirstOrDefault();
+                if (category != null)
+                {
+
+                    List<int> questionIds = new List<int>();
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        int numberOfQuestions = _context.Question.Where(q => q.Id_Category == category.CategoryId && !questionIds.Contains(q.QuestionId)).Count();
+                        Random rand = new Random();
+                        int toSkip = rand.Next(0, numberOfQuestions);
+
+                        //bool var = questionIds.IndexOf(1) != 1;
+
+                        var questionId = _context.Question
+                            .Where(q => q.Id_Category == category.CategoryId && !questionIds.Contains(q.QuestionId))
+                            .Skip(toSkip)
+                            .Take(1).FirstOrDefault().QuestionId;
+
+                        questionIds.Add(questionId);
+                    }
+
+                    _context.Quiz.Add(new Quiz()
+                    {
+                        Id_Category = category.CategoryId,
+                        Name = body.Name,
+                        QuestionIds = string.Join(";", questionIds.Select(n => n.ToString()).ToArray()),
+                        Start_Date = DateTime.Now.AddMinutes(10)
+                    });
+                    _context.SaveChanges();
+
+                    var response = new CreateQuizResponse()
+                    {
+                        Status = 1
+                    };
+
+                    return JsonConvert.SerializeObject(response);
+                }
+                else
+                {
+                    var response = new CreateQuizResponse()
+                    {
+                        Status = -1,
+                        Text = "Category not found"
+                    };
+                    return JsonConvert.SerializeObject(response);
+                }
+            }
+            catch (Exception e)
+            {
+                var response = new CreateQuizResponse()
+                {
+                    Status = -9,
+                    Text = e.InnerException.ToString()
                 };
                 return JsonConvert.SerializeObject(response);
             }

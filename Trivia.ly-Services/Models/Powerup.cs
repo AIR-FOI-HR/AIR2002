@@ -16,7 +16,7 @@ namespace Trivia.ly_Services.Models
 
     public class GetUserPowerupsRequest
     {
-        public int UserId { get; set; }
+        public string Username { get; set; }
     }
 
     public class GetUserPowerupsResponse
@@ -42,7 +42,7 @@ namespace Trivia.ly_Services.Models
 
     public class SetUserPowerupStatusRequest
     {
-        public int UserId { get; set; }
+        public string Username { get; set; }
         public int PowerupId { get; set; }
         public int Amount { get; set; }
     }

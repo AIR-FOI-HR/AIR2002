@@ -50,7 +50,7 @@ namespace Trivia.ly_Services.Models
     {
         public int Status { get; set; }
         public string Text { get; set; }
-        public List<User> Users { get; set; }
+        public List<string> Usersnames { get; set; }
     }
 
     public class GetQuizScoreboardRequest
@@ -73,7 +73,7 @@ namespace Trivia.ly_Services.Models
 
     public class GetUserQuizRequest
     {
-        public int UserId { get; set; }
+        public string Username { get; set; }
     }
 
     public class GetUserQuizResponse
@@ -81,5 +81,17 @@ namespace Trivia.ly_Services.Models
         public int Status { get; set; }
         public string Text { get; set; }
         public List<Quiz> QuizList { get; set; }
+    }
+
+    public class CreateQuizRequest
+    {
+        public int CategoryId { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class CreateQuizResponse
+    {
+        public int Status { get; set; }
+        public string Text { get; set; }
     }
 }

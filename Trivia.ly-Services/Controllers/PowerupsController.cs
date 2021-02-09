@@ -119,7 +119,7 @@ namespace Trivia.ly_Services.Controllers
         {
             try
             {
-                var user = _context.User.Where(u => u.UserId == body.UserId).FirstOrDefault();
+                var user = _context.User.Where(u => u.Username == body.Username).FirstOrDefault();
                 if(user != null)
                 {
                     var pupsId = _context.User_Powerup.Where(up => up.Id_User == user.UserId).ToList();
@@ -169,7 +169,7 @@ namespace Trivia.ly_Services.Controllers
         {
             try
             {
-                var user = _context.User.Where(u => u.UserId == body.UserId).FirstOrDefault();
+                var user = _context.User.Where(u => u.Username == body.Username).FirstOrDefault();
                 var powerup = _context.Powerup.Where(p => p.PowerupId == body.PowerupId).FirstOrDefault();
                 if(user != null)
                 {

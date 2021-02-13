@@ -140,7 +140,7 @@ namespace Trivia.ly_Services.Controllers
                     .Where(c => c.Name == body.CategoryName).FirstOrDefault();
 
                 int numberOfQuestions = body.NumberOfQuestions == 0 ? 10 : body.NumberOfQuestions;
-                
+
                 List<QuestionsListResponse> questionList = new List<QuestionsListResponse>();
 
                 if (category != null)
@@ -161,7 +161,8 @@ namespace Trivia.ly_Services.Controllers
                                 QuestionDifficulty = difficulty.Name,
                                 QuestionText = question.Question_text,
                                 CorrectAnswer = question.Correct_answer,
-                                IncorrectAnswers = question.Incorrect_answer
+                                IncorrectAnswers = question.Incorrect_answer,
+                                QuestionTypeName = _context.Question_Type.Where(qt => qt.Question_TypeId == question.Id_Question_Type).Select(qt => qt.Name).FirstOrDefault()
                             });
                         }
 
@@ -189,7 +190,9 @@ namespace Trivia.ly_Services.Controllers
                                 QuestionDifficulty = difficulty.Name,
                                 QuestionText = question.Question_text,
                                 CorrectAnswer = question.Correct_answer,
-                                IncorrectAnswers = question.Incorrect_answer
+                                IncorrectAnswers = question.Incorrect_answer,
+                                QuestionTypeName = _context.Question_Type.Where(qt => qt.Question_TypeId == question.Id_Question_Type).Select(qt => qt.Name).FirstOrDefault()
+
                             });
                         }
 
@@ -225,19 +228,33 @@ namespace Trivia.ly_Services.Controllers
             }
 
         }
-    
+
         [HttpPost("GetQuestionById")]
         public string GetQuestionById([FromBody]GetQuestionByIdRequest body)
         {
             try
             {
                 var question = _context.Question.Where(q => q.QuestionId == body.QuestionId).FirstOrDefault();
-                if(question != null)
+                if (question != null)
                 {
+                    var difficulty = _context.Difficulty.Where(d => d.DifficultyId == question.Id_Difficulty).FirstOrDefault();
+                    var category = _context.Category.Where(c => c.CategoryId == question.Id_Category).FirstOrDefault();
+                    var questionTypeName = _context.Question_Type.Where(qt => qt.Question_TypeId == question.Id_Question_Type).Select(qt => qt.Name).FirstOrDefault();
+
+                    var questionListModel = new QuestionsListResponse()
+                    {
+                        QuestionCategory = category.Name,
+                        QuestionDifficulty = difficulty.Name,
+                        QuestionText = question.Question_text,
+                        CorrectAnswer = question.Correct_answer,
+                        IncorrectAnswers = question.Incorrect_answer,
+                        QuestionTypeName = questionTypeName
+                    };
+
                     var response = new GetQuestionByIdResponse()
                     {
                         Status = 1,
-                        Question = question
+                        Question = questionListModel
                     };
                     return JsonConvert.SerializeObject(response);
                 }
@@ -251,7 +268,7 @@ namespace Trivia.ly_Services.Controllers
                     return JsonConvert.SerializeObject(response);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 var response = new GetQuestionByIdResponse()
                 {

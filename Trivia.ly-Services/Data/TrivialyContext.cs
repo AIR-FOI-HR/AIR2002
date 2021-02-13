@@ -26,5 +26,6 @@ namespace Trivia.ly_Services.Data
         public DbSet<Quiz_User> Quiz_User { get; set; }
         public DbSet<User_Powerup> User_Powerup { get; set; }
         public DbSet<Quiz> Quiz { get; set; }
+        public DbSet<Question_Type> Question_Type { get; set; }
     }
 }

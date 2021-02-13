@@ -15,6 +15,7 @@ namespace Trivia.ly_Services.Models
         public string Question_text { get; set; }
         public string Correct_answer { get; set; }
         public string Incorrect_answer { get; set; }
+        public int Id_Question_Type { get; set; }
     }
 
     public class QuestionsRequest
@@ -37,6 +38,7 @@ namespace Trivia.ly_Services.Models
         public string QuestionText { get; set; }
         public string CorrectAnswer { get; set; }
         public string IncorrectAnswers { get; set; }
+        public string QuestionTypeName { get; set; }
     }
 
     public class GetQuestionByIdRequest
@@ -48,6 +50,6 @@ namespace Trivia.ly_Services.Models
     {
         public int Status { get; set; }
         public string Text { get; set; }
-        public Question Question { get; set; }
+        public QuestionsListResponse Question { get; set; }
     }
 }

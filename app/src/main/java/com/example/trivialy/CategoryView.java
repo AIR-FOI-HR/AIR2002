@@ -44,7 +44,6 @@ public class CategoryView extends AppCompatActivity {
     ArrayList<Category> categories = new ArrayList<>();
     ArrayList<String> listaImena = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +60,10 @@ public class CategoryView extends AppCompatActivity {
                 for (Category c : categories) {
                     listaImena.add(c.getTitle());
                 }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listaImena){
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listaImena) {
 
                     @Override
-                    public View getView(int position, View convertView, ViewGroup parent){
+                    public View getView(int position, View convertView, ViewGroup parent) {
                         // Get the Item from ListView
                         View view = super.getView(position, convertView, parent);
                         // Initialize a TextView for ListView each Item
@@ -85,6 +84,8 @@ public class CategoryView extends AppCompatActivity {
                         Intent newIntent = new Intent(getApplicationContext(), DifficultyView.class);
                         newIntent.putExtra("savedString", (String) lv.getItemAtPosition(position));
                         CategoryView.this.startActivity(newIntent);
+                        finish();
+
                     }
                 });
             }

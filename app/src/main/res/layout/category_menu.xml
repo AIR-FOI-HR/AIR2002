@@ -6,15 +6,15 @@
     android:orientation="vertical"
     android:theme="@style/SingleplayerTheme"
     android:background="@color/darkRedColor">
-   <TextView
-    android:id="@+id/nameheader"
-       android:textColor="#FFFFFF"
-       android:height="40dp"
-       android:textSize="25dp"
-       android:layout_marginLeft="12dp"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/choose_category"/>
+    <TextView
+        android:id="@+id/nameheader"
+        android:textColor="#FFFFFF"
+        android:height="40dp"
+        android:textSize="25dp"
+        android:layout_marginLeft="12dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_category"/>
 
     <ListView
         android:id="@+id/listView1"

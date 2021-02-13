@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Login App</string>
+    <string name="app_name">Trivia.ly</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -34,9 +34,12 @@
     <string name="about_us_text">dugački tekst o nama, tu će svašta nešto pisati bit će super zanimljivo!</string>
     <string name="singleplayer_description">Ovdje ide tekst o singleplayer modovima i slično. Svaki opisan kak spada...</string>
     <string name="multiplayer_description">Ovdje je tekst o multiplayer načinu igre, opisano to bit će super!</string>
-    <string name="choose_category">Choose category</string>
-    <string name="choose_dificulty">Choose difficulty</string>
+    <string name="insufficientLives">Insufficient lives</string>
+    <string name="final_score">Final score</string>
+    <string name="play_again">Play again</string>
     <string name="difficulty_easy">Easy</string>
     <string name="difficulty_medium">Medium</string>
     <string name="difficulty_hard">Hard</string>
+    <string name="choose_dificulty">Choose difficulty</string>
+    <string name="choose_category">Choose category</string>
 </resources>

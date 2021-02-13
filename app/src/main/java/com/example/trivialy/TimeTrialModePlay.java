@@ -1,28 +1,35 @@
 package com.example.trivialy;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.responses.GetDataService;
-import com.responses.QuestionsHandler.QuestionsListResponse;
 import com.responses.QuestionsHandler.QuestionRequest;
+import com.responses.QuestionsHandler.QuestionsListResponse;
 import com.responses.QuestionsHandler.QuestionsResponse;
 import com.responses.RetrofitInstance;
 
+import java.util.Locale;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class ExpertModePlay extends AppCompatActivity {
+public class TimeTrialModePlay extends AppCompatActivity {
 
     Integer Points = 0;
     TextView pointsField;
@@ -32,24 +39,51 @@ public class ExpertModePlay extends AppCompatActivity {
     Button AnswerThree;
     Button AnswerFour;
 
+    ConstraintLayout layoutExp;
+    TextView textView;
+    private int seconds = 0;
+    private boolean running;
+    String prikaz;
+    CountDownTimer timer2 = new CountDownTimer(30000,1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            Intent intent = new Intent(getApplicationContext(), SingleplayerScore.class);
+            Bundle b = new Bundle();
+            b.putString("Score", Points.toString());
+            intent.putExtras(b);
+            TimeTrialModePlay.this.startActivity(intent);
+            finish();
+        }
+    };
+
     private View.OnClickListener correctListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Points += 1;
             pointsField.setText(Points.toString());
-
-            GetExpertQuestions();
+            Intent i = getIntent();
+            String category = (String) i.getSerializableExtra("category");
+            String difficulty = (String) i.getSerializableExtra("difficulty");
+            GetExpertQuestions(difficulty, category);
+            timer2.cancel();
+            timer2.start();
+            seconds=0;
         }
     };
-
     private View.OnClickListener incorrectListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            timer2.cancel();
             Intent intent = new Intent(getApplicationContext(), SingleplayerScore.class);
             Bundle b = new Bundle();
             b.putString("Score", Points.toString());
             intent.putExtras(b);
-            ExpertModePlay.this.startActivity(intent);
+            TimeTrialModePlay.this.startActivity(intent);
             finish();
         }
     };
@@ -58,17 +92,35 @@ public class ExpertModePlay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.expert_mode_play);
-        GetExpertQuestions();
+        Intent i = getIntent();
+        String category = (String) i.getSerializableExtra("category");
+        String difficulty = (String) i.getSerializableExtra("difficulty");
+        GetExpertQuestions(difficulty, category);
+
+
+        layoutExp = findViewById(R.id.expertLayout);
+        textView = new TextView(this);
+        textView.setTextColor(Color.WHITE);
+        textView.setTextSize(33);
+
+        running=true;
+        runTimer();
+
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
+        params.setMargins(10,21,0,0);
+        textView.setLayoutParams(params);
+        layoutExp.addView(textView);
+        timer2.start();
     }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), SingleplayerMenu.class);
-        ExpertModePlay.this.startActivity(intent);
+        TimeTrialModePlay.this.startActivity(intent);
         finish();
     }
 
-    public void GetExpertQuestions() {
+    public void GetExpertQuestions(String difficulty, String category) {
         pointsField = findViewById(R.id.pointsField);
         questionTextField = findViewById(R.id.quesrionTextField);
         AnswerOne = findViewById(R.id.answerOne);
@@ -77,7 +129,7 @@ public class ExpertModePlay extends AppCompatActivity {
         AnswerFour = findViewById(R.id.answerFour);
 
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        QuestionRequest questionRequest = new QuestionRequest(1, "Hard", "Any Category");
+        QuestionRequest questionRequest = new QuestionRequest(1, difficulty, category);
         Call<QuestionsResponse> call = getDataService.GetQuestionsByCategoryAndDifficulty(questionRequest);
         call.enqueue(new Callback<QuestionsResponse>() {
             @Override
@@ -205,6 +257,24 @@ public class ExpertModePlay extends AppCompatActivity {
             public void onFailure(Throwable t) {
                 Toast t1 = Toast.makeText(getApplicationContext(), "There was an error while loading questions!\n" + t.getMessage(), Toast.LENGTH_SHORT);
                 t1.show();
+            }
+        });
+    }
+
+    private void runTimer()
+    {
+        final Handler handler
+                = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run()
+            {
+                if (running) {
+                    seconds++;
+                }
+                prikaz = Integer.toString(seconds);
+                textView.setText(prikaz);
+                handler.postDelayed(this, 1000);
             }
         });
     }

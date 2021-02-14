@@ -68,7 +68,7 @@ public class Multiplayer_menu extends AppCompatActivity {
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent newIntent = new Intent(getApplicationContext(), DifficultyView.class); //tu promijeni ime activity-a za dostupne igre
+                        Intent newIntent = new Intent(getApplicationContext(), AvailableQuizesMenu.class);
                         newIntent.putExtra("savedString", (String) lv.getItemAtPosition(position));
                         Multiplayer_menu.this.startActivity(newIntent);
                         finish();

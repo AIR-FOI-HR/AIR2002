@@ -35,7 +35,7 @@ public class Multiplayer_menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.multiplayer_menu);
-        lv = (ListView) findViewById(R.id.listView1);
+        lv = (ListView) findViewById(R.id.listViewMm);
 
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
         final Call<List<Category>> call = getDataService.getCategories();
@@ -54,7 +54,7 @@ public class Multiplayer_menu extends AppCompatActivity {
                         // Get the Item from ListView
                         View view = super.getView(position, convertView, parent);
                         // Initialize a TextView for ListView each Item
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                        TextView tv = (TextView) view.findViewById(android.R.id.text1); //DA LI JE OVO OK?
 
                         // Set the text color of TextView (ListView Item)
                         tv.setTextColor(Color.WHITE);

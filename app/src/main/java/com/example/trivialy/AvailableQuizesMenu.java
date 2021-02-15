@@ -18,6 +18,7 @@ import com.responses.Quiz.AvailableQuizListResponse;
 import com.responses.RetrofitInstance;
 import com.responses.Quiz.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,28 +28,32 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class AvailableQuizesMenu extends AppCompatActivity {
+    int odabranaKategorija = getIntent().getIntExtra("odabranaKategorija", 0);
     private ListView lv;
-    ArrayList<AvailableQuizListResponse> listaKvizova = new ArrayList<>(); //TODO
-    ArrayList<String> listaImenaKvizova = new ArrayList<>();
+    ArrayList<Quiz> quizes = new ArrayList<>();
+    ArrayList<DateTimeFormatter> vremenaPocetakaKviza = new ArrayList<>();
+    ArrayList<String> imenaKviza = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.available_quizes_menu);
-
-        lv = (ListView) findViewById(R.id.listviewAQ);
+        lv =(ListView) findViewById(R.id.listviewAQ);
 
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        final Call<List<AvailableQuizListResponse>> call = getDataService.GetAvailableQuizes();
+        final Call<List<Quiz>> call = getDataService.GetAvailableQuizes(odabranaKategorija);
 
         call.enqueue(new Callback<List<Quiz>>() {
             @Override
             public void onResponse(Response<List<Quiz>> response, Retrofit retrofit) {
                 quizes = (ArrayList<Quiz>) response.body();
                 for (Quiz c : quizes) {
-                    listaKvizova.add(c.getQuizCategory());
+                    vremenaPocetakaKviza.add(c.getStartDate());
+                    imenaKviza.add(c.getName());
                 }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listaKvizova) {
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1, imenaKviza) {
 
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
@@ -58,7 +63,7 @@ public class AvailableQuizesMenu extends AppCompatActivity {
                         TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
                         // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.WHITE);
+                        tv.setTextColor(Color.BLACK);
 
                         // Generate ListView Item using TextView
                         return view;
@@ -69,9 +74,9 @@ public class AvailableQuizesMenu extends AppCompatActivity {
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent newIntent = new Intent(getApplicationContext(), AvailableQuizesMenu.class);
-                        newIntent.putExtra("savedString", (String) lv.getItemAtPosition(position));
-                        Multiplayer_menu.this.startActivity(newIntent);
+                        Intent newIntent = new Intent(getApplicationContext(), Lobby.class);
+                        newIntent.putExtra("odabraniKviz", (String) lv.getItemAtPosition(position));
+                        AvailableQuizesMenu.this.startActivity(newIntent);
                         finish();
 
                     }

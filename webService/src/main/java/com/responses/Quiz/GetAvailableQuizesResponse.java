@@ -11,7 +11,7 @@ public class GetAvailableQuizesResponse {
     @SerializedName("Text")
     private String text;
     @SerializedName("QuizList")
-    private List<AvailableQuizListResponse> quizList;
+    private List<Quiz> quizList;
 
     public String getStatus() {
         return status;
@@ -21,7 +21,7 @@ public class GetAvailableQuizesResponse {
         return text;
     }
 
-    public List<AvailableQuizListResponse> getQuizList() {
+    public List<Quiz> getQuizList() {
         return quizList;
     }
 }

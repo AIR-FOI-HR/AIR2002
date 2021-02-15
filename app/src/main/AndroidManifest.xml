@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AvailableQuizesMenu"></activity>
+        <activity android:name=".Lobby"></activity>
+        <activity android:name=".AvailableQuizesMenu" />
         <activity android:name=".Multiplayer_menu" />
         <activity
             android:name=".MainActivity"

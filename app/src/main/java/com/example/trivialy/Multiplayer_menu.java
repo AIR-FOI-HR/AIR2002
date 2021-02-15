@@ -69,7 +69,7 @@ public class Multiplayer_menu extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent newIntent = new Intent(getApplicationContext(), AvailableQuizesMenu.class);
-                        newIntent.putExtra("savedString", (String) lv.getItemAtPosition(position));
+                        newIntent.putExtra("odabranaKategorija", (String) lv.getItemAtPosition(position));
                         Multiplayer_menu.this.startActivity(newIntent);
                         finish();
 

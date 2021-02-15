@@ -13,9 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.responses.Category;
 import com.responses.GetDataService;
+import com.responses.Quiz.AvailableQuizListResponse;
 import com.responses.RetrofitInstance;
+import com.responses.Quiz.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,8 @@ import retrofit.Retrofit;
 
 public class AvailableQuizesMenu extends AppCompatActivity {
     private ListView lv;
-    ArrayList<Quiz> quizes = new ArrayList<>(); //???
-    ArrayList<String> listaKvizova = new ArrayList<>();
+    ArrayList<AvailableQuizListResponse> listaKvizova = new ArrayList<>(); //TODO
+    ArrayList<String> listaImenaKvizova = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +39,14 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.listviewAQ);
 
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        final Call<List<Quiz>> call = getDataService.getAvaliableQuizes();
+        final Call<List<AvailableQuizListResponse>> call = getDataService.GetAvailableQuizes();
 
-        call.enqueue(new Callback<List<Category>>() {
+        call.enqueue(new Callback<List<Quiz>>() {
             @Override
-            public void onResponse(Response<List<Category>> response, Retrofit retrofit) {
+            public void onResponse(Response<List<Quiz>> response, Retrofit retrofit) {
                 quizes = (ArrayList<Quiz>) response.body();
                 for (Quiz c : quizes) {
-                    listaKvizova.add(c.getTitle());
+                    listaKvizova.add(c.getQuizCategory());
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listaKvizova) {
 

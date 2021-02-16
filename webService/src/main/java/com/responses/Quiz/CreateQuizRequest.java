@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class CreateQuizRequest {
 
-    @SerializedName("CategoryId")
+    @SerializedName("categoryId")
     private int categoryId;
 
-    @SerializedName("Name")
+    @SerializedName("name")
     private String name;
 
 

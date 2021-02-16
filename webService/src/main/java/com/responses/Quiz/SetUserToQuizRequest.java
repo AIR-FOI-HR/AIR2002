@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class SetUserToQuizRequest {
 
-    @SerializedName("QuizId")
+    @SerializedName("quizid")
     private int quizId;
-    @SerializedName("Username")
+    @SerializedName("username")
     private String username;
     @SerializedName("score")
     private int score;

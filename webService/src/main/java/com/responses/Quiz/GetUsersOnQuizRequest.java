@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetUsersOnQuizRequest {
 
-    @SerializedName("QuizId")
+    @SerializedName("quizid")
     private int quizId;
 
     public GetUsersOnQuizRequest(int quizId){

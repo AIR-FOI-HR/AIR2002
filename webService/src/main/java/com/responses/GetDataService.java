@@ -9,17 +9,15 @@ import com.responses.User.RegisterRequest;
 import com.responses.User.RegisterResponse;
 import com.responses.User.UpdateUserRequest;
 import com.responses.User.UpdateUserResponse;
+import com.responses.Quiz.*;
 
 import java.util.List;
 
 import retrofit.Call;
 import retrofit.http.Body;
-import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.POST;
-import retrofit.http.PUT;
 import retrofit.http.Path;
-import retrofit.http.Query;
 
 public interface GetDataService {
     @GET("Categories")
@@ -54,5 +52,20 @@ public interface GetDataService {
 
     @POST("Questions/GetQuestions")
     Call<QuestionsResponse> GetQuestionsByCategoryAndDifficulty(@Body QuestionRequest questionRequest);
+
+    //Kvizovi
+
+    @POST("quizs/CreateQuiz") //ne valja
+    Call<CreateQuizResponse> CreateQuiz(@Body CreateQuizRequest createQuizRequest);
+
+    @POST("quizs/GetAvailableQuizes/{categoryId}")
+    Call<List<Quiz>> GetAvailableQuizes(@Path("CategoryID") int categoryId);
+
+    @POST("quizs/SetUserToQuiz")
+    Call<SetUserToQuizResponse> SetUserToQuiz(@Body SetUserToQuizRequest setUserToQuizRequest);
+
+    @POST("quizs/GetUsersOnQui/{QuizId}")
+    Call<GetUsersOnQuizResponse> getUsersOnQuiz(@Path("QuizId") int quizId);
+
 
 }

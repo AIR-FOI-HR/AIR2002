@@ -2,10 +2,12 @@ package com.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Category {
-    @SerializedName("CategoryId")
+import java.io.Serializable;
+
+public class Category implements Serializable {
+    @SerializedName("categoryId")
     private String categoryId;
-    @SerializedName("Name")
+    @SerializedName("name")
     private String name;
 
     public Category(String categoryId, String name) {

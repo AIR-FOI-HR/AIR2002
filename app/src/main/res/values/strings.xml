@@ -37,5 +37,14 @@
     <string name="insufficientLives">Insufficient lives</string>
     <string name="final_score">Final score</string>
     <string name="play_again">Play again</string>
+<<<<<<< HEAD
     <string name="submit">Submit</string>
+=======
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="choose_dificulty">Choose difficulty</string>
+    <string name="choose_category">Choose category</string>
+    <string name="available_quizes">Available quizes</string>
+>>>>>>> 3e45592818ca1cc6e983699607c4a6ffd37bd4ae
 </resources>

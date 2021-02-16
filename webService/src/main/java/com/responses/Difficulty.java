@@ -2,10 +2,12 @@ package com.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Difficulty {
-    @SerializedName("DifficultyId")
+import java.io.Serializable;
+
+public class Difficulty implements Serializable {
+    @SerializedName("difficultyId")
     private String difficultyId;
-    @SerializedName("Name")
+    @SerializedName("name")
     private String name;
 
     public Difficulty(String difficultyId, String name) {

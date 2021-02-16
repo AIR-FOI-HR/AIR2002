@@ -82,6 +82,34 @@ public class SingleplayerMenu extends AppCompatActivity {
                 }
             }
         });
+
+
+        Button TimeTrialButton = findViewById(R.id.timeTrialButton);
+        TimeTrialButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                if(Integer.valueOf((String) Lives.getText()) <= 0){
+                    Toast t = Toast.makeText(getApplicationContext(), getString(R.string.insufficientLives), Toast.LENGTH_SHORT);
+                    t.show();
+                    return;
+                }
+                else {
+                    userDataController.UpdateLifeCount(Lives, -1);
+
+                    Intent intent = new Intent(SingleplayerMenu.this, com.example.trivialy.HealthRegen.class);
+                    boolean check = userDataController.isMyServiceRunning(com.example.trivialy.HealthRegen.class);
+                    if(!check && Integer.valueOf((String) Lives.getText())<5){
+                        startService(intent);
+                    }
+
+                    Intent newIntent = new Intent(view.getContext(), CategoryView.class);
+                    view.getContext().startActivity(newIntent);
+                    finish();
+                }
+
+            }
+        });
     }
 
     @Override

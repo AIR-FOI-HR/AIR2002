@@ -22,7 +22,7 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class ExpertModePlay extends AppCompatActivity{
+public class ExpertModePlay extends AppCompatActivity {
 
     Integer Points = 0;
     TextView pointsField;
@@ -68,7 +68,7 @@ public class ExpertModePlay extends AppCompatActivity{
         finish();
     }
 
-    public void GetExpertQuestions(){
+    public void GetExpertQuestions() {
         pointsField = findViewById(R.id.pointsField);
         questionTextField = findViewById(R.id.quesrionTextField);
         AnswerOne = findViewById(R.id.answerOne);
@@ -82,20 +82,18 @@ public class ExpertModePlay extends AppCompatActivity{
         call.enqueue(new Callback<QuestionsResponse>() {
             @Override
             public void onResponse(Response<QuestionsResponse> response, Retrofit retrofit) {
-                if (!response.isSuccess()){
-                    Toast t = Toast.makeText(getApplicationContext() , String.valueOf(response.code()), Toast.LENGTH_SHORT);
+                if (!response.isSuccess()) {
+                    Toast t = Toast.makeText(getApplicationContext(), String.valueOf(response.code()), Toast.LENGTH_SHORT);
                     t.show();
                     return;
-                }else{
-                    if (response.body().getStatus().equals(Integer.toString(-1))){
-                        Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
+                } else {
+                    if (response.body().getStatus().equals(Integer.toString(-1))) {
+                        Toast t = Toast.makeText(getApplicationContext(), response.body().getText(), Toast.LENGTH_SHORT);
                         t.show();
-                    }else if(response.body().getStatus().equals(Integer.toString(-9)))
-                    {
-                        Toast t = Toast.makeText(getApplicationContext() , response.body().getText(), Toast.LENGTH_SHORT);
+                    } else if (response.body().getStatus().equals(Integer.toString(-9))) {
+                        Toast t = Toast.makeText(getApplicationContext(), response.body().getText(), Toast.LENGTH_SHORT);
                         t.show();
-                    }
-                    else if(response.body().getStatus().equals(Integer.toString(1))){
+                    } else if (response.body().getStatus().equals(Integer.toString(1))) {
                         QuestionsListResponse question = response.body().getQuestions().get(0);
                         questionTextField.setText(question.getQuestionText());
 
@@ -103,7 +101,7 @@ public class ExpertModePlay extends AppCompatActivity{
                         String correctAnswer = question.getCorrectAnswer();
                         String[] wrongAnswers = question.getIncorrectAnswers().split(";");
 
-                        if(random == 1){
+                        if (random == 1) {
                             AnswerOne.setText(correctAnswer);
                             AnswerOne.setOnClickListener(correctListener);
 
@@ -116,20 +114,19 @@ public class ExpertModePlay extends AppCompatActivity{
                             AnswerFour.setVisibility(View.VISIBLE);
 
 
-                            if(wrongAnswers.length != 1){
+                            if (wrongAnswers.length != 1) {
                                 AnswerThree.setText(wrongAnswers[1]);
                                 AnswerFour.setText(wrongAnswers[2]);
 
                                 AnswerThree.setOnClickListener(incorrectListener);
                                 AnswerFour.setOnClickListener(incorrectListener);
-                            }
-                            else if(wrongAnswers.length == 1){
+                            } else if (wrongAnswers.length == 1) {
                                 AnswerThree.setVisibility(View.GONE);
                                 AnswerFour.setVisibility(View.GONE);
                             }
                         }
 
-                        if(random == 2){
+                        if (random == 2) {
                             AnswerTwo.setText(correctAnswer);
                             AnswerTwo.setOnClickListener(correctListener);
 
@@ -141,20 +138,19 @@ public class ExpertModePlay extends AppCompatActivity{
                             AnswerThree.setVisibility(View.VISIBLE);
                             AnswerFour.setVisibility(View.VISIBLE);
 
-                            if(wrongAnswers.length != 1){
+                            if (wrongAnswers.length != 1) {
                                 AnswerThree.setText(wrongAnswers[1]);
                                 AnswerFour.setText(wrongAnswers[2]);
 
                                 AnswerThree.setOnClickListener(incorrectListener);
                                 AnswerFour.setOnClickListener(incorrectListener);
-                            }
-                            else if(wrongAnswers.length == 1){
+                            } else if (wrongAnswers.length == 1) {
                                 AnswerThree.setVisibility(View.GONE);
                                 AnswerFour.setVisibility(View.GONE);
                             }
                         }
 
-                        if(random == 3){
+                        if (random == 3) {
                             AnswerThree.setText(correctAnswer);
                             AnswerThree.setOnClickListener(correctListener);
 
@@ -166,20 +162,19 @@ public class ExpertModePlay extends AppCompatActivity{
                             AnswerThree.setVisibility(View.VISIBLE);
                             AnswerFour.setVisibility(View.VISIBLE);
 
-                            if(wrongAnswers.length != 1){
+                            if (wrongAnswers.length != 1) {
                                 AnswerOne.setText(wrongAnswers[1]);
                                 AnswerFour.setText(wrongAnswers[2]);
 
                                 AnswerOne.setOnClickListener(incorrectListener);
                                 AnswerFour.setOnClickListener(incorrectListener);
-                            }
-                            else if(wrongAnswers.length == 1){
+                            } else if (wrongAnswers.length == 1) {
                                 AnswerOne.setVisibility(View.GONE);
                                 AnswerFour.setVisibility(View.GONE);
                             }
                         }
 
-                        if(random == 4){
+                        if (random == 4) {
                             AnswerFour.setText(correctAnswer);
                             AnswerFour.setOnClickListener(correctListener);
 
@@ -191,14 +186,13 @@ public class ExpertModePlay extends AppCompatActivity{
                             AnswerThree.setVisibility(View.VISIBLE);
                             AnswerFour.setVisibility(View.VISIBLE);
 
-                            if(wrongAnswers.length != 1){
+                            if (wrongAnswers.length != 1) {
                                 AnswerThree.setText(wrongAnswers[1]);
                                 AnswerOne.setText(wrongAnswers[2]);
 
                                 AnswerThree.setOnClickListener(incorrectListener);
                                 AnswerOne.setOnClickListener(incorrectListener);
-                            }
-                            else if(wrongAnswers.length == 1){
+                            } else if (wrongAnswers.length == 1) {
                                 AnswerThree.setVisibility(View.GONE);
                                 AnswerOne.setVisibility(View.GONE);
                             }
@@ -209,7 +203,7 @@ public class ExpertModePlay extends AppCompatActivity{
 
             @Override
             public void onFailure(Throwable t) {
-                Toast t1 = Toast.makeText(getApplicationContext() , "There was an error while loading questions!\n" + t.getMessage(), Toast.LENGTH_SHORT);
+                Toast t1 = Toast.makeText(getApplicationContext(), "There was an error while loading questions!\n" + t.getMessage(), Toast.LENGTH_SHORT);
                 t1.show();
             }
         });

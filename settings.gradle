@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 include ':core'
+=======
+include ':questionsModule'
+>>>>>>> 3e45592818ca1cc6e983699607c4a6ffd37bd4ae
 include ':webService'
 include ':app'
 rootProject.name = "Trivia.ly"

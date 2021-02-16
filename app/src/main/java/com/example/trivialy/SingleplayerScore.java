@@ -27,7 +27,6 @@ public class SingleplayerScore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singleplayer_score);
         userDataController = new UserDataController(getApplicationContext());
-
         Bundle b = getIntent().getExtras();
         String score = "0";
         if(b != null) {

@@ -28,7 +28,6 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-
 public class SingleplayerMenu extends AppCompatActivity {
     private String savedUsername;
     private Integer savedLives;
@@ -77,7 +76,7 @@ public class SingleplayerMenu extends AppCompatActivity {
                         startService(intent);
                     }
 
-                    Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
+                    Intent newIntent = new Intent(view.getContext(), ExpertMode.class);
                     view.getContext().startActivity(newIntent);
                     finish();
                 }

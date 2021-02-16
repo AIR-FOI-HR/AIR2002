@@ -16,14 +16,17 @@ public class Question {
     private String Correct_answer;
     @SerializedName("Incorrect_answer")
     private String Incorrect_answer;
+    @SerializedName("Id_Question_Type")
+    private String Id_Question_Type;
 
-    public Question(String questionId, String id_Category, String id_Difficulty, String question_text, String correct_answer, String incorrect_answer) {
+    public Question(String questionId, String id_Category, String id_Difficulty, String question_text, String correct_answer, String incorrect_answer, String id_question_type) {
         QuestionId = questionId;
         Id_Category = id_Category;
         Id_Difficulty = id_Difficulty;
         Question_text = question_text;
         Correct_answer = correct_answer;
         Incorrect_answer = incorrect_answer;
+        Id_Question_Type = id_question_type;
     }
 
     public void setQuestionId(String questionId) {
@@ -48,5 +51,9 @@ public class Question {
 
     public void setIncorrect_answer(String incorrect_answer) {
         Incorrect_answer = incorrect_answer;
+    }
+
+    public void setId_Question_Type(String id_question_type) {
+        Id_Question_Type = id_question_type;
     }
 }

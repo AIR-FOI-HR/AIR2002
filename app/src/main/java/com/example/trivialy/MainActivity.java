@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -91,6 +92,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     else if(response.body().getStatus().equals(Integer.toString(1))){
                         Toast t = Toast.makeText(getApplicationContext() , "Successful login!", Toast.LENGTH_SHORT);
                         t.show();
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("FirstName", response.body().getFirstname());
+                        editor.putString("LastName", response.body().getLastname());
+                        editor.putString("Username", response.body().getUsername());
+                        editor.putInt("Score", Integer.valueOf(response.body().getScore()));
+                        editor.putInt("Lives", Integer.valueOf(response.body().getLife()));
+                        editor.commit();
+
                         Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                         //intent.putExtra("Login", (Serializable) response.body());
                         MainActivity.this.startActivity(intent);

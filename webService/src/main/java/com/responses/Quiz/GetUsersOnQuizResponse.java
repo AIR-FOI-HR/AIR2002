@@ -12,7 +12,7 @@ public class GetUsersOnQuizResponse {
     private String status;
     @SerializedName("Text")
     private String text;
-    @SerializedName("Usernames")
+    @SerializedName("Usersnames")
     private ArrayList<String> usernames;
 
     public String getStatus() {

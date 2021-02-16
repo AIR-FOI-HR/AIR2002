@@ -55,7 +55,7 @@ public interface GetDataService {
 
     //Kvizovi
 
-    @POST("quizs/CreateQuiz")
+    @POST("quizs/CreateQuiz") //ne valja
     Call<CreateQuizResponse> CreateQuiz(@Body CreateQuizRequest createQuizRequest);
 
     @POST("quizs/GetAvailableQuizes/{categoryId}")

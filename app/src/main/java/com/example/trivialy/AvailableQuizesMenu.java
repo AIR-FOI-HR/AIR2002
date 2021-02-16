@@ -18,6 +18,7 @@ import com.responses.Quiz.AvailableQuizListResponse;
 import com.responses.RetrofitInstance;
 import com.responses.Quiz.*;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,13 @@ public class AvailableQuizesMenu extends AppCompatActivity {
     int odabranaKategorija = getIntent().getIntExtra("odabranaKategorija", 0);
     private ListView lv;
     ArrayList<Quiz> quizes = new ArrayList<>();
-    ArrayList<DateTimeFormatter> vremenaPocetakaKviza = new ArrayList<>();
+    ArrayList<LocalDateTime> vremenaPocetakaKviza = new ArrayList<>();
     ArrayList<String> imenaKviza = new ArrayList<>();
+
+    UserDataController userDataController;
+    UserDataController.UserLives userLives;
+    String currentUser;
+
 
 
     @Override
@@ -40,6 +46,8 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.available_quizes_menu);
         lv =(ListView) findViewById(R.id.listviewAQ);
+        userDataController = new UserDataController(getApplicationContext());
+        currentUser = userLives.Username;
 
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
         final Call<List<Quiz>> call = getDataService.GetAvailableQuizes(odabranaKategorija);
@@ -52,6 +60,7 @@ public class AvailableQuizesMenu extends AppCompatActivity {
                     vremenaPocetakaKviza.add(c.getStartDate());
                     imenaKviza.add(c.getName());
                 }
+
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
                         android.R.layout.simple_list_item_1, imenaKviza) {
 
@@ -75,17 +84,18 @@ public class AvailableQuizesMenu extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent newIntent = new Intent(getApplicationContext(), Lobby.class);
-                        newIntent.putExtra("odabraniKviz", (String) lv.getItemAtPosition(position));
+                        newIntent.putExtra("odabraniKviz", (int) lv.getItemAtPosition(position));
+                        newIntent.putExtra("trenutniKorisnik", (String) currentUser);
+                        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
                         AvailableQuizesMenu.this.startActivity(newIntent);
                         finish();
-
                     }
                 });
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Toast t1 = Toast.makeText(getApplicationContext(), "There was an error while loading categories!\n" + t.getMessage(), Toast.LENGTH_SHORT);
+                Toast t1 = Toast.makeText(getApplicationContext(), "There was an error while loading available quizes!\n" + t.getMessage(), Toast.LENGTH_SHORT);
                 t1.show();
             }
         });

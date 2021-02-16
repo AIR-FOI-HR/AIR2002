@@ -2,6 +2,8 @@ package com.responses.Quiz;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetUsersOnQuizResponse {
@@ -11,7 +13,7 @@ public class GetUsersOnQuizResponse {
     @SerializedName("Text")
     private String text;
     @SerializedName("Usernames")
-    private List<String> usernames;
+    private ArrayList<String> usernames;
 
     public String getStatus() {
         return status;
@@ -21,7 +23,7 @@ public class GetUsersOnQuizResponse {
         return text;
     }
 
-    public List<String> getUsernames(){
+    public ArrayList<String> getUsernames(){
         return usernames;
     }
 }

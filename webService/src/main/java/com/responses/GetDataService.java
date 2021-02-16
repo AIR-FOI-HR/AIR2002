@@ -64,8 +64,8 @@ public interface GetDataService {
     @POST("quizs/SetUserToQuiz")
     Call<SetUserToQuizResponse> SetUserToQuiz(@Body SetUserToQuizRequest setUserToQuizRequest);
 
-    @POST("quizs/GetUsersOnQuiz")
-    Call<GetUsersOnQuizResponse> getUsersOnQuiz();
+    @POST("quizs/GetUsersOnQui/{QuizId}")
+    Call<GetUsersOnQuizResponse> getUsersOnQuiz(@Path("QuizId") int quizId);
 
 
 }

@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/SingleplayerTheme"
-    android:background="@color/darkRedColor">
+    android:background="@color/lightColorPrimary">
     <TextView
         android:id="@+id/nameheader"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/textBlack"
         android:height="40dp"
         android:textSize="25dp"
         android:layout_marginLeft="12dp"
@@ -18,7 +18,7 @@
 
     <ListView
         android:id="@+id/listView1"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/textBlack"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"

@@ -15,6 +15,7 @@
         android:background="@color/colorPrimaryDark"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/abc_vector_test"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -38,114 +39,119 @@
         android:layout_height="53dp"
         android:background="@color/colorPrimaryDark"
         android:contentDescription="@string/about_us"
+        android:foreground="@drawable/info_black"
         android:tint="@color/buttonTextColor"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="413dp"
-        android:layout_height="677dp"
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="6dp"
+        android:background="@color/foregroundText"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="364dp"
+            android:layout_height="113dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+            android:contentDescription="@string/singleplayer"
+            app:srcCompat="@drawable/singleplayer_icon_yellow" />
+
+        <Button
+            android:id="@+id/goToSingleplayerButton"
+            style="@style/MainMenuTheme.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_main_menu_1"
+            android:text="@string/singleplayer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.52" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="239dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/foregroundText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="113dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+            android:contentDescription="@string/multiplayer"
+            app:srcCompat="@drawable/multiplayer_icon" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="411dp"
-                android:layout_height="300dp">
+        <Button
+            android:id="@+id/goToMultiplayerButton"
+            style="@style/MainMenuTheme.Button"
+            android:layout_width="354dp"
+            android:layout_height="57dp"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+            android:background="@drawable/bg_main_menu_1"
+            android:text="@string/multiplayer"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="10dp" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/foregroundText">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="343dp"
-                        android:layout_height="171dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="45dp"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginTop="-2dp"
-                        android:layout_marginEnd="23dp"
-                        android:layout_marginRight="23dp"
-                        android:layout_marginBottom="130dp"
-                        android:contentDescription="@string/singleplayer"
-                        app:srcCompat="@drawable/singleplayer_icon_yellow" />
-                </RelativeLayout>
-
-                <Button
-                    android:id="@+id/goToSingleplayerButton"
-                    style="@style/MainMenuTheme.Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="122dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="180dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:background="@drawable/bg_main_menu_1"
-                    android:text="@string/singleplayer"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.52" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="411dp"
-                android:layout_height="330dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="372dp"
-                    android:background="@color/foregroundText">
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="202dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginEnd="30dp"
-                        android:layout_marginRight="30dp"
-                        android:contentDescription="@string/multiplayer"
-                        app:srcCompat="@drawable/multiplayer_icon" />
-
-                    <Button
-                        android:id="@+id/goToMultiplayerButton"
-                        style="@style/MainMenuTheme.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="121dp"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="210dp"
-                        android:layout_marginEnd="0dp"
-                        android:layout_marginRight="0dp"
-                        android:background="@drawable/bg_main_menu_1"
-                        android:text="@string/multiplayer"
-                        tools:layout_editor_absoluteX="10dp"
-                        tools:layout_editor_absoluteY="10dp" />
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

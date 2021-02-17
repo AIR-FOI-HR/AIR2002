@@ -34,7 +34,7 @@ import static java.time.LocalDateTime.now;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AvailableQuizesMenu extends AppCompatActivity {
-    String odabranaKategorija;
+    int odabranaKategorija;
     private ListView lv;
     ArrayList<Quiz> quizes = new ArrayList<>();
     ArrayList<LocalDateTime> vremenaPocetakaKviza = new ArrayList<>();
@@ -55,97 +55,27 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         currentUser = userDataController.savedUsername;
 
         Intent i = getIntent();
-        odabranaKategorija = (String) i.getSerializableExtra("odabranaKategorija");
+        odabranaKategorija = (int) i.getSerializableExtra("odabranaKategorija");
 
+        getAvailableQuizes(odabranaKategorija);
+
+        }
+
+    public void getAvailableQuizes(final int categoryId ){
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        GetAvailableQuizesRequest request = new GetAvailableQuizesRequest(odabranaKategorija);
-        final Call<GetAvailableQuizesResponse> call = getDataService.GetAvailableQuizes(request);
-
+        GetAvailableQuizesRequest request = new GetAvailableQuizesRequest(categoryId);
+        Call<GetAvailableQuizesResponse> call = getDataService.GetAvaliableQuizes(request);
         call.enqueue(new Callback<GetAvailableQuizesResponse>() {
             @Override
             public void onResponse(Response<GetAvailableQuizesResponse> response, Retrofit retrofit) {
                 if(!response.isSuccess()){
 
                 }else {
-                    if(response.body().getStatus() == Integer.toString(-1)){
-                        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-                        CreateQuizRequest request = new CreateQuizRequest(odabranaKategorija, currentTime.toString() + "_" + odabranaKategorija);
-                        Call<CreateQuizResponse> call = getDataService.CreateQuiz(request);
-                        call.enqueue(new Callback<CreateQuizResponse>() {
-                            @Override
-                            public void onResponse(Response<CreateQuizResponse> response, Retrofit retrofit) {
-                                if(!response.isSuccess()){
-
-                                    Toast t = Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_SHORT);
-
-                                }else{
-                                    if(response.body().getStatus() == Integer.toString(-9)){
-                                        //TODO
-                                    }else if(response.body().getStatus() == Integer.toString(1)){
-                                        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-                                        GetAvailableQuizesRequest request = new GetAvailableQuizesRequest(odabranaKategorija);
-                                        final Call<GetAvailableQuizesResponse> call = getDataService.GetAvailableQuizes(request);
-                                        call.enqueue(new Callback<GetAvailableQuizesResponse>() {
-                                            @Override
-                                            public void onResponse(Response<GetAvailableQuizesResponse> response, Retrofit retrofit) {
-                                                List<Quiz> quizes = response.body().getQuizList();
-                                                for (Quiz c : quizes) {
-                                                    vremenaPocetakaKviza.add(c.getStartDate());
-                                                    imenaKviza.add(c.getName());
-
-                                                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                                                            android.R.layout.simple_list_item_1, imenaKviza) {
-
-                                                        @Override
-                                                        public View getView(int position, View convertView, ViewGroup parent) {
-                                                            // Get the Item from ListView
-                                                            View view = super.getView(position, convertView, parent);
-                                                            // Initialize a TextView for ListView each Item
-                                                            TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                                                            // Set the text color of TextView (ListView Item)
-                                                            tv.setTextColor(Color.BLACK);
-
-                                                            // Generate ListView Item using TextView
-                                                            return view;
-                                                        }
-                                                    };
-
-                                                    lv.setAdapter(arrayAdapter);
-                                                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                        @Override
-                                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                            Intent newIntent = new Intent(getApplicationContext(), Lobby.class);
-                                                            newIntent.putExtra("odabraniKviz", (int) lv.getItemAtPosition(position));
-                                                            newIntent.putExtra("trenutniKorisnik", (String) currentUser);
-                                                            GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-                                                            AvailableQuizesMenu.this.startActivity(newIntent);
-                                                            finish();
-                                                        }
-                                                    });
-
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Throwable t) {
-
-                                            }
-                                        });
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Throwable t) {
-
-                            }
-                        });
-
-                    }else if(response.body().getStatus() == Integer.toString(-9)){
-
-                    }else if(response.body().getStatus() == Integer.toString(1)){
-
+                    if(response.body().getText().equalsIgnoreCase("No avaliable quizes")){ //nema kvizova
+                        createQuiz(categoryId);
+                    }else if(response.body().getStatus() == Integer.toString(-9)){ //interni error
+                        //TODO
+                    }else if(response.body().getStatus() == Integer.toString(1)){ //uspješno
                         List<Quiz> quizes = response.body().getQuizList();
                         for (Quiz c : quizes) {
                             vremenaPocetakaKviza.add(c.getStartDate());
@@ -156,15 +86,9 @@ public class AvailableQuizesMenu extends AppCompatActivity {
 
                                 @Override
                                 public View getView(int position, View convertView, ViewGroup parent) {
-                                    // Get the Item from ListView
                                     View view = super.getView(position, convertView, parent);
-                                    // Initialize a TextView for ListView each Item
                                     TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                                    // Set the text color of TextView (ListView Item)
                                     tv.setTextColor(Color.BLACK);
-
-                                    // Generate ListView Item using TextView
                                     return view;
                                 }
                             };
@@ -189,10 +113,38 @@ public class AvailableQuizesMenu extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                Toast t1 = Toast.makeText(getApplicationContext(), "There was an error while loading available quizes!\n" + t.getMessage(), Toast.LENGTH_SHORT);
-                t1.show();
+
             }
         });
+    }
+
+    public void createQuiz(final int categoryId){
+        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
+        CreateQuizRequest request = new CreateQuizRequest(categoryId, "test");
+        Call<CreateQuizResponse> call = getDataService.CreateQuiz(request);
+
+        call.enqueue(new Callback<CreateQuizResponse>() {
+            @Override
+            public void onResponse(Response<CreateQuizResponse> response, Retrofit retrofit) {
+                if(!response.isSuccess()){
+
+                    Toast t = Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_SHORT);
+
+                }else{
+                    if(response.body().getStatus() == Integer.toString(-9)){ //internal error
+                    //todo
+                    }else if(response.body().getStatus() == Integer.toString(1)){ //uspješno
+                        getAvailableQuizes(categoryId);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
     }
 
 }

@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetAvailableQuizesRequest {
 
-    @SerializedName("CategoryID")
-    private String categoryId;
+    @SerializedName("CategoryId")
+    private int categoryId;
 
-    public GetAvailableQuizesRequest(String categoryId){
+    public GetAvailableQuizesRequest(int categoryId){
         this.categoryId = categoryId;
     }
 
-    public void setCategoryId(String categoryId){
+    public void setCategoryId(int categoryId){
         this.categoryId = categoryId;
     }
 }

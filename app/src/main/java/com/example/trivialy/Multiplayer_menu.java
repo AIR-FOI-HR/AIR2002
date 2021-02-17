@@ -25,11 +25,13 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+import static java.lang.Integer.parseInt;
+
 public class Multiplayer_menu extends AppCompatActivity {
     private ListView lv;
     ArrayList<Category> categories = new ArrayList<>();
     ArrayList<String> listaImena = new ArrayList<>();
-    String odabranaKategorijaId;
+    int odabranaKategorijaId;
 
 
     @Override
@@ -55,7 +57,7 @@ public class Multiplayer_menu extends AppCompatActivity {
                         // Get the Item from ListView
                         View view = super.getView(position, convertView, parent);
                         // Initialize a TextView for ListView each Item
-                        TextView tv = (TextView) view.findViewById(android.R.id.text1); //DA LI JE OVO OK?
+                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
                         // Set the text color of TextView (ListView Item)
                         tv.setTextColor(Color.BLACK);
@@ -74,8 +76,8 @@ public class Multiplayer_menu extends AppCompatActivity {
                         String nazivOdabraneKategorije = (String) lv.getItemAtPosition(position);
 
                         for (Category c : categories){
-                            if(c.getTitle().equalsIgnoreCase(nazivOdabraneKategorije)){
-                                odabranaKategorijaId = c.getId();
+                            if(c.getTitle().equalsIgnoreCase(nazivOdabraneKategorije) && parseInt(c.getId())<26){
+                                odabranaKategorijaId = parseInt(c.getId());
                             }
                         }
                         newIntent.putExtra("odabranaKategorija", odabranaKategorijaId);

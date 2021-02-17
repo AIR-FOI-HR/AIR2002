@@ -150,7 +150,7 @@ namespace Trivia.ly_Services.Controllers
 
                         List<Question> questions = _context.Question
                             .Take(numberOfQuestions)
-                            .Where(q => q.Id_Category == category.CategoryId && q.Id_Difficulty == difficulty.DifficultyId).ToList();
+                            .Where(q => q.Id_Difficulty == difficulty.DifficultyId).ToList();
 
 
                         foreach (var question in questions)
@@ -177,10 +177,17 @@ namespace Trivia.ly_Services.Controllers
                     }
                     else
                     {
+                        List<int> questionIds = new List<int>();
+
                         for (int i = 0; i < numberOfQuestions; i++)
                         {
+
+                            int numberOfNotUsedQuestions = _context.Question.Where(q => !questionIds.Contains(q.QuestionId)).Count();
+
                             Random rand = new Random();
-                            int toSkip = rand.Next(0, _context.Question.Count());
+                            int toSkip = rand.Next(0, numberOfNotUsedQuestions);
+
+                            //int toSkip = rand.Next(0, _context.Question.Count());
 
                             var question = _context.Question.Skip(toSkip).Take(1).First();
                             var categoryName = _context.Category.Where(q => q.CategoryId == question.Id_Category).FirstOrDefault().Name;

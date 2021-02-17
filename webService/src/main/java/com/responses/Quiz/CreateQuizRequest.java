@@ -5,18 +5,18 @@ import com.google.gson.annotations.SerializedName;
 public class CreateQuizRequest {
 
     @SerializedName("categoryId")
-    private int categoryId;
+    private String categoryId;
 
     @SerializedName("name")
     private String name;
 
 
-    public CreateQuizRequest(int categoryId, String name){
+    public CreateQuizRequest(String categoryId, String name){
         this.categoryId = categoryId;
         this.name = name;
     }
 
-    public void setCategoryId(int categoryId){
+    public void setCategoryId(String categoryId){
         this.categoryId = categoryId;
     }
 

@@ -31,7 +31,7 @@
     <string name="expert_mode_btn">Expert mode</string>
     <string name="free_play_btn">Free play</string>
     <string name="time_trial_bnt">Time trial</string>
-    <string name="about_us_text">dugački tekst o nama, tu će svašta nešto pisati bit će super zanimljivo!</string>
+    <string name="about_us_text">We are a small group of students from the Faculty of Organization and Informatics. We created this application as part of the terms of reference for the course Analysis and Program Development. The Trivia.ly app offers singleplayer and multiplayer modes.</string>
     <string name="singleplayer_description">Ovdje ide tekst o singleplayer modovima i slično. Svaki opisan kak spada...</string>
     <string name="multiplayer_description">Ovdje je tekst o multiplayer načinu igre, opisano to bit će super!</string>
     <string name="insufficientLives">Insufficient lives</string>

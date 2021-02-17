@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Lobby"></activity>
+        <activity android:name=".InfoPage"></activity>
+        <activity android:name=".Lobby" />
         <activity android:name=".AvailableQuizesMenu" />
         <activity android:name=".Multiplayer_menu" />
         <activity
@@ -23,14 +24,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name=".MainMenu"/>
-        <activity android:label="@string/app_name" android:name=".SingleplayerMenu"/>
-        <activity android:label="@string/app_name" android:name=".ExpertModePlay"/>
-        <activity android:label="@string/app_name" android:name=".ExpertMode"/>
-        <activity android:label="@string/app_name" android:name=".SingleplayerScore"/>
-        <activity android:name=".CategoryView"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name=".MainMenu"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".SingleplayerMenu"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ExpertModePlay"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ExpertMode"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".SingleplayerScore"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".CategoryView"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".DifficultyView"
             android:label="@string/app_name" />

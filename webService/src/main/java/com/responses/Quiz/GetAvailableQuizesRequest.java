@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 public class GetAvailableQuizesRequest {
 
     @SerializedName("CategoryID")
-    private int categoryId;
+    private String categoryId;
 
-    public GetAvailableQuizesRequest(int categoryId){
+    public GetAvailableQuizesRequest(String categoryId){
         this.categoryId = categoryId;
     }
 
-    public void setCategoryId(int categoryId){
+    public void setCategoryId(String categoryId){
         this.categoryId = categoryId;
     }
 }

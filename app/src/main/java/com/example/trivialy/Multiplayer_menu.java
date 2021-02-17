@@ -29,6 +29,7 @@ public class Multiplayer_menu extends AppCompatActivity {
     private ListView lv;
     ArrayList<Category> categories = new ArrayList<>();
     ArrayList<String> listaImena = new ArrayList<>();
+    String odabranaKategorijaId;
 
 
     @Override
@@ -57,19 +58,27 @@ public class Multiplayer_menu extends AppCompatActivity {
                         TextView tv = (TextView) view.findViewById(android.R.id.text1); //DA LI JE OVO OK?
 
                         // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.WHITE);
+                        tv.setTextColor(Color.BLACK);
 
                         // Generate ListView Item using TextView
                         return view;
                     }
                 };
 
+
                 lv.setAdapter(arrayAdapter);
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent newIntent = new Intent(getApplicationContext(), AvailableQuizesMenu.class);
-                        newIntent.putExtra("odabranaKategorija", (String) lv.getItemAtPosition(position));
+                        String nazivOdabraneKategorije = (String) lv.getItemAtPosition(position);
+
+                        for (Category c : categories){
+                            if(c.getTitle().equalsIgnoreCase(nazivOdabraneKategorije)){
+                                odabranaKategorijaId = c.getId();
+                            }
+                        }
+                        newIntent.putExtra("odabranaKategorija", odabranaKategorijaId);
                         Multiplayer_menu.this.startActivity(newIntent);
                         finish();
 

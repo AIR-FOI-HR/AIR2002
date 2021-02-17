@@ -58,8 +58,8 @@ public interface GetDataService {
     @POST("quizs/CreateQuiz") //ne valja
     Call<CreateQuizResponse> CreateQuiz(@Body CreateQuizRequest createQuizRequest);
 
-    @POST("quizs/GetAvailableQuizes/{categoryId}")
-    Call<List<Quiz>> GetAvailableQuizes(@Path("CategoryID") int categoryId);
+    @POST("quizs/GetAvailableQuizes")
+    Call<GetAvailableQuizesResponse> GetAvailableQuizes(@Body GetAvailableQuizesRequest getAvailableQuizesRequest);
 
     @POST("quizs/SetUserToQuiz")
     Call<SetUserToQuizResponse> SetUserToQuiz(@Body SetUserToQuizRequest setUserToQuizRequest);

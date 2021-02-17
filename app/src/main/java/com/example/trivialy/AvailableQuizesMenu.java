@@ -29,14 +29,13 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class AvailableQuizesMenu extends AppCompatActivity {
-    int odabranaKategorija = getIntent().getIntExtra("odabranaKategorija", 0);
+    String odabranaKategorija;
     private ListView lv;
     ArrayList<Quiz> quizes = new ArrayList<>();
     ArrayList<LocalDateTime> vremenaPocetakaKviza = new ArrayList<>();
     ArrayList<String> imenaKviza = new ArrayList<>();
 
     UserDataController userDataController;
-    UserDataController.UserLives userLives;
     String currentUser;
 
 
@@ -46,15 +45,20 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         setContentView(R.layout.available_quizes_menu);
         lv =(ListView) findViewById(R.id.listviewAQ);
         userDataController = new UserDataController(getApplicationContext());
-        currentUser = userLives.Username;
+        currentUser = userDataController.savedUsername;
+
+        Intent i = getIntent();
+        odabranaKategorija = (String) i.getSerializableExtra("odabranaKategorija");
 
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        final Call<List<Quiz>> call = getDataService.GetAvailableQuizes(odabranaKategorija);
+        GetAvailableQuizesRequest request = new GetAvailableQuizesRequest(odabranaKategorija);
+        final Call<GetAvailableQuizesResponse> call = getDataService.GetAvailableQuizes(request);
 
-        call.enqueue(new Callback<List<Quiz>>() {
+        call.enqueue(new Callback<GetAvailableQuizesResponse>() {
             @Override
-            public void onResponse(Response<List<Quiz>> response, Retrofit retrofit) {
-                quizes = (ArrayList<Quiz>) response.body();
+            public void onResponse(Response<GetAvailableQuizesResponse> response, Retrofit retrofit) {
+                List<Quiz> quizes = response.body().getQuizList();
+                //quizes = (ArrayList<Quiz>) response.body();
                 for (Quiz c : quizes) {
                     vremenaPocetakaKviza.add(c.getStartDate());
                     imenaKviza.add(c.getName());
@@ -99,4 +103,10 @@ public class AvailableQuizesMenu extends AppCompatActivity {
             }
         });
     }
+
+    public void getAvailableQuizes(String categoryID){
+        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
+
+    }
+
 }

@@ -20,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 import com.responses.GetDataService;
+import com.responses.Quiz.GetAvailableQuizesRequest;
+import com.responses.Quiz.GetAvailableQuizesResponse;
 import com.responses.Quiz.GetUsersOnQuizResponse;
 import com.responses.Quiz.Quiz;
 import com.responses.RetrofitInstance;
@@ -38,7 +40,7 @@ import static java.time.LocalDateTime.now;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Lobby extends AppCompatActivity {
     int idKviza = getIntent().getIntExtra("odabraniKviz", 0);
-    int odabranaKategorija = getIntent().getIntExtra("odabranaKategorija", 0);
+    String odabranaKategorija = getIntent().getStringExtra("odabranaKategorija");
     List<Quiz> listaKvizova;
     LocalDateTime vrijemePocetkaKviza;
     LocalDateTime  currentTime = now();
@@ -95,11 +97,12 @@ public class Lobby extends AppCompatActivity {
         }while(currentTime.isBefore(vrijemePocetkaKviza));
     }
 
-    public LocalDateTime getDateTimeOfTheQuiz(){
+    /*public LocalDateTime getDateTimeOfTheQuiz(){
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        final Call<List<Quiz>> call = getDataService.GetAvailableQuizes(odabranaKategorija);
+        GetAvailableQuizesRequest request = new GetAvailableQuizesRequest(odabranaKategorija);
+        final Call<GetAvailableQuizesResponse> call = getDataService.GetAvailableQuizes(request);
 
-        call.enqueue(new Callback<List<Quiz>>() {
+        call.enqueue(new Callback<GetAvailableQuizesResponse>() {
             @Override
             public void onResponse(Response<List<Quiz>> response, Retrofit retrofit) {
                 listaKvizova = (List<Quiz>) response.body();
@@ -117,5 +120,5 @@ public class Lobby extends AppCompatActivity {
             }
         });
         return vrijemePocetkaKviza;
-    }
+    }*/
 }

@@ -59,15 +59,24 @@ public interface GetDataService {
 
     //Kvizovi
 
+<<<<<<< HEAD
     @POST("quizs/CreateQuiz") //ne valja
     Call<CreateQuizResponse> CreateQuiz(@Body CreateQuizRequest createQuizRequest);
 
     @POST("quizs/GetAvailableQuizes/{categoryId}")
     Call<List<Quiz>> GetAvailableQuizes(@Path("CategoryID") int categoryId);
+=======
+    @POST("quizs/CreateQuiz")
+    Call<CreateQuizResponse> CreateQuiz(@Body CreateQuizRequest createQuizRequest);
+
+    @POST("quizs/GetAvaliableQuizes")
+    Call<GetAvaliableQuizesResponse> GetAvaliableQuizes(@Body GetAvaliableQuizesRequest getAvaliableQuizesRequest);
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
     @POST("quizs/SetUserToQuiz")
     Call<SetUserToQuizResponse> SetUserToQuiz(@Body SetUserToQuizRequest setUserToQuizRequest);
 
+<<<<<<< HEAD
     @POST("quizs/GetUsersOnQui/{QuizId}")
     Call<GetUsersOnQuizResponse> getUsersOnQuiz(@Path("QuizId") int quizId);
 
@@ -79,4 +88,10 @@ public interface GetDataService {
     @POST("powerups/SetUserPowerupStatus")
     Call<SetUserPowerupStatusResponse> SetPowerUps(@Body SetUserPowerupStatusRequest setUserPowerupStatusRequest);
 
+=======
+    @POST("quizs/GetUsersOnQuiz")
+    Call<GetUsersOnQuizResponse> getUsersOnQuiz(@Path("QuizId") int quizId);
+
+
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 }

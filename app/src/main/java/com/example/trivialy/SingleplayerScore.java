@@ -27,8 +27,11 @@ public class SingleplayerScore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.singleplayer_score);
         userDataController = new UserDataController(getApplicationContext());
+<<<<<<< HEAD
 
         final String flag = (String) getIntent().getSerializableExtra("flag");
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         Bundle b = getIntent().getExtras();
         String score = "0";
         if (b != null) {
@@ -68,6 +71,7 @@ public class SingleplayerScore extends AppCompatActivity {
                     Toast t = Toast.makeText(getApplicationContext(), getString(R.string.insufficientLives), Toast.LENGTH_SHORT);
                     t.show();
                     return;
+<<<<<<< HEAD
                 } else {
                     if (flag.equals("flag")) {
                         userDataController.UpdateLifeCount(null, -1);
@@ -81,6 +85,14 @@ public class SingleplayerScore extends AppCompatActivity {
                         finish();
                     }
 
+=======
+                }
+                else {
+                    userDataController.UpdateLifeCount(null, -1);
+                    Intent newIntent = new Intent(view.getContext(), ExpertMode.class);
+                    view.getContext().startActivity(newIntent);
+                    finish();
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 }
             }
         });

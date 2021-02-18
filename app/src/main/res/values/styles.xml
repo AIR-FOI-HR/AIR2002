@@ -47,26 +47,37 @@
     <!-- SINGLEPLAYER -->
     <style name="SingleplayerTheme">
         <item name="android:fontFamily">@font/roboto_regular</item>
-        <item name="android:textColor">@color/buttonTextColor</item>
+        <item name="android:textColor">@color/textBlack</item>
     </style>
     <style name="SingleplayerTheme.Button">
-        <item name="android:textSize">25sp</item>
-        <item name="android:background">@color/foreground</item>
+        <item name="android:textSize">@dimen/singleplayerButton_fontSize</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:layout_margin">5dp</item>
     </style>
     <style name="SingleplayerTheme.Answers">
+<<<<<<< HEAD
         <item name="android:textSize">15sp</item>
         <item name="android:background">@drawable/rounded_shape</item>
+=======
+        <item name="android:textSize">@dimen/singleplayerAnswers_fontSize</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         <item name="android:layout_margin">5dp</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="SingleplayerTheme.Submit">
+<<<<<<< HEAD
         <item name="android:textSize">15sp</item>
         <item name="android:background">@drawable/rounded_shape</item>
+=======
+        <item name="android:textSize">@dimen/singleplayerAnswers_fontSize</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         <item name="android:textStyle">bold</item>
     </style>
     <style name="SingleplayerTheme.Question">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/singleplayerQuestion_fontSize</item>
         <item name="android:layout_margin">5dp</item>
     </style>
 

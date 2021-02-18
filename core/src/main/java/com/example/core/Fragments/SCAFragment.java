@@ -2,10 +2,14 @@ package com.example.core.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+=======
+import android.os.Bundle;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +18,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+<<<<<<< HEAD
 import androidx.constraintlayout.widget.ConstraintLayout;
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 import androidx.fragment.app.Fragment;
 
 import com.example.core.R;
@@ -39,6 +46,7 @@ public class SCAFragment extends Fragment {
 
     String points;
 
+<<<<<<< HEAD
     TextView stopWatch;
     int seconds = 0;
     String prikaz;
@@ -59,6 +67,9 @@ public class SCAFragment extends Fragment {
 
     public SCAFragment() {
     }
+=======
+    public SCAFragment() {}
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
     callbackInterface callback;
 
@@ -68,7 +79,12 @@ public class SCAFragment extends Fragment {
 
         try {
             callback = (callbackInterface) context;
+<<<<<<< HEAD
         } catch (ClassCastException e) {
+=======
+        }
+        catch (ClassCastException e){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
         }
     }
@@ -94,9 +110,12 @@ public class SCAFragment extends Fragment {
         correctAnswer = params.getString("Correct");
         incorrectAnswers = params.getString("Incorrect");
         points = params.getString("Points");
+<<<<<<< HEAD
         flag = params.getString("StopWatch");
         stopWatch = inflater.inflate(R.layout.sca_fragment, container, false).findViewById(R.id.stopWatch2);
 
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         return inflater.inflate(R.layout.sca_fragment, container, false);
     }
 
@@ -114,6 +133,7 @@ public class SCAFragment extends Fragment {
         questionTextField.setText(questionText);
         pointsField.setText(points);
 
+<<<<<<< HEAD
 
         stopWatch = view.findViewById(R.id.stopWatch2);
 
@@ -126,11 +146,20 @@ public class SCAFragment extends Fragment {
     }
 
 
+=======
+        fillQuestions(correctAnswer, incorrectAnswers);
+    }
+
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
     private void fillQuestions(String correctAnswer, String incorrectAnswers) {
         int random = new Random().nextInt(4) + 1;
         String[] wrongAnswers = incorrectAnswers.split(";");
 
+<<<<<<< HEAD
         if (random == 1) {
+=======
+        if(random == 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             AnswerOne.setText(correctAnswer);
             AnswerOne.setOnClickListener(correctListener);
 
@@ -143,19 +172,32 @@ public class SCAFragment extends Fragment {
             AnswerFour.setVisibility(View.VISIBLE);
 
 
+<<<<<<< HEAD
             if (wrongAnswers.length != 1) {
+=======
+            if(wrongAnswers.length != 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerFour.setText(wrongAnswers[2]);
 
                 AnswerThree.setOnClickListener(incorrectListener);
                 AnswerFour.setOnClickListener(incorrectListener);
+<<<<<<< HEAD
             } else if (wrongAnswers.length == 1) {
+=======
+            }
+            else if(wrongAnswers.length == 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerThree.setVisibility(View.GONE);
                 AnswerFour.setVisibility(View.GONE);
             }
         }
 
+<<<<<<< HEAD
         if (random == 2) {
+=======
+        if(random == 2){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             AnswerTwo.setText(correctAnswer);
             AnswerTwo.setOnClickListener(correctListener);
 
@@ -167,19 +209,32 @@ public class SCAFragment extends Fragment {
             AnswerThree.setVisibility(View.VISIBLE);
             AnswerFour.setVisibility(View.VISIBLE);
 
+<<<<<<< HEAD
             if (wrongAnswers.length != 1) {
+=======
+            if(wrongAnswers.length != 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerFour.setText(wrongAnswers[2]);
 
                 AnswerThree.setOnClickListener(incorrectListener);
                 AnswerFour.setOnClickListener(incorrectListener);
+<<<<<<< HEAD
             } else if (wrongAnswers.length == 1) {
+=======
+            }
+            else if(wrongAnswers.length == 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerThree.setVisibility(View.GONE);
                 AnswerFour.setVisibility(View.GONE);
             }
         }
 
+<<<<<<< HEAD
         if (random == 3) {
+=======
+        if(random == 3){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             AnswerThree.setText(correctAnswer);
             AnswerThree.setOnClickListener(correctListener);
 
@@ -191,19 +246,32 @@ public class SCAFragment extends Fragment {
             AnswerThree.setVisibility(View.VISIBLE);
             AnswerFour.setVisibility(View.VISIBLE);
 
+<<<<<<< HEAD
             if (wrongAnswers.length != 1) {
+=======
+            if(wrongAnswers.length != 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setText(wrongAnswers[1]);
                 AnswerFour.setText(wrongAnswers[2]);
 
                 AnswerOne.setOnClickListener(incorrectListener);
                 AnswerFour.setOnClickListener(incorrectListener);
+<<<<<<< HEAD
             } else if (wrongAnswers.length == 1) {
+=======
+            }
+            else if(wrongAnswers.length == 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setVisibility(View.GONE);
                 AnswerFour.setVisibility(View.GONE);
             }
         }
 
+<<<<<<< HEAD
         if (random == 4) {
+=======
+        if(random == 4){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             AnswerFour.setText(correctAnswer);
             AnswerFour.setOnClickListener(correctListener);
 
@@ -215,13 +283,22 @@ public class SCAFragment extends Fragment {
             AnswerThree.setVisibility(View.VISIBLE);
             AnswerFour.setVisibility(View.VISIBLE);
 
+<<<<<<< HEAD
             if (wrongAnswers.length != 1) {
+=======
+            if(wrongAnswers.length != 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerOne.setText(wrongAnswers[2]);
 
                 AnswerThree.setOnClickListener(incorrectListener);
                 AnswerOne.setOnClickListener(incorrectListener);
+<<<<<<< HEAD
             } else if (wrongAnswers.length == 1) {
+=======
+            }
+            else if(wrongAnswers.length == 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerThree.setVisibility(View.GONE);
                 AnswerOne.setVisibility(View.GONE);
             }

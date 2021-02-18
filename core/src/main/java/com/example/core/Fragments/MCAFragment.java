@@ -2,7 +2,10 @@ package com.example.core.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.CountDownTimer;
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +47,7 @@ public class MCAFragment extends Fragment {
     Integer pointFour = 0;
     Integer[] correctCheck;
 
+<<<<<<< HEAD
     TextView stopWatch;
     int seconds = 0;
     String prikaz;
@@ -66,6 +70,9 @@ public class MCAFragment extends Fragment {
 
     public MCAFragment() {
     }
+=======
+    public MCAFragment() {}
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
     callbackInterface callback;
 
@@ -75,7 +82,12 @@ public class MCAFragment extends Fragment {
 
         try {
             callback = (callbackInterface) context;
+<<<<<<< HEAD
         } catch (ClassCastException e) {
+=======
+        }
+        catch (ClassCastException e){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
         }
     }
@@ -87,6 +99,7 @@ public class MCAFragment extends Fragment {
             pointTwo = 0;
             pointThree = 0;
             pointFour = 0;
+<<<<<<< HEAD
             if (AnswerOne.isSelected()) {
                 pointOne = 1;
             }
@@ -101,6 +114,22 @@ public class MCAFragment extends Fragment {
             }
 
             pointsAdd = pointOne + pointTwo + pointThree + pointFour;
+=======
+            if (AnswerOne.isChecked()) {
+                pointOne = 1;
+            }
+            if (AnswerTwo.isChecked()) {
+                pointTwo = 1;
+            }
+            if (AnswerThree.isChecked()) {
+                pointThree = 1;
+            }
+            if (AnswerFour.isChecked()) {
+                pointFour = 1;
+            }
+
+            pointsAdd = (pointOne) + (pointTwo) + (pointThree) + (pointFour);
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
             if (pointsAdd == 0) {
                 callback.onFinnish(false, pointsAdd);
@@ -113,6 +142,7 @@ public class MCAFragment extends Fragment {
     private View.OnClickListener restListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+<<<<<<< HEAD
             if (AnswerOne.isSelected()) {
                 pointOne = 1;
             }
@@ -142,6 +172,29 @@ public class MCAFragment extends Fragment {
             pointsAdd = pointOne + pointTwo + pointThree + pointFour;
 
             if (pointsAdd == 0) {
+=======
+            pointOne = 0;
+            pointTwo = 0;
+            pointThree = 0;
+            pointFour = 0;
+
+            if (AnswerOne.isChecked()) {
+                pointOne = 1;
+            }
+            if (AnswerTwo.isChecked()) {
+                pointTwo = 1;
+            }
+            if (AnswerThree.isChecked()) {
+                pointThree = 1;
+            }
+            if (AnswerFour.isChecked()) {
+                pointFour = 1;
+            }
+
+            pointsAdd = (pointOne * correctCheck[0]) + (pointTwo * correctCheck[1]) + (pointThree * correctCheck[2]) + (pointFour * correctCheck[3]);
+
+            if (pointsAdd <= 0) {
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 callback.onFinnish(false, pointsAdd);
             } else {
                 callback.onFinnish(true, pointsAdd);
@@ -157,9 +210,12 @@ public class MCAFragment extends Fragment {
         incorrectAnswers = params.getString("Incorrect");
         points = params.getString("Points");
 
+<<<<<<< HEAD
         flag = params.getString("StopWatch");
         stopWatch = inflater.inflate(R.layout.mca_fragment, container, false).findViewById(R.id.stopWatch);
 
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         return inflater.inflate(R.layout.mca_fragment, container, false);
     }
 
@@ -167,6 +223,7 @@ public class MCAFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         context = view.getContext();
 
+<<<<<<< HEAD
         AnswerOne = view.findViewById(R.id.scaAnswerOne);
         AnswerTwo = view.findViewById(R.id.scaAnswerTwo);
         AnswerThree = view.findViewById(R.id.scaAnswerThree);
@@ -187,6 +244,22 @@ public class MCAFragment extends Fragment {
             timer2.start();
         }
 
+=======
+        AnswerOne = view.findViewById(R.id.mcaAnswerOne);
+        AnswerTwo = view.findViewById(R.id.mcaAnswerTwo);
+        AnswerThree = view.findViewById(R.id.mcaAnswerThree);
+        AnswerFour = view.findViewById(R.id.mcaAnswerFour);
+        questionTextField = view.findViewById(R.id.mcaQuestionTextField);
+        pointsField = view.findViewById(R.id.mcaPointsField);
+        Submit = view.findViewById(R.id.submitButton);
+
+        correctCheck = new Integer[4];
+
+        questionTextField.setText(questionText);
+        pointsField.setText(points);
+
+        fillQuestions(correctAnswers, incorrectAnswers);
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
     }
 
     private void fillQuestions(String correctAnswers, String incorrectAnswers) {
@@ -196,7 +269,11 @@ public class MCAFragment extends Fragment {
         String[] corAnswers = correctAnswers.split(";");
         String[] wrongAnswers = incorrectAnswers.split(";");
 
+<<<<<<< HEAD
         if (corAnswers.length == 4) {
+=======
+        if(corAnswers.length == 4){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             //svi su tocni
             AnswerOne.setText(corAnswers[0]);
             AnswerTwo.setText(corAnswers[1]);
@@ -206,13 +283,21 @@ public class MCAFragment extends Fragment {
             Submit.setOnClickListener(fourListener);
         }
 
+<<<<<<< HEAD
         if (corAnswers.length == 3) {
+=======
+        if(corAnswers.length == 3) {
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             if (random == 1) {
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(corAnswers[0]);
                 AnswerThree.setText(corAnswers[1]);
                 AnswerFour.setText(corAnswers[2]);
+<<<<<<< HEAD
                 correctCheck[0] = 0;
+=======
+                correctCheck[0] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 correctCheck[1] = 1;
                 correctCheck[2] = 1;
                 correctCheck[3] = 1;
@@ -223,7 +308,11 @@ public class MCAFragment extends Fragment {
                 AnswerThree.setText(corAnswers[1]);
                 AnswerFour.setText(corAnswers[2]);
                 correctCheck[0] = 1;
+<<<<<<< HEAD
                 correctCheck[1] = 0;
+=======
+                correctCheck[1] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 correctCheck[2] = 1;
                 correctCheck[3] = 1;
             }
@@ -234,7 +323,11 @@ public class MCAFragment extends Fragment {
                 AnswerFour.setText(corAnswers[2]);
                 correctCheck[0] = 1;
                 correctCheck[1] = 1;
+<<<<<<< HEAD
                 correctCheck[2] = 0;
+=======
+                correctCheck[2] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 correctCheck[3] = 1;
             }
             if (random == 4) {
@@ -245,42 +338,71 @@ public class MCAFragment extends Fragment {
                 correctCheck[0] = 1;
                 correctCheck[1] = 1;
                 correctCheck[2] = 1;
+<<<<<<< HEAD
                 correctCheck[3] = 0;
+=======
+                correctCheck[3] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             }
 
             Submit.setOnClickListener(restListener);
         }
 
+<<<<<<< HEAD
         if (corAnswers.length == 2) {
             if (rand == 1) {
+=======
+        if(corAnswers.length == 2){
+            if(rand == 1){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(wrongAnswers[1]);
                 AnswerThree.setText(corAnswers[0]);
                 AnswerFour.setText(corAnswers[1]);
+<<<<<<< HEAD
                 correctCheck[0] = 0;
                 correctCheck[1] = 0;
+=======
+                correctCheck[0] = -1;
+                correctCheck[1] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 correctCheck[2] = 1;
                 correctCheck[3] = 1;
 
                 Submit.setOnClickListener(restListener);
             }
+<<<<<<< HEAD
             if (rand == 2) {
+=======
+            if(rand == 2){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(corAnswers[0]);
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerFour.setText(corAnswers[1]);
+<<<<<<< HEAD
                 correctCheck[0] = 0;
                 correctCheck[1] = 1;
                 correctCheck[2] = 0;
+=======
+                correctCheck[0] = -1;
+                correctCheck[1] = 1;
+                correctCheck[2] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 correctCheck[3] = 1;
 
                 Submit.setOnClickListener(restListener);
             }
+<<<<<<< HEAD
             if (rand == 3) {
+=======
+            if(rand == 3){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(corAnswers[1]);
                 AnswerThree.setText(corAnswers[0]);
                 AnswerFour.setText(wrongAnswers[1]);
+<<<<<<< HEAD
                 correctCheck[0] = 0;
                 correctCheck[1] = 1;
                 correctCheck[2] = 1;
@@ -289,23 +411,43 @@ public class MCAFragment extends Fragment {
                 Submit.setOnClickListener(restListener);
             }
             if (rand == 4) {
+=======
+                correctCheck[0] = -1;
+                correctCheck[1] = 1;
+                correctCheck[2] = 1;
+                correctCheck[3] = -1;
+
+                Submit.setOnClickListener(restListener);
+            }
+            if(rand == 4){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setText(corAnswers[0]);
                 AnswerTwo.setText(wrongAnswers[1]);
                 AnswerThree.setText(wrongAnswers[0]);
                 AnswerFour.setText(corAnswers[1]);
                 correctCheck[0] = 1;
+<<<<<<< HEAD
                 correctCheck[1] = 0;
                 correctCheck[2] = 0;
+=======
+                correctCheck[1] = -1;
+                correctCheck[2] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 correctCheck[3] = 1;
 
                 Submit.setOnClickListener(restListener);
             }
+<<<<<<< HEAD
             if (rand == 5) {
+=======
+            if(rand == 5){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setText(corAnswers[0]);
                 AnswerTwo.setText(wrongAnswers[0]);
                 AnswerThree.setText(corAnswers[1]);
                 AnswerFour.setText(wrongAnswers[1]);
                 correctCheck[0] = 1;
+<<<<<<< HEAD
                 correctCheck[1] = 0;
                 correctCheck[2] = 1;
                 correctCheck[3] = 0;
@@ -313,14 +455,28 @@ public class MCAFragment extends Fragment {
                 Submit.setOnClickListener(restListener);
             }
             if (rand == 6) {
+=======
+                correctCheck[1] = -1;
+                correctCheck[2] = 1;
+                correctCheck[3] = -1;
+
+                Submit.setOnClickListener(restListener);
+            }
+            if(rand == 6){
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 AnswerOne.setText(corAnswers[0]);
                 AnswerTwo.setText(corAnswers[1]);
                 AnswerThree.setText(wrongAnswers[0]);
                 AnswerFour.setText(wrongAnswers[1]);
                 correctCheck[0] = 1;
                 correctCheck[1] = 1;
+<<<<<<< HEAD
                 correctCheck[2] = 0;
                 correctCheck[3] = 0;
+=======
+                correctCheck[2] = -1;
+                correctCheck[3] = -1;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
                 Submit.setOnClickListener(restListener);
             }

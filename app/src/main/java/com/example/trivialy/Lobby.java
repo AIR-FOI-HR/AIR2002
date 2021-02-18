@@ -3,21 +3,30 @@ package com.example.trivialy;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+<<<<<<< HEAD
 import android.content.Intent;
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.AdapterView;
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.LocalDateTime;
+<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
 import com.responses.GetDataService;
 import com.responses.Quiz.GetUsersOnQuizResponse;
@@ -25,7 +34,10 @@ import com.responses.Quiz.Quiz;
 import com.responses.RetrofitInstance;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Date;
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 import java.util.List;
 
 import retrofit.Call;
@@ -38,7 +50,11 @@ import static java.time.LocalDateTime.now;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Lobby extends AppCompatActivity {
     int idKviza = getIntent().getIntExtra("odabraniKviz", 0);
+<<<<<<< HEAD
     int odabranaKategorija = getIntent().getIntExtra("odabranaKategorija", 0);
+=======
+    String odabranaKategorija = getIntent().getStringExtra("odabranaKategorija");
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
     List<Quiz> listaKvizova;
     LocalDateTime vrijemePocetkaKviza;
     LocalDateTime  currentTime = now();
@@ -95,11 +111,20 @@ public class Lobby extends AppCompatActivity {
         }while(currentTime.isBefore(vrijemePocetkaKviza));
     }
 
+<<<<<<< HEAD
     public LocalDateTime getDateTimeOfTheQuiz(){
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
         final Call<List<Quiz>> call = getDataService.GetAvailableQuizes(odabranaKategorija);
 
         call.enqueue(new Callback<List<Quiz>>() {
+=======
+    /*public LocalDateTime getDateTimeOfTheQuiz(){
+        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
+        GetAvailableQuizesRequest request = new GetAvailableQuizesRequest(odabranaKategorija);
+        final Call<GetAvailableQuizesResponse> call = getDataService.GetAvailableQuizes(request);
+
+        call.enqueue(new Callback<GetAvailableQuizesResponse>() {
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             @Override
             public void onResponse(Response<List<Quiz>> response, Retrofit retrofit) {
                 listaKvizova = (List<Quiz>) response.body();
@@ -117,5 +142,9 @@ public class Lobby extends AppCompatActivity {
             }
         });
         return vrijemePocetkaKviza;
+<<<<<<< HEAD
     }
+=======
+    }*/
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 }

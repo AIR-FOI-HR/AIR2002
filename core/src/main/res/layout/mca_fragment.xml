@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +8,16 @@
     android:layout_height="match_parent"
     android:background="@color/darkRedColor"
     android:theme="@style/SingleplayerTheme">
+=======
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/SingleplayerTheme"
+    android:background="@color/buttonTextColor">
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
     <TextView
         android:id="@+id/mcaPointsField"
@@ -34,8 +45,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
+<<<<<<< HEAD
         android:id="@+id/mcaAnswerTwo"
         style="@style/SingleplayerTheme.Answers"
+=======
+        style="@style/SingleplayerTheme.Answers"
+        android:id="@+id/mcaAnswerTwo"
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         android:layout_width="395dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -47,8 +63,13 @@
         app:layout_constraintTop_toBottomOf="@+id/mcaAnswerOne" />
 
     <CheckBox
+<<<<<<< HEAD
         android:id="@+id/mcaAnswerThree"
         style="@style/SingleplayerTheme.Answers"
+=======
+        style="@style/SingleplayerTheme.Answers"
+        android:id="@+id/mcaAnswerThree"
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         android:layout_width="395dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -59,8 +80,13 @@
         app:layout_constraintTop_toBottomOf="@+id/mcaAnswerTwo" />
 
     <CheckBox
+<<<<<<< HEAD
         android:id="@+id/mcaAnswerFour"
         style="@style/SingleplayerTheme.Answers"
+=======
+        style="@style/SingleplayerTheme.Answers"
+        android:id="@+id/mcaAnswerFour"
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         android:layout_width="395dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -72,6 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mcaAnswerThree" />
 
     <TextView
+<<<<<<< HEAD
         android:id="@+id/mcaQuestionTextField"
         style="@style/SingleplayerTheme.Question"
         android:layout_width="wrap_content"
@@ -81,12 +108,27 @@
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="@string/this_is_a_placeholder_question"
+=======
+        style="@style/SingleplayerTheme.Question"
+        android:id="@+id/mcaQuestionTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/this_is_a_placeholder_question"
+        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/mcaAnswerOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toTopOf="parent" />
+=======
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp" />
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
     <Button
         android:id="@+id/submitButton"
@@ -100,6 +142,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mcaAnswerFour" />
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/stopWatch"
         android:layout_width="wrap_content"
@@ -112,5 +155,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,10 +25,19 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+<<<<<<< HEAD
+=======
+import static java.lang.Integer.parseInt;
+
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 public class Multiplayer_menu extends AppCompatActivity {
     private ListView lv;
     ArrayList<Category> categories = new ArrayList<>();
     ArrayList<String> listaImena = new ArrayList<>();
+<<<<<<< HEAD
+=======
+    String odabranaKategorijaId;
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
 
     @Override
@@ -54,22 +63,44 @@ public class Multiplayer_menu extends AppCompatActivity {
                         // Get the Item from ListView
                         View view = super.getView(position, convertView, parent);
                         // Initialize a TextView for ListView each Item
+<<<<<<< HEAD
                         TextView tv = (TextView) view.findViewById(android.R.id.text1); //DA LI JE OVO OK?
 
                         // Set the text color of TextView (ListView Item)
                         tv.setTextColor(Color.WHITE);
+=======
+                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                        // Set the text color of TextView (ListView Item)
+                        tv.setTextColor(Color.BLACK);
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
 
                         // Generate ListView Item using TextView
                         return view;
                     }
                 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                 lv.setAdapter(arrayAdapter);
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent newIntent = new Intent(getApplicationContext(), AvailableQuizesMenu.class);
+<<<<<<< HEAD
                         newIntent.putExtra("odabranaKategorija", (String) lv.getItemAtPosition(position));
+=======
+                        String nazivOdabraneKategorije = (String) lv.getItemAtPosition(position);
+
+                        for (Category c : categories){
+                            if(c.getTitle().equalsIgnoreCase(nazivOdabraneKategorije) && parseInt(c.getId())<26){
+                                odabranaKategorijaId = c.getId();
+                            }
+                        }
+                        newIntent.putExtra("odabranaKategorija", odabranaKategorijaId);
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                         Multiplayer_menu.this.startActivity(newIntent);
                         finish();
 

@@ -14,6 +14,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+<<<<<<< HEAD
+=======
+            <option value="$PROJECT_DIR$/questionsModule" />
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
             <option value="$PROJECT_DIR$/webService" />
           </set>
         </option>

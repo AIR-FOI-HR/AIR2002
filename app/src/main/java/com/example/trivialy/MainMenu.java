@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -32,6 +33,18 @@ public class MainMenu extends AppCompatActivity {
                 view.getContext().startActivity(newIntent);
             }
         });
+<<<<<<< HEAD
+=======
+
+        ImageButton aboutUsButton = findViewById(R.id.aboutUs_btn);
+        aboutUsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(view.getContext(), InfoPage.class);
+                view.getContext().startActivity(newIntent);
+            }
+        });
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
     }
 
     @Override

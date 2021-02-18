@@ -65,6 +65,10 @@
         android:id="@+id/listViewMm"
         android:layout_width="411dp"
         android:layout_height="609dp"
+<<<<<<< HEAD
+=======
+        android:layout_marginTop="3dp"
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,10 +78,17 @@
         android:id="@+id/textView5"
         android:layout_width="410dp"
         android:layout_height="61dp"
+<<<<<<< HEAD
         android:textSize="40dp"
         android:textColor="@color/textBlack"
         android:text="@string/choose_category"
         android:gravity="center_horizontal"
+=======
+        android:gravity="center_horizontal"
+        android:text="@string/choose_category"
+        android:textColor="@color/textBlack"
+        android:textSize="40dp"
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topToolbar" />

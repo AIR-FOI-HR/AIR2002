@@ -51,8 +51,11 @@ public class ExpertMode extends AppCompatActivity implements DataLoaderListener,
                     params.putString("Points", Integer.toString(points));
                     mcaFragment.setArguments(params);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(com.example.core.R.id.questionFrameLayout, mcaFragment);
                     fragmentTransaction.commit();

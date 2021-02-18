@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".Lobby"/>
+=======
+        <activity android:name=".InfoPage"></activity>
+        <activity android:name=".Lobby" />
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         <activity android:name=".AvailableQuizesMenu" />
         <activity android:name=".Multiplayer_menu" />
         <activity
@@ -19,6 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,7 +46,11 @@
             android:label="@string/app_name" />
         <activity
             android:name=".CategoryView"
+<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar"/>
+=======
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+>>>>>>> 2d99536cd75aea94beabc182528de442bb91a6bf
         <activity
             android:name=".DifficultyView"
             android:label="@string/app_name" />

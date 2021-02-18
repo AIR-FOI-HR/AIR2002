@@ -28,9 +28,10 @@ public class SingleplayerScore extends AppCompatActivity {
         setContentView(R.layout.singleplayer_score);
         userDataController = new UserDataController(getApplicationContext());
 
+        final String flag = (String) getIntent().getSerializableExtra("flag");
         Bundle b = getIntent().getExtras();
         String score = "0";
-        if(b != null) {
+        if (b != null) {
             score = b.getString("Score");
         }
 
@@ -59,20 +60,27 @@ public class SingleplayerScore extends AppCompatActivity {
 
                 Intent intent = new Intent(SingleplayerScore.this, com.example.trivialy.HealthRegen.class);
                 boolean check = userDataController.isMyServiceRunning(com.example.trivialy.HealthRegen.class);
-                if(!check && savedLives<5){
+                if (!check && savedLives < 5) {
                     startService(intent);
                 }
 
-                if(savedLives <= 0){
+                if (savedLives <= 0) {
                     Toast t = Toast.makeText(getApplicationContext(), getString(R.string.insufficientLives), Toast.LENGTH_SHORT);
                     t.show();
                     return;
-                }
-                else {
-                    userDataController.UpdateLifeCount(null, -1);
-                    Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
-                    view.getContext().startActivity(newIntent);
-                    finish();
+                } else {
+                    if (flag.equals("flag")) {
+                        userDataController.UpdateLifeCount(null, -1);
+                        Intent newIntent = new Intent(view.getContext(), CategoryView.class);
+                        view.getContext().startActivity(newIntent);
+                        finish();
+                    } else {
+                        userDataController.UpdateLifeCount(null, -1);
+                        Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
+                        view.getContext().startActivity(newIntent);
+                        finish();
+                    }
+
                 }
             }
         });

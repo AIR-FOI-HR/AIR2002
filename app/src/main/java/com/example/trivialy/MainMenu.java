@@ -23,6 +23,15 @@ public class MainMenu extends AppCompatActivity {
                 view.getContext().startActivity(newIntent);
             }
         });
+
+        Button multiplayerButton = findViewById(R.id.goToMultiplayerButton);
+        multiplayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(view.getContext(), Multiplayer_menu.class);
+                view.getContext().startActivity(newIntent);
+            }
+        });
     }
 
     @Override

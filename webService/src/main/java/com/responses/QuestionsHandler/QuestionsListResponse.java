@@ -14,6 +14,8 @@ public class QuestionsListResponse {
     private String CorrectAnswer;
     @SerializedName("IncorrectAnswers")
     private String IncorrectAnswers;
+    @SerializedName("QuestionTypeName")
+    private String QuestionTypeName;
 
     public String getQuestionDifficulty() {
         return QuestionDifficulty;
@@ -33,5 +35,9 @@ public class QuestionsListResponse {
 
     public String getIncorrectAnswers() {
         return IncorrectAnswers;
+    }
+
+    public String getQuestionTypeName() {
+        return QuestionTypeName;
     }
 }

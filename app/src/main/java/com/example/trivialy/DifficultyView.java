@@ -30,7 +30,7 @@ public class DifficultyView extends AppCompatActivity {
                                               @Override
                                               public void onClick(View view) {
 
-                                                  Intent newIntent = new Intent(getApplicationContext(), TimeTrialModePlay.class);
+                                                  Intent newIntent = new Intent(getApplicationContext(), TimeTrial.class);
                                                   newIntent.putExtra("category", category);
                                                   newIntent.putExtra("difficulty", "Easy");
                                                   DifficultyView.this.startActivity(newIntent);
@@ -45,7 +45,7 @@ public class DifficultyView extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(View view) {
 
-                                                    Intent newIntent = new Intent(getApplicationContext(), TimeTrialModePlay.class);
+                                                    Intent newIntent = new Intent(getApplicationContext(), TimeTrial.class);
                                                     newIntent.putExtra("category", category);
                                                     newIntent.putExtra("difficulty", "Medium");
                                                     DifficultyView.this.startActivity(newIntent);
@@ -59,7 +59,7 @@ public class DifficultyView extends AppCompatActivity {
                                               @Override
                                               public void onClick(View view) {
 
-                                                  Intent newIntent = new Intent(getApplicationContext(), TimeTrialModePlay.class);
+                                                  Intent newIntent = new Intent(getApplicationContext(), TimeTrial.class);
                                                   newIntent.putExtra("category", category);
                                                   newIntent.putExtra("difficulty", "Hard");
                                                   DifficultyView.this.startActivity(newIntent);

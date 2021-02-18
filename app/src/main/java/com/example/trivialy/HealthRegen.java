@@ -44,7 +44,7 @@ public class HealthRegen extends IntentService {
 
         if(savedLives < 5) {
             try {
-                sleep(10 * 1000);
+                sleep(1 * 1000); // regen time u milisekundama
                 userDataController.UpdateLifeCount(null, 1);
             } catch (InterruptedException e) {
                 e.printStackTrace();

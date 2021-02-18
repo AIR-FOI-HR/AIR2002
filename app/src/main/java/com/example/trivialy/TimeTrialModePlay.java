@@ -44,6 +44,8 @@ public class TimeTrialModePlay extends AppCompatActivity {
     private int seconds = 0;
     private boolean running;
     String prikaz;
+
+
     CountDownTimer timer2 = new CountDownTimer(30000,1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -110,6 +112,7 @@ public class TimeTrialModePlay extends AppCompatActivity {
         params.setMargins(10,21,0,0);
         textView.setLayoutParams(params);
         layoutExp.addView(textView);
+
         timer2.start();
     }
 

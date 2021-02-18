@@ -3,6 +3,7 @@
     package="com.example.trivialy">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Lobby"/>
+        <activity android:name=".AvailableQuizesMenu" />
+        <activity android:name=".Multiplayer_menu" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -18,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainMenu"
             android:label="@string/app_name" />
@@ -28,22 +33,24 @@
             android:name=".ExpertModePlay"
             android:label="@string/app_name" />
         <activity
+            android:name=".ExpertMode"
+            android:label="@string/app_name" />
+        <activity
             android:name=".SingleplayerScore"
             android:label="@string/app_name" />
         <activity
             android:name=".CategoryView"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".DifficultyView"
             android:label="@string/app_name" />
         <activity
-            android:name=".TimeTrialModePlay"
+            android:name=".TimeTrial"
             android:label="@string/app_name" />
 
         <service
             android:name=".HealthRegen"
             android:exported="false" />
-
     </application>
 
 </manifest>

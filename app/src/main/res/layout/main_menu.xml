@@ -30,20 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.appcompat.widget.Toolbar><![CDATA[
-
-
-    =======
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_info" />
-
-
-
-
-
-
-
-    ]]>
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageButton
         android:id="@+id/aboutUs_btn"
@@ -55,7 +42,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.332"
+        />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -150,6 +140,4 @@
             tools:layout_editor_absoluteY="10dp" />
 
     </androidx.cardview.widget.CardView>
->>>>>>> ed56c398d4dcabdf792dbfcc27b92ec1e278cb25
-
 </androidx.constraintlayout.widget.ConstraintLayout>

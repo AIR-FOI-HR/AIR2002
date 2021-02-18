@@ -149,8 +149,7 @@ namespace Trivia.ly_Services.Controllers
                     {
 
                         List<Question> questions = _context.Question
-                            .Take(numberOfQuestions)
-                            .Where(q => q.Id_Difficulty == difficulty.DifficultyId).ToList();
+                            .Where(q => q.Id_Difficulty == difficulty.DifficultyId).Take(numberOfQuestions).ToList();
 
 
                         foreach (var question in questions)

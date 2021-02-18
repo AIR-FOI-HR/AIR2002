@@ -59,7 +59,7 @@ public interface GetDataService {
     Call<CreateQuizResponse> CreateQuiz(@Body CreateQuizRequest createQuizRequest);
 
     @POST("quizs/GetAvaliableQuizes")
-    Call<GetAvailableQuizesResponse> GetAvaliableQuizes(@Body GetAvailableQuizesRequest getAvailableQuizesRequest);
+    Call<GetAvaliableQuizesResponse> GetAvaliableQuizes(@Body GetAvaliableQuizesRequest getAvaliableQuizesRequest);
 
     @POST("quizs/SetUserToQuiz")
     Call<SetUserToQuizResponse> SetUserToQuiz(@Body SetUserToQuizRequest setUserToQuizRequest);

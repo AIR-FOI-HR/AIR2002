@@ -31,7 +31,7 @@ public class Multiplayer_menu extends AppCompatActivity {
     private ListView lv;
     ArrayList<Category> categories = new ArrayList<>();
     ArrayList<String> listaImena = new ArrayList<>();
-    int odabranaKategorijaId;
+    String odabranaKategorijaId;
 
 
     @Override
@@ -77,7 +77,7 @@ public class Multiplayer_menu extends AppCompatActivity {
 
                         for (Category c : categories){
                             if(c.getTitle().equalsIgnoreCase(nazivOdabraneKategorije) && parseInt(c.getId())<26){
-                                odabranaKategorijaId = parseInt(c.getId());
+                                odabranaKategorijaId = c.getId();
                             }
                         }
                         newIntent.putExtra("odabranaKategorija", odabranaKategorijaId);

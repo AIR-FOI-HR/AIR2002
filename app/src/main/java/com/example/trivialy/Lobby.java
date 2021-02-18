@@ -3,31 +3,24 @@ package com.example.trivialy;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 import com.responses.GetDataService;
-import com.responses.Quiz.GetAvailableQuizesRequest;
-import com.responses.Quiz.GetAvailableQuizesResponse;
 import com.responses.Quiz.GetUsersOnQuizResponse;
 import com.responses.Quiz.Quiz;
 import com.responses.RetrofitInstance;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import retrofit.Call;

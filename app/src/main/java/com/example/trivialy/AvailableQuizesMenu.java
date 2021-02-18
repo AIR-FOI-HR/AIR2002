@@ -16,12 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.responses.GetDataService;
-import com.responses.Quiz.AvailableQuizListResponse;
 import com.responses.RetrofitInstance;
 import com.responses.Quiz.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ import static java.time.LocalDateTime.now;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AvailableQuizesMenu extends AppCompatActivity {
-    int odabranaKategorija;
+    String odabranaKategorija;
     private ListView lv;
     ArrayList<Quiz> quizes = new ArrayList<>();
     ArrayList<LocalDateTime> vremenaPocetakaKviza = new ArrayList<>();
@@ -55,19 +53,19 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         currentUser = userDataController.savedUsername;
 
         Intent i = getIntent();
-        odabranaKategorija = (int) i.getSerializableExtra("odabranaKategorija");
+        odabranaKategorija = (String) i.getSerializableExtra("odabranaKategorija");
 
         getAvailableQuizes(odabranaKategorija);
 
         }
 
-    public void getAvailableQuizes(final int categoryId ){
+    public void getAvailableQuizes(final String categoryId ){
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        GetAvailableQuizesRequest request = new GetAvailableQuizesRequest(categoryId);
-        Call<GetAvailableQuizesResponse> call = getDataService.GetAvaliableQuizes(request);
-        call.enqueue(new Callback<GetAvailableQuizesResponse>() {
+        GetAvaliableQuizesRequest request = new GetAvaliableQuizesRequest(categoryId);
+        Call<GetAvaliableQuizesResponse> call = getDataService.GetAvaliableQuizes(request);
+        call.enqueue(new Callback<GetAvaliableQuizesResponse>() {
             @Override
-            public void onResponse(Response<GetAvailableQuizesResponse> response, Retrofit retrofit) {
+            public void onResponse(Response<GetAvaliableQuizesResponse> response, Retrofit retrofit) {
                 if(!response.isSuccess()){
 
                 }else {
@@ -118,7 +116,7 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         });
     }
 
-    public void createQuiz(final int categoryId){
+    public void createQuiz(final String categoryId){
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
         CreateQuizRequest request = new CreateQuizRequest(categoryId, "test");
         Call<CreateQuizResponse> call = getDataService.CreateQuiz(request);

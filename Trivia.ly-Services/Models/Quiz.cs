@@ -25,7 +25,16 @@ namespace Trivia.ly_Services.Models
     {
         public int Status { get; set; }
         public string Text { get; set; }
-        public List<Quiz> QuizList { get; set; }
+        public List<QuizResponseList> QuizList { get; set; }
+    }
+
+    public class QuizResponseList
+    {
+        public int QuizId { get; set; }
+        public string Name { get; set; }
+        public string Start_Date { get; set; }
+        public int Id_Category { get; set; }
+        public string QuestionIds { get; set; }
     }
 
     public class SetUserToQuizRequest

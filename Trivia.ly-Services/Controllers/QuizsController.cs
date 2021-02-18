@@ -120,12 +120,27 @@ namespace Trivia.ly_Services.Controllers
             try
             {
                 var quizes = _context.Quiz.Where(c => c.Id_Category == body.CategoryId && c.Start_Date > DateTime.Now).OrderByDescending(c => c.QuestionIds).ToList();
+
+                var quizList = new List<QuizResponseList>();
+
+                foreach (var quiz in quizes)
+                {
+                    quizList.Add(new QuizResponseList()
+                    {
+                        Id_Category = quiz.Id_Category,
+                        Name = quiz.Name,
+                        QuestionIds = quiz.QuestionIds,
+                        QuizId = quiz.QuizId,
+                        Start_Date = quiz.Start_Date.ToString()
+                    });
+                }
+
                 if (quizes.Count > 0)
                 {
                     var response = new GetAvaliableQuizesResponse()
                     {
                         Status = 1,
-                        QuizList = quizes
+                        QuizList = quizList
                     };
                     return JsonConvert.SerializeObject(response);
                 }

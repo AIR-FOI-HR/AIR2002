@@ -147,9 +147,13 @@ namespace Trivia.ly_Services.Controllers
                 {
                     if (category.Name != "Any Category")
                     {
+                        var qustionsCount = _context.Question.Where(q => q.Id_Difficulty == difficulty.DifficultyId && q.Id_Category == category.CategoryId).Count();
+                        Random rand = new Random();
+                        int toSkip = rand.Next(1, qustionsCount);
 
                         List<Question> questions = _context.Question
                             .Where(q => q.Id_Difficulty == difficulty.DifficultyId && q.Id_Category == category.CategoryId)
+                            .Skip(toSkip)
                             .Take(numberOfQuestions)
                             .ToList();
 

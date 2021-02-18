@@ -119,7 +119,7 @@ namespace Trivia.ly_Services.Controllers
         {
             try
             {
-                var quizes = _context.Quiz.Where(c => c.Id_Category == body.CategoryId && c.Start_Date > DateTime.Now).OrderByDescending(c => c.QuestionIds).ToList();
+                var quizes = _context.Quiz.Where(c => c.Id_Category == body.CategoryId && c.Start_Date > DateTime.Now).OrderByDescending(c => c.Start_Date).ToList();
 
                 var quizList = new List<QuizResponseList>();
 
@@ -388,40 +388,80 @@ namespace Trivia.ly_Services.Controllers
                 var category = _context.Category.Where(c => c.CategoryId == body.CategoryId).FirstOrDefault();
                 if (category != null)
                 {
-
-                    List<int> questionIds = new List<int>();
-
-                    for (int i = 0; i < 10; i++)
+                    if (category.Name != "Any Category")
                     {
-                        int numberOfQuestions = _context.Question.Where(q => q.Id_Category == category.CategoryId && !questionIds.Contains(q.QuestionId)).Count();
-                        Random rand = new Random();
-                        int toSkip = rand.Next(0, numberOfQuestions);
 
-                        //bool var = questionIds.IndexOf(1) != 1;
+                        List<int> questionIds = new List<int>();
 
-                        var questionId = _context.Question
-                            .Where(q => q.Id_Category == category.CategoryId && !questionIds.Contains(q.QuestionId))
-                            .Skip(toSkip)
-                            .Take(1).FirstOrDefault().QuestionId;
+                        for (int i = 0; i < 10; i++)
+                        {
+                            int numberOfQuestions = _context.Question.Where(q => q.Id_Category == category.CategoryId && !questionIds.Contains(q.QuestionId)).Count();
+                            Random rand = new Random();
+                            int toSkip = rand.Next(0, numberOfQuestions);
 
-                        questionIds.Add(questionId);
+                            //bool var = questionIds.IndexOf(1) != 1;
+
+                            var questionId = _context.Question
+                                .Where(q => q.Id_Category == category.CategoryId && !questionIds.Contains(q.QuestionId))
+                                .Skip(toSkip)
+                                .Take(1).FirstOrDefault().QuestionId;
+
+                            questionIds.Add(questionId);
+                        }
+
+                        _context.Quiz.Add(new Quiz()
+                        {
+                            Id_Category = category.CategoryId,
+                            Name = body.Name,
+                            QuestionIds = string.Join(";", questionIds.Select(n => n.ToString()).ToArray()),
+                            Start_Date = DateTime.Now.AddMinutes(10)
+                        });
+                        _context.SaveChanges();
+
+                        var response = new CreateQuizResponse()
+                        {
+                            Status = 1
+                        };
+
+                        return JsonConvert.SerializeObject(response);
                     }
-
-                    _context.Quiz.Add(new Quiz()
+                    else
                     {
-                        Id_Category = category.CategoryId,
-                        Name = body.Name,
-                        QuestionIds = string.Join(";", questionIds.Select(n => n.ToString()).ToArray()),
-                        Start_Date = DateTime.Now.AddMinutes(10)
-                    });
-                    _context.SaveChanges();
+                        List<int> questionIds = new List<int>();
 
-                    var response = new CreateQuizResponse()
-                    {
-                        Status = 1
-                    };
+                        for (int i = 0; i < 10; i++)
+                        {
+                            int numberOfQuestions = _context.Question.Where(q => !questionIds.Contains(q.QuestionId)).Count();
+                            Random rand = new Random();
+                            int toSkip = rand.Next(0, numberOfQuestions);
 
-                    return JsonConvert.SerializeObject(response);
+                            //bool var = questionIds.IndexOf(1) != 1;
+
+                            var questionId = _context.Question
+                                .Where(q => q.Id_Category == category.CategoryId && !questionIds.Contains(q.QuestionId))
+                                .Skip(toSkip)
+                                .Take(1).FirstOrDefault().QuestionId;
+
+                            questionIds.Add(questionId);
+                        }
+
+                        _context.Quiz.Add(new Quiz()
+                        {
+                            Id_Category = category.CategoryId,
+                            Name = body.Name,
+                            QuestionIds = string.Join(";", questionIds.Select(n => n.ToString()).ToArray()),
+                            Start_Date = DateTime.Now.AddMinutes(10)
+                        });
+                        _context.SaveChanges();
+
+                        var response = new CreateQuizResponse()
+                        {
+                            Status = 1
+                        };
+
+                        return JsonConvert.SerializeObject(response);
+
+                    }
                 }
                 else
                 {

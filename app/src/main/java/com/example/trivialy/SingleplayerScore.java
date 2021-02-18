@@ -69,7 +69,7 @@ public class SingleplayerScore extends AppCompatActivity {
                 }
                 else {
                     userDataController.UpdateLifeCount(null, -1);
-                    Intent newIntent = new Intent(view.getContext(), ExpertModePlay.class);
+                    Intent newIntent = new Intent(view.getContext(), ExpertMode.class);
                     view.getContext().startActivity(newIntent);
                     finish();
                 }

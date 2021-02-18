@@ -66,17 +66,24 @@ public class MCAFragment extends Fragment {
             pointTwo = 0;
             pointThree = 0;
             pointFour = 0;
-            if(AnswerOne.isSelected()){pointOne = 1;}
-            if(AnswerTwo.isSelected()){pointTwo = 1;}
-            if(AnswerThree.isSelected()){pointThree = 1;}
-            if(AnswerFour.isSelected()){pointFour = 1;}
-
-            pointsAdd = pointOne+pointTwo+pointThree+pointFour;
-
-            if(pointsAdd == 0){
-                callback.onFinnish(false, pointsAdd);
+            if (AnswerOne.isChecked()) {
+                pointOne = 1;
             }
-            else{
+            if (AnswerTwo.isChecked()) {
+                pointTwo = 1;
+            }
+            if (AnswerThree.isChecked()) {
+                pointThree = 1;
+            }
+            if (AnswerFour.isChecked()) {
+                pointFour = 1;
+            }
+
+            pointsAdd = (pointOne) + (pointTwo) + (pointThree) + (pointFour);
+
+            if (pointsAdd == 0) {
+                callback.onFinnish(false, pointsAdd);
+            } else {
                 callback.onFinnish(true, pointsAdd);
             }
         }
@@ -85,30 +92,29 @@ public class MCAFragment extends Fragment {
     private View.OnClickListener restListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(AnswerOne.isSelected()){pointOne = 1;}
-            if(AnswerTwo.isSelected()){pointTwo = 1;}
-            if(AnswerThree.isSelected()){pointThree = 1;}
-            if(AnswerFour.isSelected()){pointFour = 1;}
+            pointOne = 0;
+            pointTwo = 0;
+            pointThree = 0;
+            pointFour = 0;
 
-            if(correctCheck[0] == 0){
-                pointOne = 0;
+            if (AnswerOne.isChecked()) {
+                pointOne = 1;
             }
-            if(correctCheck[1] == 0){
-                pointTwo = 0;
+            if (AnswerTwo.isChecked()) {
+                pointTwo = 1;
             }
-            if(correctCheck[2] == 0){
-                pointThree = 0;
+            if (AnswerThree.isChecked()) {
+                pointThree = 1;
             }
-            if(correctCheck[3] == 0){
-                pointFour = 0;
+            if (AnswerFour.isChecked()) {
+                pointFour = 1;
             }
 
-            pointsAdd = pointOne+pointTwo+pointThree+pointFour;
+            pointsAdd = (pointOne * correctCheck[0]) + (pointTwo * correctCheck[1]) + (pointThree * correctCheck[2]) + (pointFour * correctCheck[3]);
 
-            if(pointsAdd == 0){
+            if (pointsAdd <= 0) {
                 callback.onFinnish(false, pointsAdd);
-            }
-            else{
+            } else {
                 callback.onFinnish(true, pointsAdd);
             }
         }
@@ -129,13 +135,15 @@ public class MCAFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         context = view.getContext();
 
-        AnswerOne = view.findViewById(R.id.scaAnswerOne);
-        AnswerTwo = view.findViewById(R.id.scaAnswerTwo);
-        AnswerThree = view.findViewById(R.id.scaAnswerThree);
-        AnswerFour = view.findViewById(R.id.scaAnswerFour);
-        questionTextField = view.findViewById(R.id.scaQuestionTextField);
-        pointsField = view.findViewById(R.id.scaPointsField);
+        AnswerOne = view.findViewById(R.id.mcaAnswerOne);
+        AnswerTwo = view.findViewById(R.id.mcaAnswerTwo);
+        AnswerThree = view.findViewById(R.id.mcaAnswerThree);
+        AnswerFour = view.findViewById(R.id.mcaAnswerFour);
+        questionTextField = view.findViewById(R.id.mcaQuestionTextField);
+        pointsField = view.findViewById(R.id.mcaPointsField);
         Submit = view.findViewById(R.id.submitButton);
+
+        correctCheck = new Integer[4];
 
         questionTextField.setText(questionText);
         pointsField.setText(points);
@@ -166,7 +174,7 @@ public class MCAFragment extends Fragment {
                 AnswerTwo.setText(corAnswers[0]);
                 AnswerThree.setText(corAnswers[1]);
                 AnswerFour.setText(corAnswers[2]);
-                correctCheck[0] = 0;
+                correctCheck[0] = -1;
                 correctCheck[1] = 1;
                 correctCheck[2] = 1;
                 correctCheck[3] = 1;
@@ -177,7 +185,7 @@ public class MCAFragment extends Fragment {
                 AnswerThree.setText(corAnswers[1]);
                 AnswerFour.setText(corAnswers[2]);
                 correctCheck[0] = 1;
-                correctCheck[1] = 0;
+                correctCheck[1] = -1;
                 correctCheck[2] = 1;
                 correctCheck[3] = 1;
             }
@@ -188,7 +196,7 @@ public class MCAFragment extends Fragment {
                 AnswerFour.setText(corAnswers[2]);
                 correctCheck[0] = 1;
                 correctCheck[1] = 1;
-                correctCheck[2] = 0;
+                correctCheck[2] = -1;
                 correctCheck[3] = 1;
             }
             if (random == 4) {
@@ -199,7 +207,7 @@ public class MCAFragment extends Fragment {
                 correctCheck[0] = 1;
                 correctCheck[1] = 1;
                 correctCheck[2] = 1;
-                correctCheck[3] = 0;
+                correctCheck[3] = -1;
             }
 
             Submit.setOnClickListener(restListener);
@@ -211,8 +219,8 @@ public class MCAFragment extends Fragment {
                 AnswerTwo.setText(wrongAnswers[1]);
                 AnswerThree.setText(corAnswers[0]);
                 AnswerFour.setText(corAnswers[1]);
-                correctCheck[0] = 0;
-                correctCheck[1] = 0;
+                correctCheck[0] = -1;
+                correctCheck[1] = -1;
                 correctCheck[2] = 1;
                 correctCheck[3] = 1;
 
@@ -223,9 +231,9 @@ public class MCAFragment extends Fragment {
                 AnswerTwo.setText(corAnswers[0]);
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerFour.setText(corAnswers[1]);
-                correctCheck[0] = 0;
+                correctCheck[0] = -1;
                 correctCheck[1] = 1;
-                correctCheck[2] = 0;
+                correctCheck[2] = -1;
                 correctCheck[3] = 1;
 
                 Submit.setOnClickListener(restListener);
@@ -235,10 +243,10 @@ public class MCAFragment extends Fragment {
                 AnswerTwo.setText(corAnswers[1]);
                 AnswerThree.setText(corAnswers[0]);
                 AnswerFour.setText(wrongAnswers[1]);
-                correctCheck[0] = 0;
+                correctCheck[0] = -1;
                 correctCheck[1] = 1;
                 correctCheck[2] = 1;
-                correctCheck[3] = 0;
+                correctCheck[3] = -1;
 
                 Submit.setOnClickListener(restListener);
             }
@@ -248,8 +256,8 @@ public class MCAFragment extends Fragment {
                 AnswerThree.setText(wrongAnswers[0]);
                 AnswerFour.setText(corAnswers[1]);
                 correctCheck[0] = 1;
-                correctCheck[1] = 0;
-                correctCheck[2] = 0;
+                correctCheck[1] = -1;
+                correctCheck[2] = -1;
                 correctCheck[3] = 1;
 
                 Submit.setOnClickListener(restListener);
@@ -260,9 +268,9 @@ public class MCAFragment extends Fragment {
                 AnswerThree.setText(corAnswers[1]);
                 AnswerFour.setText(wrongAnswers[1]);
                 correctCheck[0] = 1;
-                correctCheck[1] = 0;
+                correctCheck[1] = -1;
                 correctCheck[2] = 1;
-                correctCheck[3] = 0;
+                correctCheck[3] = -1;
 
                 Submit.setOnClickListener(restListener);
             }
@@ -273,8 +281,8 @@ public class MCAFragment extends Fragment {
                 AnswerFour.setText(wrongAnswers[1]);
                 correctCheck[0] = 1;
                 correctCheck[1] = 1;
-                correctCheck[2] = 0;
-                correctCheck[3] = 0;
+                correctCheck[2] = -1;
+                correctCheck[3] = -1;
 
                 Submit.setOnClickListener(restListener);
             }

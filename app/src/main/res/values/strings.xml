@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Trivia.ly</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="swipe_left_for_register">Swipe Left for Register</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="e_mail">Email</string>
+    <string name="tag">Let\'s join us and \nBuild your relationship with others</string>
+    <string name="swipe_right_for_login">Swipe Right for Login</string>
+    <string name="register">Register</string>
+    <string name="re_type_password">Re-type Password</string>
+    <string name="your_name">Full Name</string>
+    <string name="trivia_ly">Trivia.ly</string>
+    <string name="tag_">Join us and play Trivia.ly!</string>
+    <string name="username">Username</string>
+    <string name="first_name">firstName</string>
+    <string name="first_nam">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="regUsername">Username</string>
+    <string name="singleplayer">Singleplayer</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="livesDesc">Lives description</string>
+    <string name="home">Home</string>
+    <string name="placeholderanswer">PlaceholderAnswer</string>
+    <string name="PlaceholderScore">0</string>
+    <string name="this_is_a_placeholder_question">This is a placeholder question!</string>
+    <string name="singleplayer_text">Choose from multiple </string>
+    <string name="about_us">Info</string>
+    <string name="expert_mode_btn">Expert mode</string>
+    <string name="free_play_btn">Free play</string>
+    <string name="time_trial_bnt">Time trial</string>
+    <string name="about_us_text">We are a small group of students from the Faculty of Organization and Informatics. We created this application as part of the terms of reference for the course Analysis and Program Development. The Trivia.ly app offers singleplayer and multiplayer modes.</string>
+    <string name="singleplayer_description">The user has the ability to play 3 singleplayer game modes: "Free play", "Time trial" and "Expert mode". Free play mode works in such a way that the user has displayed categories to select the theme of the quiz. After selecting a category, the user selects the difficulty of the quiz between the options: easy, medium and hard. The user has unlimited time to solve the quiz. The quiz ends when the user answers the question incorrectly and one life is taken away. Time trial mode works in the same way as free play mode, the only difference is that the user has limited time to solve the quiz. The game ends with an incorrect answer and the user is killed. Expert mode works in such a way that the user automatically has the selected hard quiz weight, the only thing he chooses is the category. The user has unlimited time to solve the quiz, and the quiz ends with an incorrect answer.</string>
+    <string name="multiplayer_description">Multiplayer mode allows the user to select a category and create a new quiz, join it and play with their friends.</string>
+    <string name="insufficientLives">Insufficient lives</string>
+    <string name="final_score">Final score</string>
+    <string name="play_again">Play again</string>
+    <string name="submit">Submit</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="choose_dificulty">Choose difficulty</string>
+    <string name="choose_category">Choose category</string>
+    <string name="available_quizes">Available quizes</string>
+</resources>

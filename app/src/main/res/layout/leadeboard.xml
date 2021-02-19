@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/SingleplayerTheme"
+    android:background="@color/lightColorPrimary">
+
+    <TextView
+        android:id="@+id/nameheader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:height="40dp"
+        android:text="Leaderboard"
+        android:textColor="@color/textBlack"
+        android:textSize="25dp"
+        android:layout_marginStart="12dp" />
+
+    <ListView
+        android:id="@+id/listLd"
+        android:textColor="@color/textBlack"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        />
+</LinearLayout>

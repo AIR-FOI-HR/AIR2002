@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="heading_fontSize">50sp</dimen>
+    <dimen name="subtitle_fontSize">17sp</dimen>
+    <dimen name="editText_fontSize">15sp</dimen>
+    <dimen name="mainMenuButton_fontSize">35sp</dimen>
+    <dimen name="singleplayerButton_fontSize">25sp</dimen>
+    <dimen name="singleplayerAnswers_fontSize">15sp</dimen>
+    <dimen name="singleplayerQuestion_fontSize">20sp</dimen>
+</resources>

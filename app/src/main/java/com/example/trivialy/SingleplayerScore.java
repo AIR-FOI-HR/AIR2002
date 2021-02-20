@@ -1,8 +1,6 @@
 package com.example.trivialy;
 
-import android.app.IntentService;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.core.Counter;
 import com.example.core.PowerUps;
+import com.example.trivialy.Gamemodes.ExpertMode;
 import com.responses.GetDataService;
 import com.responses.PowerUps.SetUserPowerupStatusRequest;
 import com.responses.PowerUps.SetUserPowerupStatusResponse;

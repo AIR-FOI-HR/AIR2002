@@ -2,15 +2,12 @@ package com.example.trivialy;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.service.autofill.UserData;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,13 +17,8 @@ import android.widget.Toast;
 
 import java.time.LocalDateTime;
 
-import com.example.core.DataLoaderListener;
-import com.example.core.Fragments.MCAFragment;
-import com.example.core.Fragments.SCAFragment;
-import com.example.core.callbackInterface;
-import com.example.trivialy.loader.MultiplayerDataLoader;
+import com.example.trivialy.Gamemodes.MultiplayerPlay;
 import com.responses.GetDataService;
-import com.responses.QuestionsHandler.Question;
 import com.responses.QuestionsHandler.QuestionsListResponse;
 import com.responses.Quiz.GetUsersOnQuizRequest;
 import com.responses.Quiz.GetUsersOnQuizResponse;

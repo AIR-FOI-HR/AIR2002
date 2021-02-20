@@ -3,12 +3,8 @@ package com.example.trivialy;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.responses.GetDataService;
 import com.responses.RetrofitInstance;
@@ -27,7 +23,7 @@ public class UserDataController {
     String savedUsername;
     Context context;
 
-    class UserLives{
+    public class UserLives{
         Integer Lives;
         String Username;
     }

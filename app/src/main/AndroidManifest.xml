@@ -14,7 +14,7 @@
         <activity android:name=".InfoPage"></activity>
         <activity android:name=".Lobby" />
         <activity android:name=".AvailableQuizesMenu" />
-        <activity android:name=".MultiplayerPlay" />
+        <activity android:name=".Gamemodes.MultiplayerPlay" />
         <activity android:name=".Multiplayer_menu" />
         <activity
             android:name=".MainActivity"
@@ -32,13 +32,10 @@
             android:name=".SingleplayerMenu"
             android:label="@string/app_name" />
         <activity
-            android:name=".ExpertModePlay"
+            android:name=".Gamemodes.FreePlay"
             android:label="@string/app_name" />
         <activity
-            android:name=".FreePlay"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".ExpertMode"
+            android:name=".Gamemodes.ExpertMode"
             android:label="@string/app_name" />
         <activity
             android:name=".SingleplayerScore"
@@ -56,7 +53,7 @@
             android:name=".DifficultyView"
             android:label="@string/app_name" />
         <activity
-            android:name=".TimeTrial"
+            android:name=".Gamemodes.TimeTrial"
             android:label="@string/app_name" />
         <activity
             android:name=".Leaderboard"

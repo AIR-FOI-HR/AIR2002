@@ -49,6 +49,7 @@ public class MCAFragment extends Fragment {
     String prikaz;
     String flag = "Da";
 
+    Boolean isMp;
 
     CountDownTimer timer2 = new CountDownTimer(30000, 1000) {
         @Override
@@ -67,16 +68,8 @@ public class MCAFragment extends Fragment {
 
     callbackInterface callback;
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        try {
-            callback = (callbackInterface) context;
-        }
-        catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
-        }
+    public void setCallback(callbackInterface callback){
+        this.callback = callback;
     }
 
     private View.OnClickListener fourListener = new View.OnClickListener() {
@@ -101,10 +94,11 @@ public class MCAFragment extends Fragment {
 
             pointsAdd = (pointOne) + (pointTwo) + (pointThree) + (pointFour);
 
-            if (pointsAdd == 0) {
-                callback.onFinnish(false, pointsAdd);
-            } else {
-                callback.onFinnish(true, pointsAdd);
+            if(isMp){
+                callback.onMpFinnish(pointsAdd != 0, pointsAdd);
+            }
+            else {
+                callback.onFinnish(pointsAdd != 0, pointsAdd);
             }
         }
     };
@@ -132,10 +126,11 @@ public class MCAFragment extends Fragment {
 
             pointsAdd = (pointOne * correctCheck[0]) + (pointTwo * correctCheck[1]) + (pointThree * correctCheck[2]) + (pointFour * correctCheck[3]);
 
-            if (pointsAdd <= 0) {
-                callback.onFinnish(false, pointsAdd);
-            } else {
-                callback.onFinnish(true, pointsAdd);
+            if(isMp){
+                callback.onMpFinnish(pointsAdd > 0, pointsAdd);
+            }
+            else {
+                callback.onFinnish(pointsAdd > 0, pointsAdd);
             }
         }
     };
@@ -148,6 +143,7 @@ public class MCAFragment extends Fragment {
         incorrectAnswers = params.getString("Incorrect");
         points = params.getString("Points");
         flag = params.getString("StopWatch");
+        isMp = params.getBoolean("IsMp");
         stopWatch = inflater.inflate(R.layout.mca_fragment, container, false).findViewById(R.id.stopWatch);
         return inflater.inflate(R.layout.mca_fragment, container, false);
     }

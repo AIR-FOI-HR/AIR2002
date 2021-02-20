@@ -44,7 +44,6 @@ public class AvailableQuizesMenu extends AppCompatActivity {
     UserDataController userDataController;
     String currentUser;
 
-    private boolean hasQuiz;
 
 
     @Override
@@ -59,7 +58,6 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         odabranaKategorija = (String) i.getSerializableExtra("odabranaKategorija");
 
         getAvailableQuizes(odabranaKategorija);
-
     }
 
     public void getAvailableQuizes(final String categoryId) {
@@ -139,15 +137,11 @@ public class AvailableQuizesMenu extends AppCompatActivity {
             public void onResponse(Response<CreateQuizResponse> response, Retrofit retrofit) {
                 if (!response.isSuccess()) {
 
-                    Toast t = Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_SHORT);
-
                 } else {
                     if (response.body().getStatus() == Integer.toString(-9)) { //internal error
                         //todo
                     } else if (response.body().getStatus() == Integer.toString(1)) { //uspješno
-                        //getAvailableQuizes(categoryId);
-                        finish();
-                        startActivity(getIntent());
+
                     }
                 }
             }

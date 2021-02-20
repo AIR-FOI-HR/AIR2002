@@ -1,13 +1,8 @@
 package com.example.trivialy;
 
-import android.app.ActivityManager;
-import android.app.IntentService;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,18 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.responses.GetDataService;
-import com.responses.RetrofitInstance;
-import com.responses.User.UpdateUserRequest;
-import com.responses.User.UpdateUserResponse;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import com.example.trivialy.Gamemodes.ExpertMode;
 
 public class SingleplayerMenu extends AppCompatActivity {
     private String savedUsername;

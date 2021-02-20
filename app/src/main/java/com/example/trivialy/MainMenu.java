@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.trivialy.InfoPage;
+import com.example.trivialy.Multiplayer_menu;
+import com.example.trivialy.R;
+import com.example.trivialy.SingleplayerMenu;
+
 public class MainMenu extends AppCompatActivity {
 
     @Override

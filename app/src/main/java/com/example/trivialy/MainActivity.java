@@ -1,9 +1,6 @@
 package com.example.trivialy;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -34,7 +31,6 @@ import com.responses.User.RegisterRequest;
 import com.responses.User.RegisterResponse;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Call;

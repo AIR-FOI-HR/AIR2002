@@ -23,8 +23,6 @@ import java.util.Random;
 
 public class SCAFragment extends Fragment {
 
-    Context context;
-
     TextView pointsField;
     TextView questionTextField;
     Button AnswerOne;
@@ -48,6 +46,8 @@ public class SCAFragment extends Fragment {
     String prikaz;
     String flag = "Da";
 
+    Boolean isMp;
+
     CountDownTimer timer2 = new CountDownTimer(30000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -65,22 +65,19 @@ public class SCAFragment extends Fragment {
 
     callbackInterface callback;
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        try {
-            callback = (callbackInterface) context;
-        }
-        catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
-        }
+    public void setCallback(callbackInterface callback){
+        this.callback = callback;
     }
 
     private View.OnClickListener correctListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            callback.onFinnish(true, 1);
+            if(isMp){
+                callback.onMpFinnish(true, 1);
+            }
+            else{
+                callback.onMpFinnish(true, 1);
+            }
             counterCorrect++;
             Counter.setCounterCorrect(counterCorrect);
         }
@@ -89,7 +86,12 @@ public class SCAFragment extends Fragment {
     private View.OnClickListener incorrectListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            callback.onFinnish(false, 0);
+            if(isMp){
+                callback.onMpFinnish(false, 0);
+            }
+            else {
+                callback.onFinnish(false, 0);
+            }
         }
     };
 
@@ -100,6 +102,7 @@ public class SCAFragment extends Fragment {
         correctAnswer = params.getString("Correct");
         incorrectAnswers = params.getString("Incorrect");
         points = params.getString("Points");
+        isMp = params.getBoolean("IsMp");
 
         flag = params.getString("StopWatch");
         stopWatch = inflater.inflate(R.layout.sca_fragment, container, false).findViewById(R.id.stopWatch2);
@@ -108,8 +111,6 @@ public class SCAFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        context = view.getContext();
-
         AnswerOne = view.findViewById(R.id.scaAnswerOne);
         AnswerTwo = view.findViewById(R.id.scaAnswerTwo);
         AnswerThree = view.findViewById(R.id.scaAnswerThree);

@@ -30,15 +30,18 @@ import retrofit.Retrofit;
 
 public class Leaderboard extends AppCompatActivity {
     private ListView lv;
-    List<Scoreboard> scorebaord = new ArrayList<>();
-    ArrayList<String> listaImena = new ArrayList<>();
-    int quizId;
+    List<Scoreboard> scorebaord;
+    ArrayList<String> listaImena;
+    Integer quizId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leadeboard);
         lv = (ListView) findViewById(R.id.listLd);
+
+        scorebaord = new ArrayList<>();
+        listaImena = new ArrayList<>();
 
         quizId = getIntent().getIntExtra("quizid", 0);
 

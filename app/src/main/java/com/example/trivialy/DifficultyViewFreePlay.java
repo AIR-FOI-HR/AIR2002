@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.trivialy.Gamemodes.FreePlay;
+
 public class DifficultyViewFreePlay extends AppCompatActivity {
 
     TextView textView1;

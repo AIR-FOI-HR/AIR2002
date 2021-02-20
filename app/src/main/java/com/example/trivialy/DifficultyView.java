@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.responses.Category;
+import com.example.trivialy.Gamemodes.TimeTrial;
 
 public class DifficultyView extends AppCompatActivity {
 

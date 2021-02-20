@@ -1,4 +1,6 @@
-package com.example.trivialy.loader;
+package com.example.core.loader;
+
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.core.DataLoaderListener;
 import com.responses.GetDataService;
@@ -18,7 +20,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class MultiplayerDataLoader {
-    public void LoadData(final DataLoaderListener listener,  final Integer points, String questionId){
+    public void LoadData(final DataLoaderListener listener, final FragmentTransaction fragmentTransaction, final Integer points, String questionId){
             Integer idPitanja = Integer.valueOf(questionId);
             GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
             QuestionByIdRequest request = new QuestionByIdRequest(idPitanja);
@@ -29,7 +31,7 @@ public class MultiplayerDataLoader {
                     boolean test = response.isSuccess();
                     List<QuestionsListResponse> tempList = new ArrayList<>();
                     tempList.add(response.body().getQuestions());
-                    listener.onDataLoaded(response.body().getStatus().toString(), response.body().getText(), tempList, points);
+                    listener.onDataLoaded(response.body().getStatus().toString(), response.body().getText(), listener, tempList, points, null,null);
                 }
 
                 @Override

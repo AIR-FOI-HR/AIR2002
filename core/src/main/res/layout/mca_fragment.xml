@@ -31,7 +31,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/btn_costume_sp"/>
 
     <CheckBox
         style="@style/SingleplayerTheme.Answers"
@@ -44,7 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerOne" />
+        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerOne"
+        android:background="@drawable/btn_costume_sp"/>
 
     <CheckBox
         style="@style/SingleplayerTheme.Answers"
@@ -56,7 +58,8 @@
         android:text="@string/placeholderanswer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerTwo" />
+        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerTwo"
+        android:background="@drawable/btn_costume_sp"/>
 
     <CheckBox
         style="@style/SingleplayerTheme.Answers"
@@ -69,7 +72,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerThree" />
+        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerThree"
+        android:background="@drawable/btn_costume_sp"/>
 
     <TextView
         style="@style/SingleplayerTheme.Question"
@@ -86,7 +90,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="8dp" />
+        android:layout_marginLeft="8dp"
+        />
 
     <Button
         android:id="@+id/submitButton"
@@ -98,7 +103,8 @@
         android:layout_marginRight="8dp"
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerFour" />
+        app:layout_constraintTop_toBottomOf="@+id/mcaAnswerFour"
+        android:background="@drawable/btn_costume_sp"/>
 
     <TextView
         android:id="@+id/stopWatch"

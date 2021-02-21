@@ -18,7 +18,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/btn_costume_sp"/>
 
     <Button
         android:id="@+id/difficultyMedium"
@@ -30,7 +31,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficultyEasy" />
+        app:layout_constraintTop_toBottomOf="@+id/difficultyEasy"
+        android:background="@drawable/btn_costume_sp"/>
 
     <Button
         android:id="@+id/difficultyHard"
@@ -41,7 +43,8 @@
         android:text="@string/difficulty_hard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficultyMedium" />
+        app:layout_constraintTop_toBottomOf="@+id/difficultyMedium"
+        android:background="@drawable/btn_costume_sp"/>
 
     <TextView
         android:id="@+id/probaid"
@@ -54,7 +57,7 @@
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="@string/choose_dificulty"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/difficultyEasy"
         app:layout_constraintEnd_toEndOf="parent"

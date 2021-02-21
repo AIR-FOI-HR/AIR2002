@@ -4,25 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:theme="@style/SingleplayerTheme"
-    android:background="@color/lightColorPrimary">
+    android:theme="@style/SingleplayerTheme">
 
     <TextView
         android:id="@+id/nameheader"
+        android:textColor="@color/textBlack"
+        android:fontFamily="@font/indigo_daisy"
+        android:height="40dp"
+        android:textSize="35sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:height="40dp"
-        android:text="Leaderboard"
-        android:textColor="@color/textBlack"
-        android:textSize="25dp"
-        android:layout_marginStart="12dp" />
+        android:text="Leaderboard"/>
 
     <ListView
         android:id="@+id/listLd"
-        android:textColor="@color/textBlack"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="1dp"
         android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark"
         />
 </LinearLayout>

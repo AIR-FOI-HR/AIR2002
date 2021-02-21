@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <Button
         android:id="@+id/homeButtonExpert"
@@ -16,7 +17,9 @@
         android:width="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/btn_costume_sp"
+        android:textColor="@color/buttonTextColor"/>
 
     <Button
         android:id="@+id/playAgainExpert"
@@ -28,7 +31,9 @@
         android:width="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_costume_sp"
+        android:textColor="@color/buttonTextColor"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -44,7 +49,8 @@
         android:textSize="@dimen/heading_fontSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/score_singleplayer"
@@ -61,6 +67,7 @@
         android:textSize="@dimen/heading_fontSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

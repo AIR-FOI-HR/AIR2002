@@ -51,7 +51,7 @@
     </style>
     <style name="SingleplayerTheme.Button">
         <item name="android:textSize">@dimen/singleplayerButton_fontSize</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
         <item name="android:layout_margin">5dp</item>
     </style>
     <style name="SingleplayerTheme.Answers">

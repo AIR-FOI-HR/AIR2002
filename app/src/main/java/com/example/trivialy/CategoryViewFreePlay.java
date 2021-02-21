@@ -57,7 +57,7 @@ public class CategoryViewFreePlay extends AppCompatActivity {
                         TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
                         // Set the text color of TextView (ListView Item)
-                        tv.setTextColor(Color.WHITE);
+                        tv.setTextColor(Color.BLACK);
 
                         // Generate ListView Item using TextView
                         return view;

@@ -76,7 +76,7 @@ public class SCAFragment extends Fragment {
                 callback.onMpFinnish(true, 1);
             }
             else{
-                callback.onMpFinnish(true, 1);
+                callback.onFinnish(true, 1);
             }
             counterCorrect++;
             Counter.setCounterCorrect(counterCorrect);

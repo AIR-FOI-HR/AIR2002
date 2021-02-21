@@ -100,7 +100,7 @@ public class questionCreator implements DataLoaderListener, callbackInterface, S
         this.kvizId = kvizId;
         webServiceDataLoader = new WebServiceDataLoader(context);
         counter++;
-        if (counter <= 10) {
+        if (counter <= 9) {
             if (status.equals(Integer.toString(1))) {
                 if (questions.size() == 1) {
                     question = questions.get(0);
@@ -144,20 +144,15 @@ public class questionCreator implements DataLoaderListener, callbackInterface, S
         } else {
             Intent intent = new Intent(context, score);
             intent.putExtra("quizid", kvizId);
+            intent.putExtra("points", Points);
             context.startActivity(intent);
         }
     }
 
     @Override
     public void onMpFinnish(boolean isCorrect, Integer pointsAdded) {
-        if (isCorrect) {
-            Points += pointsAdded;
-            webServiceDataLoader.loadMpData(listener, Points, questionList[counter], kvizId);
-        } else {
-            Intent intent = new Intent(context, score);
-            intent.putExtra("quizid", kvizId);
-            context.startActivity(intent);
-        }
+        Points += pointsAdded;
+        webServiceDataLoader.loadMpData(listener, Points, questionList[counter], kvizId);
     }
 
     @Override

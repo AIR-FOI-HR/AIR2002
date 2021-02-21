@@ -7,6 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.responses.GetDataService;
+import com.responses.Quiz.SetUserToQuizRequest;
+import com.responses.Quiz.SetUserToQuizResponse;
 import com.responses.RetrofitInstance;
 import com.responses.User.UpdateUserRequest;
 import com.responses.User.UpdateUserResponse;
@@ -100,6 +102,31 @@ public class UserDataController {
             public void onFailure(Throwable t) {
                 Toast t1 = Toast.makeText(context , t.getMessage(), Toast.LENGTH_SHORT);
                 t1.show();
+            }
+        });
+    }
+
+    void setToQuiz(int idKviza, String currentUser, int i) {
+        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
+        SetUserToQuizRequest request = new SetUserToQuizRequest(idKviza,currentUser, i);
+        Call<SetUserToQuizResponse> call = getDataService.SetUserToQuiz(request);
+
+        call.enqueue(new Callback<SetUserToQuizResponse>() {
+            @Override
+            public void onResponse(Response<SetUserToQuizResponse> response, Retrofit retrofit) {
+                if (!response.isSuccess()) {
+
+                } else {
+                    if (response.body().getStatus().equals(Integer.toString(-1))) { //nije uspjelo
+                        Toast t = Toast.makeText(context, "Error", Toast.LENGTH_SHORT);
+                        t.show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure (Throwable t){
+                Toast to = Toast.makeText(context, "Error", Toast.LENGTH_SHORT);
+                to.show();
             }
         });
     }

@@ -3,6 +3,7 @@ package com.example.trivialy;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,6 +34,7 @@ public class Leaderboard extends AppCompatActivity {
     List<Scoreboard> scorebaord;
     ArrayList<String> listaImena;
     Integer quizId;
+    Integer Points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,30 @@ public class Leaderboard extends AppCompatActivity {
         listaImena = new ArrayList<>();
 
         quizId = getIntent().getIntExtra("quizid", 0);
+        Points = getIntent().getIntExtra("points", 0);
 
+        UserDataController udc = new UserDataController(this);
+
+        UserDataController.UserLives userLives = udc.GetUserData();
+        udc.setToQuiz(quizId, userLives.Username, Points);
+
+        new CountDownTimer(20 * 60 * 1000, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                listaImena.clear();
+                GetQuizData();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+    }
+
+    private void GetQuizData() {
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
         QuizScoreboardRequest request = new QuizScoreboardRequest(quizId);
         Call<QuizScoreboardResponse> call = getDataService.getScoreboard(request);
@@ -53,18 +78,23 @@ public class Leaderboard extends AppCompatActivity {
             public void onResponse(Response<QuizScoreboardResponse> response, Retrofit retrofit) {
                 scorebaord = response.body().getScoreboard();
                 for (Scoreboard c : scorebaord) {
-                    for (int i = 0; i <1; i++){
-                        String user = c.getUsername();
-                        int bomb = PowerUps.bomb;
-                        int half = PowerUps.half;
-                        bomb++;
-                        half++;
-                        PowerUps.setHalf(bomb);
-                        PowerUps.setBomb(half);
-                        SingleplayerScore.SetPowerUps(user,1,half);
-                        SingleplayerScore.SetPowerUps(user,2,bomb);
+
+                    String user = c.getUsername();
+                    int bomb = PowerUps.bomb;
+                    int half = PowerUps.half;
+                    bomb++;
+                    half++;
+                    PowerUps.setHalf(bomb);
+                    PowerUps.setBomb(half);
+                    SingleplayerScore.SetPowerUps(user, 1, half);
+                    SingleplayerScore.SetPowerUps(user, 2, bomb);
+
+                    int scoreTemp = c.getScore();
+                    if (scoreTemp == -1) {
+                        listaImena.add(c.getUsername() + " | Still playing...");
+                    } else {
+                        listaImena.add(c.getUsername() + " | " + c.getScore());
                     }
-                    listaImena.add(c.getUsername() + " | " + c.getScore());
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listaImena) {
 
@@ -89,11 +119,10 @@ public class Leaderboard extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                Toast t1 = Toast.makeText(getApplicationContext(), "There was an error while loading categories!\n" + t.getMessage(), Toast.LENGTH_SHORT);
+                Toast t1 = Toast.makeText(getApplicationContext(), "There was an error while loading scores!\n" + t.getMessage(), Toast.LENGTH_SHORT);
                 t1.show();
             }
         });
-
     }
 
     @Override

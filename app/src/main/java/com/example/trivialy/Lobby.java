@@ -89,35 +89,11 @@ public class Lobby extends AppCompatActivity {
         long seconds = currentTime.until(vrijemePocetkaKviza, ChronoUnit.SECONDS);
         long diff = (minutes * 60) + seconds;
 
-        setToQuiz(idKviza, currentUser, 0);
+        UserDataController udc = new UserDataController(this);
+        udc.setToQuiz(idKviza, currentUser, -1);
 
         MyCount count = new MyCount(diff * 1000, 1000);
         count.start();
-    }
-
-    private void setToQuiz(int idKviza, String currentUser, int i) {
-        GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        SetUserToQuizRequest request = new SetUserToQuizRequest(idKviza,currentUser, i);
-        Call<SetUserToQuizResponse> call = getDataService.SetUserToQuiz(request);
-
-        call.enqueue(new Callback<SetUserToQuizResponse>() {
-            @Override
-            public void onResponse(Response<SetUserToQuizResponse> response, Retrofit retrofit) {
-                if (!response.isSuccess()) {
-
-                } else {
-                    if (response.body().getStatus().equals(Integer.toString(-1))) { //nije uspjelo
-                        Toast t = Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT);
-                        t.show();
-                    }
-                }
-            }
-            @Override
-            public void onFailure (Throwable t){
-                Toast to = Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT);
-                to.show();
-            }
-        });
     }
 
     private void waitInLobby() {

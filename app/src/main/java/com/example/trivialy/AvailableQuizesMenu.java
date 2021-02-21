@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.responses.RetrofitInstance;
 import com.responses.Quiz.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,12 +54,25 @@ public class AvailableQuizesMenu extends AppCompatActivity {
         setContentView(R.layout.available_quizes_menu);
         lv = (ListView) findViewById(R.id.listviewAQ);
         userDataController = new UserDataController(getApplicationContext());
-        currentUser = userDataController.savedUsername;
+        UserDataController.UserLives ul = userDataController.GetUserData();
+        currentUser = ul.Username;
 
         Intent i = getIntent();
         odabranaKategorija = (String) i.getSerializableExtra("odabranaKategorija");
 
-        getAvailableQuizes(odabranaKategorija);
+        new CountDownTimer(60 * 60 * 1000, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                imenaKviza.clear();
+                getAvailableQuizes(odabranaKategorija);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
     }
 
     public void getAvailableQuizes(final String categoryId) {
@@ -73,13 +88,19 @@ public class AvailableQuizesMenu extends AppCompatActivity {
                 } else {
                     if (response.body().getText().equalsIgnoreCase("No avaliable quizes")) { //nema kvizova
                         createQuiz(categoryId);
-                    } else if (response.body().getStatus() == Integer.toString(-9)) { //interni error
+                    } else if (response.body().getStatus().equals(Integer.toString(-9))) { //interni error
                         //TODO
                     } else if (response.body().getStatus().equals(Integer.toString(1))) { //uspješno
                         final List<Quiz> quizes = response.body().getQuizList();
                         for (Quiz c : quizes) {
                             vremenaPocetakaKviza.add(c.getStartDate().toString());
-                            imenaKviza.add(c.getName());
+
+                            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.M.yyyy. H:mm:ss");
+                            LocalDateTime vrijemePocetkaKviza = LocalDateTime.parse(c.getStartDate(), dateFormat);
+
+                            if(now().isBefore(vrijemePocetkaKviza)){
+                                imenaKviza.add(c.getName());
+                            }
                         }
 
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
@@ -129,7 +150,7 @@ public class AvailableQuizesMenu extends AppCompatActivity {
 
     public void createQuiz(final String categoryId) {
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        CreateQuizRequest request = new CreateQuizRequest(Integer.valueOf(categoryId), "test");
+        CreateQuizRequest request = new CreateQuizRequest(Integer.valueOf(categoryId), currentUser + "s quiz");
         Call<CreateQuizResponse> call = getDataService.CreateQuiz(request);
 
         call.enqueue(new Callback<CreateQuizResponse>() {
@@ -138,10 +159,10 @@ public class AvailableQuizesMenu extends AppCompatActivity {
                 if (!response.isSuccess()) {
 
                 } else {
-                    if (response.body().getStatus() == Integer.toString(-9)) { //internal error
+                    if (response.body().getStatus().equals(Integer.toString(-9))) { //internal error
                         //todo
-                    } else if (response.body().getStatus() == Integer.toString(1)) { //uspješno
-
+                    } else if (response.body().getStatus().equals(Integer.toString(1))) { //uspješno
+                        getAvailableQuizes(categoryId);
                     }
                 }
             }

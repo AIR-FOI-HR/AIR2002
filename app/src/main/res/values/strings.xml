@@ -44,4 +44,6 @@
     <string name="choose_dificulty">Choose difficulty</string>
     <string name="choose_category">Choose category</string>
     <string name="available_quizes">Available quizes</string>
+    <string name="choose_mode">Choose Your Mode.</string>
+    <string name="about_us_info">If you want to read more about the ways of playing and about us, you can do so on the About Us page.</string>
 </resources>

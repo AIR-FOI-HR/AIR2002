@@ -21,22 +21,6 @@ public class TimeTrial extends AppCompatActivity{
     String category;
     String difficulty;
 
-    CountDownTimer timer2 = new CountDownTimer(30000, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-        }
-
-        @Override
-        public void onFinish() {
-            Intent intent = new Intent(getApplicationContext(), SingleplayerScore.class);
-            Bundle b = new Bundle();
-            b.putString("Score", Points.toString());
-            intent.putExtras(b);
-            intent.putExtra("flag", "flag");
-            TimeTrial.this.startActivity(intent);
-            finish();
-        }
-    };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +32,15 @@ public class TimeTrial extends AppCompatActivity{
         initializeUi();
         Counter.setCounter(0);
 
-        running = true;
-        timer2.start();
+
     }
 
     private void initializeUi() {
-        QuestionLoader.LoadQuestions(this, difficulty, category, SingleplayerScore.class);
+        QuestionLoader.LoadTimeTrialPlayQuestions(this, difficulty, category, SingleplayerScore.class);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

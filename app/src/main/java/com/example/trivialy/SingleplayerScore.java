@@ -121,7 +121,7 @@ public class SingleplayerScore extends AppCompatActivity {
                 }
                 else {
                     if (flag != null) {
-                        if (flag.equals("flag")) {
+                        if (flag.equals("TimeTrial")) {
                             userDataController.UpdateLifeCount(null, -1);
                             Intent newIntent = new Intent(view.getContext(), CategoryView.class);
                             view.getContext().startActivity(newIntent);

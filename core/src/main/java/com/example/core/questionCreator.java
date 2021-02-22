@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -37,12 +38,40 @@ public class questionCreator implements DataLoaderListener, callbackInterface, S
     private Context context;
     Class score;
 
+    String gamePlay;
+
     public questionCreator(Context context, Class score, String[] questionList) {
         this.context = context;
         this.score = score;
         this.questionList = new String[10];
         this.questionList = questionList;
     }
+    public questionCreator(Context context, Class score, String[] questionList, String gamePlay) {
+        this.context = context;
+        this.score = score;
+        this.questionList = new String[10];
+        this.questionList = questionList;
+        this.gamePlay=gamePlay;
+    }
+
+    CountDownTimer timer = new CountDownTimer(30000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+        }
+
+        @Override
+        public void onFinish() {
+            Intent intent = new Intent(context, score);
+            Bundle b = new Bundle();
+            b.putString("Score", Points.toString());
+            intent.putExtras(b);
+            intent.putExtra("flag", "TimeTrial");
+            context.startActivity(intent);;
+            Activity activity = (Activity) context;
+            activity.finish();
+        }
+    };
+
 
     @Override
     public void onDataLoaded(String status, String text, DataLoaderListener listener, List<QuestionsListResponse> questions, Integer points, String difficulty, String category) {
@@ -70,6 +99,11 @@ public class questionCreator implements DataLoaderListener, callbackInterface, S
                 params.putString("Correct", question.getCorrectAnswer());
                 params.putString("Incorrect", question.getIncorrectAnswers());
                 params.putString("Points", Integer.toString(points));
+
+                if(gamePlay!=null){
+                    params.putString("StopWatch", "StopWatch");
+                    timer.start();
+                }
 
                 if (question.getQuestionTypeName().equals("MCQ")) {
                     mcaFragment.setArguments(params);
@@ -160,11 +194,19 @@ public class questionCreator implements DataLoaderListener, callbackInterface, S
         if (isCorrect) {
             Points += pointsAdded;
             webServiceDataLoader.loadData(listener, Points, 1, difficulty, category);
+            if(gamePlay!=null) {
+                timer.cancel();
+                timer.start();
+            }
         } else {
             Intent intent = new Intent(context, score);
             Bundle b = new Bundle();
             b.putString("Score", Points.toString());
             intent.putExtras(b);
+            if(gamePlay!=null) {
+                timer.cancel();
+                intent.putExtra("flag", "TimeTrial");
+            }
             context.startActivity(intent);
             Activity activity = (Activity) context;
             activity.finish();

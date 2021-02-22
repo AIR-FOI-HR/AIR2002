@@ -14,8 +14,6 @@ import com.example.trivialy.SingleplayerScore;
 
 public class FreePlay extends AppCompatActivity {
 
-    Integer Points = 0;
-
     Intent i;
     String category;
     String difficulty;

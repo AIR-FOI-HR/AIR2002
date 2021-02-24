@@ -3,12 +3,9 @@ package com.example.trivialy.Gamemodes;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.core.Counter;
-import com.example.core.QuestionLoader;
-import com.example.core.questionCreator;
-import com.example.core.loader.WebServiceDataLoader;
+import com.example.trivialy.QuestionLoader;
 import com.example.trivialy.SingleplayerScore;
 
 public class ExpertMode extends AppCompatActivity {
@@ -24,6 +21,7 @@ public class ExpertMode extends AppCompatActivity {
         String difficulty = "Hard";
         String category = "Any Category";
 
-        QuestionLoader.LoadQuestions(this, difficulty, category, SingleplayerScore.class);
+        QuestionLoader questionLoader = new QuestionLoader();
+        questionLoader.LoadQuestions(this, difficulty, category, "ExpertMode");
     }
 }

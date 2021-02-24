@@ -14,12 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.core.interfaces.QFragment;
+import com.example.core.QuestionData;
 import com.example.core.R;
-import com.example.core.callbackInterface;
+import com.example.core.interfaces.callbackInterface;
 
 import java.util.Random;
 
-public class MCAFragment extends Fragment {
+public class MCAFragment extends Fragment implements QFragment {
 
     Context context;
 
@@ -45,34 +47,30 @@ public class MCAFragment extends Fragment {
     Integer[] correctCheck;
 
     TextView stopWatch;
-    int seconds = 0;
+    int seconds = 30;
     String prikaz;
     String flag = "Da";
 
-    Boolean isMp;
-
-    CountDownTimer timer2 = new CountDownTimer(30000, 1000) {
+    CountDownTimer timer2 = new CountDownTimer(seconds * 1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            seconds++;
+            seconds--;
             prikaz = Integer.toString(seconds);
             stopWatch.setText(prikaz);
         }
 
         @Override
         public void onFinish() {
+            callback.onFinnish(false, 0);
         }
     };
 
-    public MCAFragment() {}
+    public MCAFragment() {
+    }
 
     callbackInterface callback;
 
-    public void setCallback(callbackInterface callback){
-        this.callback = callback;
-    }
-
-    private View.OnClickListener fourListener = new View.OnClickListener() {
+    private final View.OnClickListener fourListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             pointOne = 0;
@@ -94,16 +92,12 @@ public class MCAFragment extends Fragment {
 
             pointsAdd = (pointOne) + (pointTwo) + (pointThree) + (pointFour);
 
-            if(isMp){
-                callback.onMpFinnish(pointsAdd != 0, pointsAdd);
-            }
-            else {
-                callback.onFinnish(pointsAdd != 0, pointsAdd);
-            }
+            timer2.cancel();
+            callback.onFinnish(pointsAdd != 0, pointsAdd);
         }
     };
 
-    private View.OnClickListener restListener = new View.OnClickListener() {
+    private final View.OnClickListener restListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             pointOne = 0;
@@ -125,25 +119,14 @@ public class MCAFragment extends Fragment {
             }
 
             pointsAdd = (pointOne * correctCheck[0]) + (pointTwo * correctCheck[1]) + (pointThree * correctCheck[2]) + (pointFour * correctCheck[3]);
+            timer2.cancel();
+            callback.onFinnish(pointsAdd > 0, pointsAdd);
 
-            if(isMp){
-                callback.onMpFinnish(pointsAdd > 0, pointsAdd);
-            }
-            else {
-                callback.onFinnish(pointsAdd > 0, pointsAdd);
-            }
         }
     };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle params = getArguments();
-        questionText = params.getString("Question");
-        correctAnswers = params.getString("Correct");
-        incorrectAnswers = params.getString("Incorrect");
-        points = params.getString("Points");
-        flag = params.getString("StopWatch");
-        isMp = params.getBoolean("IsMp");
         stopWatch = inflater.inflate(R.layout.mca_fragment, container, false).findViewById(R.id.stopWatch);
         return inflater.inflate(R.layout.mca_fragment, container, false);
     }
@@ -185,7 +168,7 @@ public class MCAFragment extends Fragment {
         String[] corAnswers = correctAnswers.split(";");
         String[] wrongAnswers = incorrectAnswers.split(";");
 
-        if(corAnswers.length == 4){
+        if (corAnswers.length == 4) {
             //svi su tocni
             AnswerOne.setText(corAnswers[0]);
             AnswerTwo.setText(corAnswers[1]);
@@ -195,7 +178,7 @@ public class MCAFragment extends Fragment {
             Submit.setOnClickListener(fourListener);
         }
 
-        if(corAnswers.length == 3) {
+        if (corAnswers.length == 3) {
             if (random == 1) {
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(corAnswers[0]);
@@ -240,8 +223,8 @@ public class MCAFragment extends Fragment {
             Submit.setOnClickListener(restListener);
         }
 
-        if(corAnswers.length == 2){
-            if(rand == 1){
+        if (corAnswers.length == 2) {
+            if (rand == 1) {
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(wrongAnswers[1]);
                 AnswerThree.setText(corAnswers[0]);
@@ -253,7 +236,7 @@ public class MCAFragment extends Fragment {
 
                 Submit.setOnClickListener(restListener);
             }
-            if(rand == 2){
+            if (rand == 2) {
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(corAnswers[0]);
                 AnswerThree.setText(wrongAnswers[1]);
@@ -265,7 +248,7 @@ public class MCAFragment extends Fragment {
 
                 Submit.setOnClickListener(restListener);
             }
-            if(rand == 3){
+            if (rand == 3) {
                 AnswerOne.setText(wrongAnswers[0]);
                 AnswerTwo.setText(corAnswers[1]);
                 AnswerThree.setText(corAnswers[0]);
@@ -277,7 +260,7 @@ public class MCAFragment extends Fragment {
 
                 Submit.setOnClickListener(restListener);
             }
-            if(rand == 4){
+            if (rand == 4) {
                 AnswerOne.setText(corAnswers[0]);
                 AnswerTwo.setText(wrongAnswers[1]);
                 AnswerThree.setText(wrongAnswers[0]);
@@ -289,7 +272,7 @@ public class MCAFragment extends Fragment {
 
                 Submit.setOnClickListener(restListener);
             }
-            if(rand == 5){
+            if (rand == 5) {
                 AnswerOne.setText(corAnswers[0]);
                 AnswerTwo.setText(wrongAnswers[0]);
                 AnswerThree.setText(corAnswers[1]);
@@ -301,7 +284,7 @@ public class MCAFragment extends Fragment {
 
                 Submit.setOnClickListener(restListener);
             }
-            if(rand == 6){
+            if (rand == 6) {
                 AnswerOne.setText(corAnswers[0]);
                 AnswerTwo.setText(corAnswers[1]);
                 AnswerThree.setText(wrongAnswers[0]);
@@ -314,5 +297,17 @@ public class MCAFragment extends Fragment {
                 Submit.setOnClickListener(restListener);
             }
         }
+    }
+
+    @Override
+    public Fragment getFragment(QuestionData data, callbackInterface listener) {
+        questionText = data.questionText;
+        correctAnswers = data.correctAnswers;
+        incorrectAnswers = data.incorrectAnswers;
+        points = data.points;
+        flag = data.Flag;
+
+        callback = listener;
+        return this;
     }
 }

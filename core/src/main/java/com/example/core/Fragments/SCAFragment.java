@@ -1,7 +1,5 @@
 package com.example.core.Fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -16,12 +14,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.core.Counter;
 import com.example.core.PowerUps;
+import com.example.core.interfaces.QFragment;
+import com.example.core.QuestionData;
 import com.example.core.R;
-import com.example.core.callbackInterface;
+import com.example.core.interfaces.callbackInterface;
 
 import java.util.Random;
 
-public class SCAFragment extends Fragment {
+public class SCAFragment extends Fragment implements QFragment {
 
     TextView pointsField;
     TextView questionTextField;
@@ -42,69 +42,52 @@ public class SCAFragment extends Fragment {
     String points;
 
     TextView stopWatch;
-    int seconds = 0;
+    int seconds = 30;
     String prikaz;
     String flag = "Da";
 
-    Boolean isMp;
-
-    CountDownTimer timer2 = new CountDownTimer(30000, 1000) {
+    CountDownTimer timer2 = new CountDownTimer(seconds * 1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            seconds++;
+            seconds--;
             prikaz = Integer.toString(seconds);
             stopWatch.setText(prikaz);
         }
 
         @Override
         public void onFinish() {
+            callback.onFinnish(false, 0);
         }
     };
 
-    public SCAFragment() {}
+    public SCAFragment() {
+    }
 
     callbackInterface callback;
 
-    public void setCallback(callbackInterface callback){
+    public void setCallback(callbackInterface callback) {
         this.callback = callback;
     }
 
-    private View.OnClickListener correctListener = new View.OnClickListener() {
+    private final View.OnClickListener correctListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(isMp){
-                callback.onMpFinnish(true, 1);
-            }
-            else{
-                callback.onFinnish(true, 1);
-            }
+            timer2.cancel();
             counterCorrect++;
             Counter.setCounterCorrect(counterCorrect);
+            callback.onFinnish(true, 1);
         }
     };
 
-    private View.OnClickListener incorrectListener = new View.OnClickListener() {
+    private final View.OnClickListener incorrectListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(isMp){
-                callback.onMpFinnish(false, 0);
-            }
-            else {
-                callback.onFinnish(false, 0);
-            }
+            callback.onFinnish(false, 0);
         }
     };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle params = getArguments();
-        questionText = params.getString("Question");
-        correctAnswer = params.getString("Correct");
-        incorrectAnswers = params.getString("Incorrect");
-        points = params.getString("Points");
-        isMp = params.getBoolean("IsMp");
-
-        flag = params.getString("StopWatch");
         stopWatch = inflater.inflate(R.layout.sca_fragment, container, false).findViewById(R.id.stopWatch2);
         return inflater.inflate(R.layout.sca_fragment, container, false);
     }
@@ -136,7 +119,7 @@ public class SCAFragment extends Fragment {
         int random = new Random().nextInt(4) + 1;
         String[] wrongAnswers = incorrectAnswers.split(";");
 
-        if(random == 1){
+        if (random == 1) {
             AnswerOne.setText(correctAnswer);
             AnswerOne.setOnClickListener(correctListener);
 
@@ -151,20 +134,19 @@ public class SCAFragment extends Fragment {
             Bomb(1);
             HalfHalf(1);
 
-            if(wrongAnswers.length != 1){
+            if (wrongAnswers.length != 1) {
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerFour.setText(wrongAnswers[2]);
 
                 AnswerThree.setOnClickListener(incorrectListener);
                 AnswerFour.setOnClickListener(incorrectListener);
-            }
-            else if(wrongAnswers.length == 1){
+            } else {
                 AnswerThree.setVisibility(View.GONE);
                 AnswerFour.setVisibility(View.GONE);
             }
         }
 
-        if(random == 2){
+        if (random == 2) {
             AnswerTwo.setText(correctAnswer);
             AnswerTwo.setOnClickListener(correctListener);
 
@@ -178,20 +160,19 @@ public class SCAFragment extends Fragment {
 
             Bomb(2);
             HalfHalf(2);
-            if(wrongAnswers.length != 1){
+            if (wrongAnswers.length != 1) {
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerFour.setText(wrongAnswers[2]);
 
                 AnswerThree.setOnClickListener(incorrectListener);
                 AnswerFour.setOnClickListener(incorrectListener);
-            }
-            else if(wrongAnswers.length == 1){
+            } else {
                 AnswerThree.setVisibility(View.GONE);
                 AnswerFour.setVisibility(View.GONE);
             }
         }
 
-        if(random == 3){
+        if (random == 3) {
             AnswerThree.setText(correctAnswer);
             AnswerThree.setOnClickListener(correctListener);
 
@@ -205,20 +186,19 @@ public class SCAFragment extends Fragment {
 
             Bomb(3);
             HalfHalf(3);
-            if(wrongAnswers.length != 1){
+            if (wrongAnswers.length != 1) {
                 AnswerOne.setText(wrongAnswers[1]);
                 AnswerFour.setText(wrongAnswers[2]);
 
                 AnswerOne.setOnClickListener(incorrectListener);
                 AnswerFour.setOnClickListener(incorrectListener);
-            }
-            else if(wrongAnswers.length == 1){
+            } else {
                 AnswerOne.setVisibility(View.GONE);
                 AnswerFour.setVisibility(View.GONE);
             }
         }
 
-        if(random == 4){
+        if (random == 4) {
             AnswerFour.setText(correctAnswer);
             AnswerFour.setOnClickListener(correctListener);
 
@@ -232,28 +212,30 @@ public class SCAFragment extends Fragment {
 
             Bomb(4);
             HalfHalf(4);
-            if(wrongAnswers.length != 1){
+            if (wrongAnswers.length != 1) {
                 AnswerThree.setText(wrongAnswers[1]);
                 AnswerOne.setText(wrongAnswers[2]);
 
                 AnswerThree.setOnClickListener(incorrectListener);
                 AnswerOne.setOnClickListener(incorrectListener);
-            }
-            else if(wrongAnswers.length == 1){
+            } else {
                 AnswerThree.setVisibility(View.GONE);
                 AnswerOne.setVisibility(View.GONE);
             }
         }
     }
-    public void Bomb(final int a){
+
+    public void Bomb(final int a) {
 
         bomb.setOnClickListener(new View.OnClickListener() {
 
             int b = a;
+
             @Override
             public void onClick(View v) {
-                if(PowerUps.bomb < 1){bomb.setEnabled(false);}
-                else if(n < 3) {
+                if (PowerUps.bomb < 1) {
+                    bomb.setEnabled(false);
+                } else if (n < 3) {
                     v.setEnabled(false);
                     halfButton.setEnabled(false);
                     int random = new Random().nextInt(3) + 1;
@@ -296,7 +278,7 @@ public class SCAFragment extends Fragment {
                     int x = PowerUps.bomb;
                     x--;
                     PowerUps.setBomb(x);
-                }else{
+                } else {
                     v.setEnabled(false);
                     halfButton.setEnabled(false);
                 }
@@ -373,5 +355,17 @@ public class SCAFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public Fragment getFragment(QuestionData data, callbackInterface listener) {
+        questionText = data.questionText;
+        correctAnswer = data.correctAnswers;
+        incorrectAnswers = data.incorrectAnswers;
+        points = data.points;
+        flag = data.Flag;
+
+        callback = listener;
+        return this;
     }
 }

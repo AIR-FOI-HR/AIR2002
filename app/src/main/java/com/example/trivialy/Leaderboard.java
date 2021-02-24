@@ -33,7 +33,7 @@ public class Leaderboard extends AppCompatActivity {
     private ListView lv;
     List<Scoreboard> scorebaord;
     ArrayList<String> listaImena;
-    Integer quizId;
+    String quizId;
     Integer Points;
 
     @Override
@@ -45,13 +45,15 @@ public class Leaderboard extends AppCompatActivity {
         scorebaord = new ArrayList<>();
         listaImena = new ArrayList<>();
 
-        quizId = getIntent().getIntExtra("quizid", 0);
-        Points = getIntent().getIntExtra("points", 0);
+        Bundle b = getIntent().getExtras();
+        quizId = b.getString("QuizId");
+        Points = b.getInt("Score");
+
 
         UserDataController udc = new UserDataController(this);
 
         UserDataController.UserLives userLives = udc.GetUserData();
-        udc.setToQuiz(quizId, userLives.Username, Points);
+        udc.setToQuiz(Integer.parseInt(quizId), userLives.Username, Points);
 
         new CountDownTimer(20 * 60 * 1000, 1000){
 
@@ -71,7 +73,7 @@ public class Leaderboard extends AppCompatActivity {
 
     private void GetQuizData() {
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
-        QuizScoreboardRequest request = new QuizScoreboardRequest(quizId);
+        QuizScoreboardRequest request = new QuizScoreboardRequest(Integer.parseInt(quizId));
         Call<QuizScoreboardResponse> call = getDataService.getScoreboard(request);
         call.enqueue(new Callback<QuizScoreboardResponse>() {
             @Override

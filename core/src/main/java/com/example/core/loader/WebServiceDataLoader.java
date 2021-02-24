@@ -3,13 +3,9 @@ package com.example.core.loader;
 import android.content.Context;
 import android.widget.Toast;
 
-
-import androidx.fragment.app.FragmentTransaction;
-
-import com.example.core.DataLoader;
-import com.example.core.DataLoaderListener;
+import com.example.core.interfaces.DataLoader;
+import com.example.core.interfaces.DataLoaderListener;
 import com.responses.GetDataService;
-import com.responses.QuestionsHandler.Question;
 import com.responses.QuestionsHandler.QuestionByIdRequest;
 import com.responses.QuestionsHandler.QuestionRequest;
 import com.responses.QuestionsHandler.QuestionsByIdResponse;
@@ -28,12 +24,12 @@ import retrofit.Retrofit;
 
 
 public class WebServiceDataLoader implements DataLoader {
-    private Context context;
+    private final Context context;
     public WebServiceDataLoader(Context context){
         this.context = context;
     }
     @Override
-    public void loadData(final DataLoaderListener listener, final Integer points , Integer numberOfQuestions, String difficultyName, String categoryName) {
+    public void loadData(final DataLoaderListener listener, final Integer points , Integer numberOfQuestions, String difficultyName, String categoryName, Integer kvizId) {
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
         QuestionRequest questionRequest = new QuestionRequest(numberOfQuestions, difficultyName, categoryName);
         Call<QuestionsResponse> call = getDataService.GetQuestionsByCategoryAndDifficulty(questionRequest);
@@ -43,7 +39,6 @@ public class WebServiceDataLoader implements DataLoader {
                 if (!response.isSuccess()){
                     Toast t = Toast.makeText(context, String.valueOf(response.code()), Toast.LENGTH_SHORT);
                     t.show();
-                    return;
                 }else{
                     if (response.body().getStatus().equals(Integer.toString(-1))){
                         Toast t = Toast.makeText(context, response.body().getText(), Toast.LENGTH_SHORT);
@@ -54,7 +49,7 @@ public class WebServiceDataLoader implements DataLoader {
                         t.show();
                     }
                     else if(response.body().getStatus().equals(Integer.toString(1))){
-                        listener.onDataLoaded(response.body().getStatus(), response.body().getText(), listener, response.body().getQuestions(), points, difficultyName, categoryName);
+                        listener.onDataLoaded(response.body().getStatus(), response.body().getText(), listener, response.body().getQuestions(), points, difficultyName, categoryName, kvizId);
                     }
                 }
             }
@@ -76,10 +71,9 @@ public class WebServiceDataLoader implements DataLoader {
         call.enqueue(new Callback<QuestionsByIdResponse>() {
             @Override
             public void onResponse(Response<QuestionsByIdResponse> response, Retrofit retrofit) {
-                boolean test = response.isSuccess();
                 List<QuestionsListResponse> tempList = new ArrayList<>();
                 tempList.add(response.body().getQuestions());
-                listener.onMpDataLoaded(response.body().getStatus().toString(), response.body().getText(), listener, tempList, points, kvizId);
+                listener.onDataLoaded(response.body().getStatus().toString(), response.body().getText(), listener, tempList, points, null, null, kvizId);
             }
 
             @Override

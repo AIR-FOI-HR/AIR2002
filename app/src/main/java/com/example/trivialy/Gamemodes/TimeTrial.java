@@ -2,12 +2,11 @@ package com.example.trivialy.Gamemodes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.core.Counter;
-import com.example.core.QuestionLoader;
+import com.example.trivialy.QuestionLoader;
 import com.example.trivialy.SingleplayerScore;
 
 public class TimeTrial extends AppCompatActivity{
@@ -36,7 +35,8 @@ public class TimeTrial extends AppCompatActivity{
     }
 
     private void initializeUi() {
-        QuestionLoader.LoadTimeTrialPlayQuestions(this, difficulty, category, SingleplayerScore.class);
+        QuestionLoader questionLoader = new QuestionLoader();
+        questionLoader.LoadQuestions(this, difficulty, category, "TimeTrial");
     }
 
     @Override

@@ -22,17 +22,18 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class SingleplayerScore extends AppCompatActivity {
+public class SingleplayerScore extends AppCompatActivity  {
     TextView FinalScore;
     Button HomeButton;
     Button PlayAgain;
 
     Integer savedLives;
     String savedUsername;
+    Integer score;
 
     UserDataController userDataController;
     UserDataController.UserLives userLives;
-    String flag = "Da";
+    String flag;
 
     public static void SetPowerUps(String username, int powerupId, int amount){
         GetDataService getDataService = RetrofitInstance.getRetrofitInstance().create(GetDataService.class);
@@ -41,13 +42,6 @@ public class SingleplayerScore extends AppCompatActivity {
         call.enqueue(new Callback<SetUserPowerupStatusResponse>() {
             @Override
             public void onResponse(Response<SetUserPowerupStatusResponse> response, Retrofit retrofit) {
-                if (!response.isSuccess()) {
-                    return;
-                } else {
-                    if (response.body().getStatus()== 1){
-
-                    }
-                }
             }
 
             @Override
@@ -63,6 +57,10 @@ public class SingleplayerScore extends AppCompatActivity {
         setContentView(R.layout.singleplayer_score);
         userDataController = new UserDataController(getApplicationContext());
 
+        Bundle b = getIntent().getExtras();
+        flag = b.getString("QuizType");
+        score = b.getInt("Score");
+
         int counterCorrect = Counter.counterCorrect;
 
         if(counterCorrect >= 3){
@@ -77,16 +75,8 @@ public class SingleplayerScore extends AppCompatActivity {
         SetPowerUps(userDataController.GetUserData().Username, PowerUps.bombId, PowerUps.bomb);
         SetPowerUps(userDataController.GetUserData().Username, PowerUps.halfId, PowerUps.half);
 
-
-        flag = (String) getIntent().getSerializableExtra("flag");
-        Bundle b = getIntent().getExtras();
-        String score = "0";
-        if(b != null) {
-            score = b.getString("Score");
-        }
-
         FinalScore = findViewById(R.id.score_singleplayer);
-        FinalScore.setText(score);
+        FinalScore.setText(String.valueOf(score));
 
         HomeButton = findViewById(R.id.homeButtonExpert);
         PlayAgain = findViewById(R.id.playAgainExpert);
@@ -117,27 +107,41 @@ public class SingleplayerScore extends AppCompatActivity {
                 if(savedLives <= 0){
                     Toast t = Toast.makeText(getApplicationContext(), getString(R.string.insufficientLives), Toast.LENGTH_SHORT);
                     t.show();
-                    return;
                 }
                 else {
                     if (flag != null) {
-                        if (flag.equals("TimeTrial")) {
-                            userDataController.UpdateLifeCount(null, -1);
-                            Intent newIntent = new Intent(view.getContext(), CategoryView.class);
-                            view.getContext().startActivity(newIntent);
-                            finish();
-                        } else if (flag.equals("flag1")) {
-                            userDataController.UpdateLifeCount(null, -1);
-                            Intent newIntent = new Intent(view.getContext(), CategoryViewFreePlay.class);
-                            view.getContext().startActivity(newIntent);
-                            finish();
+                        switch (flag) {
+                            case "TimeTrial": {
+                                userDataController.UpdateLifeCount(null, -1);
+                                Intent newIntent = new Intent(view.getContext(), CategoryView.class);
+                                view.getContext().startActivity(newIntent);
+                                finish();
+                                break;
+                            }
+                            case "FreePlay": {
+                                userDataController.UpdateLifeCount(null, -1);
+                                Intent newIntent = new Intent(view.getContext(), CategoryViewFreePlay.class);
+                                view.getContext().startActivity(newIntent);
+                                finish();
+                                break;
+                            }
+                            case "ExpertMode": {
+                                userDataController.UpdateLifeCount(null, -1);
+                                Intent newIntent = new Intent(view.getContext(), ExpertMode.class);
+                                view.getContext().startActivity(newIntent);
+                                finish();
+                                break;
+                            }
                         }
                     }
                     else {
-                        userDataController.UpdateLifeCount(null, -1);
-                        Intent newIntent = new Intent(view.getContext(), ExpertMode.class);
-                        view.getContext().startActivity(newIntent);
-                        finish();
+                        //Nije odabrana kategorija
+                        Exception e = new Exception("Quiz type not passed!");
+                        try {
+                            throw e;
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                        }
                     }
                 }
             }

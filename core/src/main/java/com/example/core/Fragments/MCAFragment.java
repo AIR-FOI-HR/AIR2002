@@ -93,7 +93,7 @@ public class MCAFragment extends Fragment implements QFragment {
             pointsAdd = (pointOne) + (pointTwo) + (pointThree) + (pointFour);
 
             timer2.cancel();
-            callback.onFinnish(pointsAdd != 0, pointsAdd);
+            callback.onFinnish(pointsAdd > 0, pointsAdd);
         }
     };
 

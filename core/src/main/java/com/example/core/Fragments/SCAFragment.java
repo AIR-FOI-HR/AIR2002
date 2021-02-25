@@ -82,6 +82,7 @@ public class SCAFragment extends Fragment implements QFragment {
     private final View.OnClickListener incorrectListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            timer2.cancel();
             callback.onFinnish(false, 0);
         }
     };
